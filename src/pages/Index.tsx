@@ -8,3 +8,4 @@ const Index = ({}: Props) => {
 };
 
 export default Index;
+
