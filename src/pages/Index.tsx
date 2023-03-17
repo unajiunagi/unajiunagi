@@ -1,11 +1,11 @@
-type Props = { };
+import { MovieDescription } from "@/components/common/MovieDescription";
+import { Box } from "@chakra-ui/react";
 
-const Index = ({}: Props) => {
+export default function Home() {
   return (
-    // <MovieDescription bgimg = "img.jpg" title = 'title' description = '紹介文'/>
-    <h2>home</h2>
+    <>
+      {/* <MovieDescription bgimg="img.jpg" title="title" description="紹介文" /> */}
+      <h2>おはよう</h2>
+    </>
   );
-};
-
-export default Index;
-
+}
