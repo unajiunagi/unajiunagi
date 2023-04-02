@@ -1,11 +1,11 @@
 import type { ComponentMeta, ComponentStoryObj } from "@storybook/react"
-import { Tumbnail } from "./Tumbnail"
+import { Thumbnail } from "./Thumbnail"
 
 export default {
-  component: Tumbnail,
-} as ComponentMeta<typeof Tumbnail>
+  component: Thumbnail,
+} as ComponentMeta<typeof Thumbnail>
 
-type Template = ComponentStoryObj<typeof Tumbnail>
+type Template = ComponentStoryObj<typeof Thumbnail>
 
 export const Default: Template = {
   args: {

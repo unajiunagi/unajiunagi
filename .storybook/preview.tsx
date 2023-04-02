@@ -6,7 +6,7 @@ import { StoryContext } from "@storybook/react";
 import { RouterContext } from "next/dist/shared/lib/router-context";
 // next/imageに対応
 import * as nextImage from "next/image";
-import "../src/styles/globals.css";
+import "../src/styles/globals.scss";
 
 // chakraUIを使えるように
 export const globalTypes = {

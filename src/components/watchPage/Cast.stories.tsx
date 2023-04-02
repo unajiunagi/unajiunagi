@@ -1,11 +1,11 @@
 import type { ComponentMeta, ComponentStoryObj } from "@storybook/react"
-import { Top } from "./Top"
+import { Cast } from "./Cast"
 
 export default {
-  component: Top,
-} as ComponentMeta<typeof Top>
+  component: Cast,
+} as ComponentMeta<typeof Cast>
 
-type Template = ComponentStoryObj<typeof Top>
+type Template = ComponentStoryObj<typeof Cast>
 
 export const Default: Template = {
   args: {

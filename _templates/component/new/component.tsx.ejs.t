@@ -1,6 +1,8 @@
 ---
 to: src/components/<%= path %>/<%= name %>.tsx
 ---
+
+
 type Props = {}
 
 export const <%= name %> = ({ ...props }: Props) => {

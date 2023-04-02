@@ -18,7 +18,7 @@ module.exports = {
   },
   // publicディレクトリの画像ファイルを読み込めるようにする
   staticDirs: ["../public"],
-  // ストーリーにglobal.scssを適用させる
+  // ストーリーにglobals.scssを適用させる
   webpackFinal: async (config) => {
     config.module.rules.push({
       test: /\.scss$/,
