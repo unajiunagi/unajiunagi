@@ -1,5 +1,5 @@
 import { HStack, Stack } from "@chakra-ui/react";
-import { Thumbnail } from "@/components/common/Thumbnail";
+import { Thumbnail } from "components/common/Thumbnail";
 
 type Props = {
   scrollRef: React.RefObject<HTMLInputElement>;

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Flex, useBreakpointValue } from "@chakra-ui/react";
-import { MobileHeader } from "@/components/header/MobileHeader";
-import { DesktopHeader } from "@/components/header/DesktopHeader";
+import { MobileHeader } from "components/header/MobileHeader";
+import { DesktopHeader } from "components/header/DesktopHeader";
 
 type Props = {};
 

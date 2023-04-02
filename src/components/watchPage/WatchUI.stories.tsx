@@ -1,16 +1,12 @@
-import type { ComponentMeta, ComponentStoryObj } from "@storybook/react";
-import { WatchUI } from "./WatchUI";
+import type { Meta, StoryObj } from "@storybook/react"
+import { WatchUI } from "./WatchUI"
 
-export default {
+const meta: Meta<typeof WatchUI> = {
   component: WatchUI,
-} as ComponentMeta<typeof WatchUI>;
+}
+export default meta
 
-type Template = ComponentStoryObj<typeof WatchUI>;
-
-export const Default: Template = {
-  args: {
-    label: "Default",
-    name: "default",
-  },
-  storyName: "デフォルト",
+export const Default: StoryObj<typeof WatchUI> = {
+  args: {},
+  name: "デフォルト",
 };

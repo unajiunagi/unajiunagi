@@ -1,16 +1,12 @@
-import type { ComponentMeta, ComponentStoryObj } from "@storybook/react";
-import { MobileHeaderBurgar } from "./MobileHeaderBurgar";
+import type { Meta, StoryObj } from "@storybook/react"
+import { MobileHeaderBurgar } from "./MobileHeaderBurgar"
 
-export default {
+const meta: Meta<typeof MobileHeaderBurgar> = {
   component: MobileHeaderBurgar,
-} as ComponentMeta<typeof MobileHeaderBurgar>;
+}
+export default meta
 
-type Template = ComponentStoryObj<typeof MobileHeaderBurgar>;
-
-export const Default: Template = {
-  args: {
-    label: "Default",
-    name: "default",
-  },
-  storyName: "デフォルト",
+export const Default: StoryObj<typeof MobileHeaderBurgar> = {
+  args: {},
+  name: "デフォルト",
 };

@@ -1,6 +1,6 @@
-import { MovieDescription } from "@/components/common/MovieDescription";
-import { Thumbnail } from "@/components/common/Thumbnail";
-import { WatchUI } from "@/components/watchPage/WatchUI";
+import { MovieDescription } from "components/common/MovieDescription";
+import { Thumbnail } from "components/common/Thumbnail";
+import { WatchUI } from "components/watchPage/WatchUI";
 import { Box, SimpleGrid, Stack, Heading } from "@chakra-ui/react";
 
 export default function () {

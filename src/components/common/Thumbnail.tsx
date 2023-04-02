@@ -1,12 +1,12 @@
-import { Image, Link } from "@chakra-ui/react";
-import NextLink from "next/link";
+import { Image } from "@chakra-ui/react";
+import { Link } from "@chakra-ui/next-js";
 
 type Props = { src: string; alt: string; href: string };
 
 export const Thumbnail = ({ src, alt, href }: Props) => {
   return (
     <>
-      <Link as={NextLink} href={href}>
+      <Link href={href}>
         <Image
           src={src}
           alt={alt}

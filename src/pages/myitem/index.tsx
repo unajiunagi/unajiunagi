@@ -1,4 +1,4 @@
-import { Thumbnail } from "@/components/common/Thumbnail";
+import { Thumbnail } from "components/common/Thumbnail";
 import { Box, SimpleGrid, Stack, Heading } from "@chakra-ui/react";
 
 export default function Mylist() {

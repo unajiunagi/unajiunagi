@@ -1,6 +1,5 @@
-import { Header } from "@/components/common/Header";
-import { MovieDescription } from "@/components/common/MovieDescription";
-import { RecommendBox } from "@/components/top/RecommendBox";
+import { MovieDescription } from "components/common/MovieDescription";
+import { RecommendBox } from "components/top/RecommendBox";
 import { Box, Stack } from "@chakra-ui/react";
 
 export default function () {

@@ -1,7 +1,7 @@
-import { Chevron } from "@/components/top/Chevron";
+import { Chevron } from "components/top/Chevron";
 import { Box, Heading, HStack, Spacer, Stack } from "@chakra-ui/react";
 import { useRef, useState } from "react";
-import { ScrolledTumbnail } from "@/components/top/ScrolledTumbnail";
+import { ScrolledTumbnail } from "components/top/ScrolledTumbnail";
 
 type Props = {
   heading: string;

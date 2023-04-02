@@ -1,15 +1,16 @@
-import type { ComponentMeta, ComponentStoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react"
 import { Thumbnail } from "./Thumbnail"
 
-export default {
+const meta: Meta<typeof Thumbnail> = {
   component: Thumbnail,
-} as ComponentMeta<typeof Thumbnail>
+};
+export default meta;
 
-type Template = ComponentStoryObj<typeof Thumbnail>
-
-export const Default: Template = {
+export const Default: StoryObj<typeof Thumbnail> = {
   args: {
-    src: 'img.jpg', alt: 'サムネイル', href: '',
+    src: "img.jpg",
+    alt: "サムネイル",
+    href: "",
   },
-  storyName: "デフォルト",
+  name: "デフォルト",
 };

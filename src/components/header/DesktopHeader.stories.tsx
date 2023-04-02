@@ -1,16 +1,12 @@
-import type { ComponentMeta, ComponentStoryObj } from "@storybook/react"
-import { DesktopHeader } from "./DesktopHeader"
+import type { Meta, StoryObj } from "@storybook/react"
+import { DesktopHeader } from "./DesktopHeader";
 
-export default {
+const meta: Meta<typeof DesktopHeader> = {
   component: DesktopHeader,
-} as ComponentMeta<typeof DesktopHeader>
+};
+export default meta;
 
-type Template = ComponentStoryObj<typeof DesktopHeader>
-
-export const Default: Template = {
-  args: {
-    label: "Default",
-    name: 'default'
-  },
-  storyName: "デフォルト",
+export const Default: StoryObj<typeof DesktopHeader> = {
+  args: {},
+  name: "デフォルト",
 };

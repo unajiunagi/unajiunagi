@@ -1,16 +1,12 @@
-import type { ComponentMeta, ComponentStoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react"
 import { RecommendBox } from "./RecommendBox"
 
-export default {
+const meta: Meta<typeof RecommendBox> = {
   component: RecommendBox,
-} as ComponentMeta<typeof RecommendBox>
+}
+export default meta
 
-type Template = ComponentStoryObj<typeof RecommendBox>
-
-export const Default: Template = {
-  args: {
-    label: "Default",
-    name: 'default'
-  },
-  storyName: "デフォルト",
+export const Default: StoryObj<typeof RecommendBox> = {
+  args: {},
+  name: "デフォルト",
 };

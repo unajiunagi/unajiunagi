@@ -1,16 +1,14 @@
-import type { ComponentMeta, ComponentStoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react"
 import { Header } from "./Header"
 
-export default {
+const meta: Meta<typeof Header> = {
   component: Header,
-} as ComponentMeta<typeof Header>
+}
+export default meta
 
-type Template = ComponentStoryObj<typeof Header>
-
-export const Default: Template = {
+export const Default: StoryObj<typeof Header> = {
   args: {
-    label: "Default",
-    name: 'default'
+
   },
-  storyName: "デフォルト",
+  name: "デフォルト",
 };

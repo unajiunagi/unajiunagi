@@ -1,16 +1,12 @@
-import type { ComponentMeta, ComponentStoryObj } from "@storybook/react";
-import { Chevron } from "./Chevron";
+import type { Meta, StoryObj } from "@storybook/react"
+import { Chevron } from "./Chevron"
 
-export default {
+const meta: Meta<typeof Chevron> = {
   component: Chevron,
-} as ComponentMeta<typeof Chevron>;
+}
+export default meta
 
-type Template = ComponentStoryObj<typeof Chevron>;
-
-export const Default: Template = {
-  args: {
-    label: "Default",
-    name: "default",
-  },
-  storyName: "デフォルト",
+export const Default: StoryObj<typeof Chevron> = {
+  args: {},
+  name: "デフォルト",
 };

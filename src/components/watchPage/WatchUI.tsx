@@ -1,7 +1,7 @@
 import { Box, Button, Divider, Heading, HStack, Text, VStack } from "@chakra-ui/react";
 import { BsPlus } from "react-icons/bs";
-import { Cast } from "@/components/watchPage/Cast";
-import { Staff } from "@/components/watchPage/Staff";
+import { Cast } from "components/watchPage/Cast";
+import { Staff } from "components/watchPage/Staff";
 
 type Props = {}
 
