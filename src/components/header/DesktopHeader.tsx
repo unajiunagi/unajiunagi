@@ -1,5 +1,5 @@
-import { Flex, Box, Spacer, Button, IconButton, useDisclosure, useBreakpointValue, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
-import { BsList, BsFillHouseFill, BsPersonCircle } from "react-icons/bs";
+import { Box, Button, Menu, MenuButton, MenuItem, MenuList, Spacer } from "@chakra-ui/react";
+import { BsFillHouseFill, BsPersonCircle } from "react-icons/bs";
 
 type Props = {};
 

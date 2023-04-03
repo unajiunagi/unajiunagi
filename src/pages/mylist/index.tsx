@@ -1,7 +1,7 @@
 import { Thumbnail } from "components/common/Thumbnail";
 import { Box, SimpleGrid, Stack, Heading } from "@chakra-ui/react";
 
-export default function Mylist() {
+export default function() {
   const org = [1, 2, 3, 4, 5, 6, 7, 8];
   return (
     <>

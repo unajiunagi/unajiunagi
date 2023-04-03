@@ -1,12 +1,11 @@
-import { Box, Button, Divider, Heading, HStack, Text, VStack } from "@chakra-ui/react";
-import { BsPlus } from "react-icons/bs";
+import { Box, Button, HStack, Text } from "@chakra-ui/react";
 import { Cast } from "components/watchPage/Cast";
 import { Staff } from "components/watchPage/Staff";
+import { BsPlus } from "react-icons/bs";
 
-type Props = {}
+type Props = {};
 
 export const WatchUI = ({ ...props }: Props) => {
-
   return (
     <>
       <Text>{`0000年 | 00分`}</Text>
@@ -30,4 +29,4 @@ export const WatchUI = ({ ...props }: Props) => {
       </HStack>
     </>
   );
-}
+};
