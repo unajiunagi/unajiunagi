@@ -3,7 +3,7 @@ import { Box, Stack, Text, Spacer } from "@chakra-ui/react";
 type Props = { bgimg: string; title: string; description: string };
 
 export const MovieDescription = ({
-  bgimg = "img.jpg",
+  bgimg = "img.png",
   title = "title",
   description = "紹介文",
 }: Props) => {
