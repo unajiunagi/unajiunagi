@@ -11,7 +11,7 @@ export default function() {
           <SimpleGrid columns={4} gap={6}>
             {org.map((org) => (
               <Box key={org}>
-                <Thumbnail src="img.png" alt="サムネイル" href="" />
+                <Thumbnail src="/img.png" alt="サムネイル" href="" />
               </Box>
             ))}
           </SimpleGrid>

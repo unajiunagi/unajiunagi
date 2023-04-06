@@ -8,7 +8,7 @@ export const MobileHeader = ({ ...props }: Props) => {
   return (
     <>
       <HeaderItem href="/">
-        <Image src="logo.png" alt="ロゴ" width="12" pl="4" />
+        <Image src="/logo.png" alt="ロゴ" width="12" pl="4" />
       </HeaderItem>
       <Spacer />
       <MobileHeaderBurgar />

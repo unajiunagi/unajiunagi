@@ -10,7 +10,7 @@ export const DesktopHeader = ({ ...props }: Props) => {
   return (
     <>
       <HeaderItem href="/">
-        <Image src="logo.png" alt="ロゴ" width="16" pl="4" />
+        <Image src="/logo.png" alt="ロゴ" width="16" pl="4" />
       </HeaderItem>
       <HeaderItem href="/mylist">マイリスト</HeaderItem>
       <HeaderItem href="/myitem">マイアイテム</HeaderItem>
