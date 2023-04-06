@@ -18,16 +18,20 @@
     "@chakra-ui/react": "^2.5.5",
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
+    "@hookform/resolvers": "^3.0.1",
     "@types/node": "18.15.3",
     "@types/react": "18.0.32",
     "@types/react-dom": "18.0.11",
+    "firebase": "^9.19.1",
     "next": "13.2.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-hook-form": "^7.43.9",
     "react-icons": "^4.8.0",
     "sass": "^1.60.0",
     "typescript": "5.0.3",
-    "util": "^0.12.5"
+    "util": "^0.12.5",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@babel/core": "^7.21.4",

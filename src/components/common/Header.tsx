@@ -1,7 +1,7 @@
-import { useEffect, useState } from "react";
-import { Flex, useBreakpointValue } from "@chakra-ui/react";
-import { MobileHeader } from "components/header/MobileHeader";
+import { HStack, useBreakpointValue } from "@chakra-ui/react";
 import { DesktopHeader } from "components/header/DesktopHeader";
+import { MobileHeader } from "components/header/MobileHeader";
+import { useEffect, useState } from "react";
 
 type Props = {};
 
@@ -15,9 +15,9 @@ export const Header = ({}: Props) => {
   }, [isMobileBreakpoint]);
 
   return (
-    <Flex bgColor="#000000" p={4}>
+    <HStack bgColor="#000000" spacing={4}>
       {isMobile && <MobileHeader />}
       {!isMobile && <DesktopHeader />}
-    </Flex>
+    </HStack>
   );
 };
