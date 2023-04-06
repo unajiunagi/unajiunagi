@@ -3,10 +3,10 @@ to: src/components/<%= path %>/<%= name %>.tsx
 ---
 type Props = {}
 
-export const <%= name %> = ({ ...props }: Props) => {
+export const <%= name %> = ({  }: Props) => {
   return (
     <>
-      <h2>Demo!!!</h2>
+
     </>
   )
 }

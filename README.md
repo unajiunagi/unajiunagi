@@ -1,38 +1,7 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+原因はわからないが、"next dev"を実行して開発サーバーを立ち上げると時折ルートディレクトリ(localhost:xxxx/)だけが 404error になるバグがある。
+通常は .next/server/pages/ もしくは .next/static/chunks/pages/ に index.js が生成されるが、このバグが発生するとこの index.js が生成されなくなる。
+そのためルートディレクトリが見つからず 404 になるのだろう。
 
-## Getting Started
-
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+対処法:　過去に直した方法があるが、再現性があるかは不明。以下に記載。
+pages/index.tsx 　のファイル名を pages/home.tsx に変更した。その後"next dev"を実行すると、もちろん localhost:xxxx/ は 404 だが、
+localhost:xxxx/home はアクセスできる。その後 home.tsx 　を　 index.tsx に戻し、再度"npm run dev"を実行すると　 localhost:xxxx/　が無事表示された。 .next/server/pages/ と .next/static/chunks/pages/ にも index.js が生成されていた。

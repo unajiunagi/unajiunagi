@@ -1,17 +1,16 @@
-import type { ComponentMeta, ComponentStoryObj } from "@storybook/react"
+import type { Meta, StoryObj } from "@storybook/react"
 import { MovieDescription } from "./MovieDescription"
 
-export default {
+const meta: Meta<typeof MovieDescription> = {
   component: MovieDescription,
-} as ComponentMeta<typeof MovieDescription>
+};
+export default meta;
 
-type Template = ComponentStoryObj<typeof MovieDescription>
-
-export const Default: Template = {
+export const Default: StoryObj<typeof MovieDescription> = {
   args: {
-    bgimg:"img.jpg",
-    title:"title",
-    description:"紹介文",
+    bgimg: "img.jpg",
+    title: "title",
+    description: "紹介文",
   },
-  storyName: "デフォルト",
+  name: "デフォルト",
 };
