@@ -8,9 +8,11 @@ export const GoogleAuthButton = ({}: Props) => {
   const auth = getAuth();
   const googleAuth = async () => {
     const provider = new GoogleAuthProvider();
-    console.log('google');
-    
-    await signInWithRedirect(auth, provider);
+    try {
+await signInWithRedirect(auth, provider);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
