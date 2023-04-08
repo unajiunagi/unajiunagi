@@ -6,7 +6,7 @@ type Props = {};
 export const Footer = ({}: Props) => {
   return (
     <>
-      <Stack bgColor="black" p={8}>
+      <Stack as='footer' bgColor="black" p={8}>
         <HStack spacing={8}>
           <Link color="white" href="/termsOfService">
             利用規約

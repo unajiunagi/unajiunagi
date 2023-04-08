@@ -1,9 +1,9 @@
+import { Box, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
 import { MovieDescription } from "components/common/MovieDescription";
 import { Thumbnail } from "components/common/Thumbnail";
 import { WatchUI } from "components/watchPage/WatchUI";
-import { Box, SimpleGrid, Stack, Heading } from "@chakra-ui/react";
 
-export default function() {
+export default function () {
   const org = [1, 2, 3, 4, 5, 6, 7, 8];
   return (
     <>

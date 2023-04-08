@@ -1,4 +1,5 @@
 import { Heading, ListItem, OrderedList, Stack, Text, UnorderedList } from "@chakra-ui/react";
+import { useWindowSize } from "react-use";
 
 export default function () {
   return (
@@ -58,7 +59,9 @@ export default function () {
             7. 免責事項について
           </Heading>
           <Text fontSize="lg">当社は、法令に基づく場合を除き、お客様から収集した情報が漏洩、滅失、改ざん等された場合について、一切の責任を負いません。</Text>
-          <Text fontSize="lg" pt="8">以上が、当社のプライバシーポリシーです。お客様には、本ポリシーに同意いただいた上で、当社のサービスをご利用いただきますようお願いいたします。</Text>
+          <Text fontSize="lg" pt="8">
+            以上が、当社のプライバシーポリシーです。お客様には、本ポリシーに同意いただいた上で、当社のサービスをご利用いただきますようお願いいたします。
+          </Text>
           <Text pt="8">更新日:2023/4/3</Text>
         </Stack>
       </Stack>

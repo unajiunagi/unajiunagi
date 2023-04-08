@@ -1,7 +1,8 @@
 import { Link } from "@chakra-ui/next-js";
-import { Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Text, VStack, useToast } from "@chakra-ui/react";
+import { Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Text, VStack, chakra, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "firebase/auth";
+import { FirebaseError } from "firebase/app";
+import { UserCredential, createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "firebase/auth";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as zod from "zod";
@@ -22,39 +23,75 @@ const schema = zod.object({
     .regex(/^(?=.*?[a-z])(?=.*?\d).+$/, "小文字と数字を必ず含んでください"),
 });
 
-export default function Signup() {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+export default function () {
+  const auth = getAuth();
+  const [isLoadingSignUp, setIsLoadingSignUp] = useState<boolean>(false);
+  const [isLoadingResendEmail, setIsLoadingResendEmail] = useState<boolean>(false);
+  const [userCredential, setUserCredential] = useState<UserCredential>();
   const toast = useToast();
   const { register, handleSubmit, formState, reset } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
   const onSubmit = async (data: FormData) => {
-    setIsLoading(true);
-    const auth = getAuth();
+    setIsLoadingSignUp(true);
     try {
-      const userCredential = await createUserWithEmailAndPassword(auth, data.email, data.password);
-      await sendEmailVerification(userCredential.user);
+      setUserCredential(await createUserWithEmailAndPassword(auth, data.email, data.password));
+      userCredential && (await sendEmailVerification(userCredential.user));
       toast({
-        title: "確認メールを送信しました。メールアドレスを認証してください。",
+        title: "認証メールを送信しました。メールアドレスを認証してください。",
         status: "success",
         position: "top",
       });
       reset();
     } catch (error) {
+      if (error instanceof FirebaseError) {
+        if (error.code === "auth/email-already-in-use") {
+          toast({
+            title: "このメールアドレスは既に使用されています。",
+            status: "error",
+            position: "top",
+          });
+        } else {
+          toast({
+            title: "エラーが発生しました。通信環境の良いところでやり直してみてください。",
+            status: "error",
+            position: "top",
+          });
+        }
+      }
+    } finally {
+      setIsLoadingSignUp(false);
+    }
+  };
+
+  const resendEmail = async () => {
+    setIsLoadingResendEmail(true);
+    try {
+      userCredential && (await sendEmailVerification(userCredential.user));
       toast({
-        title: "エラーが発生しました。通信環境の良いところでやり直してみてください。",
-        status: "error",
+        title: "認証メールを送信しました。メールアドレスを認証してください。",
+        status: "success",
         position: "top",
       });
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        if (error.code === "auth/too-many-requests") {
+          toast({
+            title: "認証メールを連続で送ることは出来ません。時間が経ってからやり直してください。",
+            status: "error",
+            position: "top",
+          });
+        }
+      }
     } finally {
-      setIsLoading(false);
+      setIsLoadingResendEmail(false);
     }
   };
 
   return (
-    <VStack spacing="4" width="100%" maxWidth="400px" minHeight="800" p="8" margin="0 auto">
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <VStack spacing="4" width="90%" maxWidth="400px" pt="8" margin="0 auto">
+      <chakra.form width="100%" onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!formState.errors.email}>
           <FormLabel htmlFor="email" color="white">
             Eメール
@@ -70,10 +107,15 @@ export default function Signup() {
           <FormHelperText color="white">必ず小文字と数字を含む8文字以上のパスワードを設定してください</FormHelperText>
           <FormErrorMessage>{formState.errors.password?.message}</FormErrorMessage>
         </FormControl>
-        <Button mt="4" colorScheme="blue" isLoading={isLoading} type="submit">
+        <Button mt="4" colorScheme="blue" width="100%" isLoading={isLoadingSignUp} type="submit">
           アカウントを作成
         </Button>
-      </form>
+      </chakra.form>
+      {(auth.currentUser?.emailVerified === false) && (
+        <Button onClick={resendEmail} colorScheme="green" width="100%" isLoading={isLoadingResendEmail}>
+          認証メールを再送信
+        </Button>
+      )}
       <Text>
         アカウントを登録することにより、
         <Link href="/termsOfService" color="blue.400">

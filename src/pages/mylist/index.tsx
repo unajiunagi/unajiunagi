@@ -1,10 +1,11 @@
+import { Box, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
 import { Thumbnail } from "components/common/Thumbnail";
-import { Box, SimpleGrid, Stack, Heading } from "@chakra-ui/react";
+import { AuthGuardProvider } from "components/provider/AuthGuardProvider";
 
-export default function() {
+export default function () {
   const org = [1, 2, 3, 4, 5, 6, 7, 8];
   return (
-    <>
+    <AuthGuardProvider>
       <Box width="90%" margin="auto" pt={4} pb={6}>
         <Stack spacing={4}>
           <Heading fontSize="4xl">マイリスト</Heading>
@@ -17,6 +18,6 @@ export default function() {
           </SimpleGrid>
         </Stack>
       </Box>
-    </>
+    </AuthGuardProvider>
   );
 }

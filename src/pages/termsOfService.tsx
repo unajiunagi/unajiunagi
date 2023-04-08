@@ -54,7 +54,7 @@ export default function () {
             第7条（準拠法・裁判管轄）
           </Heading>
           <Text fontSize="lg">本規約の準拠法は日本法とします。また、本サービスに関して紛争が生じた場合には、当社の所在地を管轄する裁判所を専属的合意管轄とします。</Text>
-          <Text pt='8'>更新日:2023/4/3</Text>
+          <Text pt="8">更新日:2023/4/3</Text>
         </Stack>
       </Stack>
     </>

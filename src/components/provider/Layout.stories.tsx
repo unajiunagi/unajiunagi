@@ -1,12 +1,12 @@
-import type { Meta, StoryObj } from "@storybook/react"
-import { Layout } from "./Layout"
+import type { Meta, StoryObj } from "@storybook/react";
+import { LayoutProvider } from "./LayoutProvider";
 
-const meta: Meta<typeof Layout> = {
-  component: Layout,
-}
-export default meta
+const meta: Meta<typeof LayoutProvider> = {
+  component: LayoutProvider,
+};
+export default meta;
 
-export const Default: StoryObj<typeof Layout> = {
+export const Default: StoryObj<typeof LayoutProvider> = {
   args: {},
   name: "デフォルト",
 };

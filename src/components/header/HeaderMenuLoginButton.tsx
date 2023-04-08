@@ -23,7 +23,7 @@ export const HeaderMenuLoginButton = ({}: Props) => {
         status: "success",
         position: "top",
       });
-      push("/");
+      push("/top");
     } catch (e) {
       toast({
         title: "エラーが発生しました。通信環境の良いところでやり直してみてください。",

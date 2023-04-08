@@ -1,4 +1,4 @@
-git push すると、"next dev"を実行して開発サーバーを立ち上げると時折ルートディレクトリ(localhost:xxxx/)だけが 404error になるバグがある。
+git push すると、"next dev"を実行して開発サーバーを立ち上げると時折ルートディレクトリ(localhost:xxxx/)だけが 404error になることがある。
 通常は .next/server/pages/ もしくは .next/static/chunks/pages/ に index.js が生成されるが、このバグが発生するとこの index.js が生成されなくなる。
 そのためルートディレクトリが見つからず 404 になるのだろう。
 

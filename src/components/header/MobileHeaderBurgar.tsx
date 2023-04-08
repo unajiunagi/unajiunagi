@@ -7,7 +7,6 @@ import { BsList } from "react-icons/bs";
 type Props = {};
 
 export const MobileHeaderBurgar = ({ ...props }: Props) => {
-  const { user } = useAuthContext();
 
   return (
     <>
@@ -20,7 +19,7 @@ export const MobileHeaderBurgar = ({ ...props }: Props) => {
         <MenuList bgColor="black">
           <HeaderMenuItem href="/mylist">マイリスト</HeaderMenuItem>
           <HeaderMenuItem href="/myitem">マイアイテム</HeaderMenuItem>
-          <HeaderMenuItem href="/mypage">アカウント設定</HeaderMenuItem>
+          <HeaderMenuItem href="/mypage">マイページ</HeaderMenuItem>
           <HeaderMenuLoginButton />
         </MenuList>
       </Menu>
