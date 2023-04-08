@@ -1,6 +1,7 @@
 import { Link } from "@chakra-ui/next-js";
-import { Button, FormControl, FormErrorMessage, FormLabel, Input, Text, VStack, chakra, useToast } from "@chakra-ui/react";
+import { Button, Divider, FormControl, FormErrorMessage, FormLabel, Input, Text, VStack, chakra, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { GoogleAuthButton } from "components/auth/GoogleAuthButton";
 import { FirebaseError } from "firebase/app";
 import { getAuth, sendEmailVerification, signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/router";
@@ -96,7 +97,9 @@ export default function () {
   };
 
   return (
-    <VStack spacing="4" width="90%" maxWidth="400px" pt="8" margin="0 auto">
+    <VStack spacing="4" width="90%" maxWidth="400px" pt="16" margin="0 auto">
+      <GoogleAuthButton />
+      <Divider />
       <chakra.form width="100%" onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!formState.errors.email}>
           <FormLabel htmlFor="email" color="white">

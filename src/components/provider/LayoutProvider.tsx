@@ -14,7 +14,7 @@ export const LayoutProvider = ({ children }: Props) => {
   return (
     <>
       <Header />
-      <Box className="layout" minHeight={`${height}px`}>
+      <Box className="layout" minHeight={`${height}px`} pb={16}>
         {children}
       </Box>
       <Footer />

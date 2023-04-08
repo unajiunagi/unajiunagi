@@ -1,28 +1,33 @@
 import { Spinner, VStack, useToast } from "@chakra-ui/react";
 import { FirebaseError } from "firebase/app";
-import { applyActionCode, getAuth } from "firebase/auth";
+import { applyActionCode, checkActionCode, getAuth } from "firebase/auth";
+import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
+import { ParsedUrlQuery } from "querystring";
 import { useEffect } from "react";
 
 type props = {
-  oobCode: string;
+  query: ParsedUrlQuery;
 };
 
-export const ActionAuthEmail = ({ oobCode }: props) => {
+export default function ({ query }: props) {
   const auth = getAuth();
   const router = useRouter();
   const toast = useToast();
+  const { oobCode } = query;
 
   useEffect(() => {
     const handleConfirmEmail = async () => {
       try {
-        await applyActionCode(auth, oobCode);
+        await checkActionCode(auth, oobCode as string);
+        await applyActionCode(auth, oobCode as string);
+        await auth.currentUser?.reload()
         toast({
           title: "メールアドレスを認証しました。",
           status: "success",
           position: "top",
         });
-        router.push("/top");
+        router.replace("/top");
       } catch (error) {
         if (error instanceof FirebaseError) {
           toast({
@@ -30,7 +35,7 @@ export const ActionAuthEmail = ({ oobCode }: props) => {
             status: "error",
             position: "top",
           });
-          router.push("/top");
+          router.replace("/top");
         }
       }
     };
@@ -43,4 +48,14 @@ export const ActionAuthEmail = ({ oobCode }: props) => {
       <Spinner color="white" size="xl" />
     </VStack>
   );
-};
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { query } = context;
+
+  return {
+    props: {
+      query,
+    },
+  };
+}

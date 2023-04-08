@@ -1,22 +1,21 @@
-import { useToast } from "@chakra-ui/react";
+import { Spinner, VStack, useToast } from "@chakra-ui/react";
 import { FirebaseError } from "firebase/app";
 import { getAuth, sendEmailVerification } from "firebase/auth";
 import { useRouter } from "next/router";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 
 type props = {
   children: ReactNode;
 };
 
-export const EmailVerifyProvider = ({ children }: props) => {
+export const EmailAuthGuardProvider = ({ children }: props) => {
   const auth = getAuth();
   const router = useRouter();
   const toast = useToast();
 
-  const verify = async () => {
-    if (router.pathname !== "/firebaseAction" || "/signup" || '/login' || '/resetPassword' || '/commercialTransaction' || '/privacy' || '/termsOfService') {
+  useEffect(() => {
+    const verify = async () => {
       try {
-        router.push("/signup");
         await sendEmailVerification(auth.currentUser!);
         toast({
           title: "メールアドレスが認証されていません。認証メールを送信したので、メールアドレスを認証してください。",
@@ -39,13 +38,22 @@ export const EmailVerifyProvider = ({ children }: props) => {
             });
           }
         }
+      } finally {
+        router.replace("/signup");
       }
+    };
+
+    if (auth.currentUser?.emailVerified === false) {
+      verify();
     }
-  };
+  }, []);
 
   if (auth.currentUser?.emailVerified === false) {
-    verify();
-    return null;
+    return (
+      <VStack spacing="4" width="90%" maxWidth="400px" pt="8" margin="0 auto">
+        <Spinner color="white" size="xl" />
+      </VStack>
+    );
   }
 
   return <>{children}</>;

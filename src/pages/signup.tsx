@@ -1,8 +1,9 @@
 import { Link } from "@chakra-ui/next-js";
-import { Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Text, VStack, chakra, useToast } from "@chakra-ui/react";
+import { Button, Divider, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Text, VStack, chakra, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { GoogleAuthButton } from "components/auth/GoogleAuthButton";
 import { FirebaseError } from "firebase/app";
-import { UserCredential, createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "firebase/auth";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as zod from "zod";
@@ -27,7 +28,6 @@ export default function () {
   const auth = getAuth();
   const [isLoadingSignUp, setIsLoadingSignUp] = useState<boolean>(false);
   const [isLoadingResendEmail, setIsLoadingResendEmail] = useState<boolean>(false);
-  const [userCredential, setUserCredential] = useState<UserCredential>();
   const toast = useToast();
   const { register, handleSubmit, formState, reset } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -36,8 +36,8 @@ export default function () {
   const onSubmit = async (data: FormData) => {
     setIsLoadingSignUp(true);
     try {
-      setUserCredential(await createUserWithEmailAndPassword(auth, data.email, data.password));
-      userCredential && (await sendEmailVerification(userCredential.user));
+      await createUserWithEmailAndPassword(auth, data.email, data.password);
+      auth.currentUser && (await sendEmailVerification(auth.currentUser));
       toast({
         title: "認証メールを送信しました。メールアドレスを認証してください。",
         status: "success",
@@ -68,7 +68,7 @@ export default function () {
   const resendEmail = async () => {
     setIsLoadingResendEmail(true);
     try {
-      userCredential && (await sendEmailVerification(userCredential.user));
+      auth.currentUser && (await sendEmailVerification(auth.currentUser));
       toast({
         title: "認証メールを送信しました。メールアドレスを認証してください。",
         status: "success",
@@ -90,7 +90,9 @@ export default function () {
   };
 
   return (
-    <VStack spacing="4" width="90%" maxWidth="400px" pt="8" margin="0 auto">
+    <VStack spacing="4" width="90%" maxWidth="400px" pt="16" margin="0 auto">
+      <GoogleAuthButton />
+      <Divider />
       <chakra.form width="100%" onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!formState.errors.email}>
           <FormLabel htmlFor="email" color="white">
@@ -111,7 +113,7 @@ export default function () {
           アカウントを作成
         </Button>
       </chakra.form>
-      {(auth.currentUser?.emailVerified === false) && (
+      {auth.currentUser?.emailVerified === false && (
         <Button onClick={resendEmail} colorScheme="green" width="100%" isLoading={isLoadingResendEmail}>
           認証メールを再送信
         </Button>

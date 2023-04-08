@@ -16,7 +16,7 @@ export const AuthGuardProvider = ({ children }: Props) => {
   }
 
   if (user === null) {
-    router.push("/login");
+    router.replace("/login");
     return null;
   }
 

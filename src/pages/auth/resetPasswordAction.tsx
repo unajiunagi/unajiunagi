@@ -2,13 +2,15 @@ import { Button, FormControl, FormErrorMessage, FormLabel, Input, VStack, chakra
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FirebaseError } from "firebase/app";
 import { confirmPasswordReset, getAuth, signInWithEmailAndPassword, verifyPasswordResetCode } from "firebase/auth";
+import { GetServerSidePropsContext } from "next";
 import { useRouter } from "next/router";
+import { ParsedUrlQuery } from "querystring";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 type props = {
-  oobCode: string;
+  query: ParsedUrlQuery;
 };
 
 type FormData = {
@@ -43,10 +45,11 @@ const schema = z
     }
   });
 
-export const ActionResetPassword = ({ oobCode }: props) => {
+export default function ({ query }: props) {
   const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
+  const { oobCode } = query;
   const toast = useToast();
   const auth = getAuth();
   const router = useRouter();
@@ -55,15 +58,15 @@ export const ActionResetPassword = ({ oobCode }: props) => {
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     try {
-      const email = await verifyPasswordResetCode(auth, oobCode);
-      await confirmPasswordReset(auth, oobCode, data.confirmPassword);
-      await signInWithEmailAndPassword(auth, email, data.confirmPassword)
+      const email = await verifyPasswordResetCode(auth, oobCode as string);
+      await confirmPasswordReset(auth, oobCode as string, data.confirmPassword);
+      await signInWithEmailAndPassword(auth, email, data.confirmPassword);
       toast({
         title: "パスワードを再設定して、ログインしました。",
         status: "success",
         position: "top",
       });
-      router.push("/top");
+      router.replace("/top");
     } catch (error) {
       if (error instanceof FirebaseError) {
         toast({
@@ -71,7 +74,7 @@ export const ActionResetPassword = ({ oobCode }: props) => {
           status: "error",
           position: "top",
         });
-        router.push("/top");
+        router.replace("/top");
       }
     }
     setIsLoading(false);
@@ -100,4 +103,14 @@ export const ActionResetPassword = ({ oobCode }: props) => {
       </chakra.form>
     </VStack>
   );
-};
+}
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { query } = context;
+
+  return {
+    props: {
+      query,
+    },
+  };
+}
