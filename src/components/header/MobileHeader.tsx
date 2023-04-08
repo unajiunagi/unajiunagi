@@ -9,7 +9,7 @@ export const MobileHeader = ({ ...props }: Props) => {
   return (
     <>
       <HeaderItem href="/top">
-        <Image src="/logo.png" alt="ロゴ" height={12} width={12} pl="4" />
+        <Image src="/logo.svg" alt="ロゴ" height={6} width={36} />
       </HeaderItem>
       <Spacer />
       <MobileHeaderBurgar />

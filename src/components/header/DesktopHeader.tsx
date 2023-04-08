@@ -1,5 +1,5 @@
 import { Image } from "@chakra-ui/next-js";
-import { Box, Button, HStack, Menu, MenuButton, MenuList, Spacer, Text } from "@chakra-ui/react";
+import { Box, Button, Menu, MenuButton, MenuList, Spacer } from "@chakra-ui/react";
 import { HeaderItem } from "components/header/HeaderItem";
 import { HeaderMenuItem } from "components/header/HeaderMenuItem";
 import { HeaderMenuLoginButton } from "components/header/HeaderMenuLoginButton";
@@ -13,13 +13,10 @@ export const DesktopHeader = ({ ...props }: Props) => {
   return (
     <>
       <HeaderItem href="/top">
-        <HStack>
-          <Image src="/logo.png" alt="ロゴ" height={16} width={16} pl="4" />
-          <Text>うなじうなぎ</Text>
-        </HStack>
+        <Image src="/logo.svg" alt="ロゴ" height={16} width={40} pl="4" />
       </HeaderItem>
       <HeaderItem href="/mylist">マイリスト</HeaderItem>
-     <HeaderItem href="/myitem">マイアイテム</HeaderItem>
+      <HeaderItem href="/myitem">マイアイテム</HeaderItem>
       <Spacer />
       <HeaderItem href="/">検索</HeaderItem>
       <Box p="2">

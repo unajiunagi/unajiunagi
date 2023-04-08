@@ -1,17 +1,22 @@
-import { Button } from "@chakra-ui/react";
+import { Button, useToast } from "@chakra-ui/react";
 import { GoogleAuthProvider, getAuth, signInWithRedirect } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
 
 type Props = {};
 
 export const GoogleAuthButton = ({}: Props) => {
+  const toast = useToast();
   const auth = getAuth();
   const googleAuth = async () => {
     const provider = new GoogleAuthProvider();
     try {
-await signInWithRedirect(auth, provider);
+      await signInWithRedirect(auth, provider);
     } catch (error) {
-      console.log(error);
+      toast({
+        title: "エラーが発生しました。通信環境の良いところでやり直してみてください。",
+        status: "error",
+        position: "top",
+      });
     }
   };
 
