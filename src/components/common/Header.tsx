@@ -15,7 +15,7 @@ export const Header = ({}: Props) => {
   }, [isMobileBreakpoint]);
 
   return (
-    <HStack as='header' bgColor="#000000" spacing={4}>
+    <HStack as="header" bgColor="#000000" spacing={4}>
       {isMobile && <MobileHeader />}
       {!isMobile && <DesktopHeader />}
     </HStack>

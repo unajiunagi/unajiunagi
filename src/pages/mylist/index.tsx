@@ -8,18 +8,16 @@ export default function () {
   return (
     <AuthGuardProvider>
       <EmailAuthGuardProvider>
-        <Box width="90%" margin="auto" pt={4} pb={6}>
-          <Stack spacing={4}>
-            <Heading fontSize="4xl">マイリスト</Heading>
-            <SimpleGrid columns={4} gap={6}>
-              {org.map((org) => (
-                <Box key={org}>
-                  <Thumbnail src="/img.png" alt="サムネイル" href="" />
-                </Box>
-              ))}
-            </SimpleGrid>
-          </Stack>
-        </Box>
+        <Stack spacing={4} width="90%" margin="auto" pt={4} pb={6}>
+          <Heading fontSize="4xl">マイリスト</Heading>
+          <SimpleGrid columns={4} gap={6}>
+            {org.map((org) => (
+              <Box key={org}>
+                <Thumbnail src="/img.png" alt="サムネイル" href="" />
+              </Box>
+            ))}
+          </SimpleGrid>
+        </Stack>
       </EmailAuthGuardProvider>
     </AuthGuardProvider>
   );

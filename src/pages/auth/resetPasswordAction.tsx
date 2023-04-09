@@ -84,14 +84,14 @@ export default function ({ query }: props) {
     <VStack spacing="4" width="90%" maxWidth="400px" pt="8" margin="0 auto">
       <chakra.form width="100%" onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!formState.errors.password}>
-          <FormLabel htmlFor="email" color="white">
+          <FormLabel htmlFor="password" color="white">
             パスワード
           </FormLabel>
           <Input id="password" type="password" {...register("password")} color="white" />
           <FormErrorMessage>{formState.errors.password?.message}</FormErrorMessage>
         </FormControl>
         <FormControl isInvalid={!!formState.errors.confirmPassword}>
-          <FormLabel htmlFor="password" color="white">
+          <FormLabel htmlFor="confirmPassword" color="white">
             パスワードの確認
           </FormLabel>
           <Input id="confirmPassword" type="password" {...register("confirmPassword")} color="white" />

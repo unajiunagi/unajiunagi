@@ -6,7 +6,7 @@ import { FirebaseError } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, sendEmailVerification } from "firebase/auth";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import * as zod from "zod";
+import zod from "zod";
 
 type FormData = {
   email: string;
@@ -96,7 +96,7 @@ export default function () {
       <chakra.form width="100%" onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!formState.errors.email}>
           <FormLabel htmlFor="email" color="white">
-            Eメール
+            メールアドレス
           </FormLabel>
           <Input id="email" type="email" {...register("email")} color="white" />
           <FormErrorMessage>{formState.errors.email?.message}</FormErrorMessage>

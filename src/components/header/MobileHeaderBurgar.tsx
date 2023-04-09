@@ -19,7 +19,7 @@ export const MobileHeaderBurgar = ({ ...props }: Props) => {
         <MenuList bgColor="black">
           <HeaderMenuItem href="/mylist">マイリスト</HeaderMenuItem>
           <HeaderMenuItem href="/myitem">マイアイテム</HeaderMenuItem>
-          <HeaderMenuItem href="/mypage">マイページ</HeaderMenuItem>
+          <HeaderMenuItem href="/mypage">アカウント設定</HeaderMenuItem>
           <HeaderMenuLoginButton />
         </MenuList>
       </Menu>

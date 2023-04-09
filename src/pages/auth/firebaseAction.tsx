@@ -20,19 +20,28 @@ export default function ({ query }: props) {
     const oobCodeAuth = async () => {
       try {
         await checkActionCode(auth, oobCode as string);
+        console.log('checkedActionCode');
+        console.log(mode);
+        console.log(oobCode);
         switch (mode) {
           case "verifyEmail":
             router.replace(`/auth/authEmail?oobCode=${oobCode}`);
-            break
+            break;
           case "resetPassword":
             router.replace(`/auth/resetPasswordAction?oobCode=${oobCode}`);
-            break
+            break;
           case "revertSecondFactorAddition":
             router.replace(`https://unajiunagi-d46ff.firebaseapp.com/__/auth/action?mode=${mode}&oobCode=${oobCode}&apiKey=${apiKey}&lang=${lang}`);
-            break
+            break;
+          case "recoverEmail":
+            router.replace(`https://unajiunagi-d46ff.firebaseapp.com/__/auth/action?mode=${mode}&oobCode=${oobCode}&apiKey=${apiKey}&lang=${lang}`);
+            break;
           case "verifyAndChangeEmail":
             router.replace(`https://unajiunagi-d46ff.firebaseapp.com/__/auth/action?mode=${mode}&oobCode=${oobCode}&apiKey=${apiKey}&lang=${lang}`);
-            break
+            break;
+          case "verifyBeforeChangeEmail":
+            router.replace(`https://unajiunagi-d46ff.firebaseapp.com/__/auth/action?mode=${mode}&oobCode=${oobCode}&apiKey=${apiKey}&lang=${lang}`);
+            break;
           default:
             toast({
               title: "無効なアクションコードです。",
@@ -40,7 +49,7 @@ export default function ({ query }: props) {
               position: "top",
             });
             router.replace("/top");
-            break
+            break;
         }
       } catch (error) {
         if (error instanceof FirebaseError) {

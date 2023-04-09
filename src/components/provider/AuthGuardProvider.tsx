@@ -1,4 +1,4 @@
-import { Spinner, VStack, useToast } from "@chakra-ui/react";
+import { Spinner, VStack } from "@chakra-ui/react";
 import { useAuthContext } from "components/provider/AuthProvider";
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
@@ -9,7 +9,6 @@ type Props = {
 
 export const AuthGuardProvider = ({ children }: Props) => {
   const { user } = useAuthContext();
-  const toast = useToast();
   const router = useRouter();
 
   if (typeof user === "undefined") {
@@ -21,11 +20,6 @@ export const AuthGuardProvider = ({ children }: Props) => {
   }
 
   if (user === null) {
-    toast({
-      title: "ログインしてください。",
-      status: "warning",
-      position: "top",
-    });
     router.replace("/login");
     return null;
   }

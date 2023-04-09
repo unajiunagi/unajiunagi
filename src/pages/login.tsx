@@ -7,7 +7,7 @@ import { getAuth, sendEmailVerification, signInWithEmailAndPassword } from "fire
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import * as zod from "zod";
+import zod from "zod";
 
 type FormData = {
   email: string;
@@ -20,6 +20,7 @@ const schema = zod.object({
 });
 
 export default function () {
+  const auth = getAuth();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const toast = useToast();
   const router = useRouter();
@@ -28,10 +29,7 @@ export default function () {
   });
 
   const onSubmit = async (data: FormData) => {
-    console.log(data);
-
     setIsLoading(true);
-    const auth = getAuth();
     try {
       const userCredential = await signInWithEmailAndPassword(auth, data.email, data.password);
       if (auth.currentUser?.emailVerified) {
@@ -103,7 +101,7 @@ export default function () {
       <chakra.form width="100%" onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!formState.errors.email}>
           <FormLabel htmlFor="email" color="white">
-            Eメール
+            メールアドレス
           </FormLabel>
           <Input id="email" type="email" {...register("email")} color="white" />
           <FormErrorMessage>{formState.errors.email?.message}</FormErrorMessage>
