@@ -4,10 +4,17 @@ module.exports = {
   reactStrictMode: false,
   trailingSlash: true,
   // 本番環境でconsoleを削除
-  productionBrowserSourceMaps: true,
-  webpack: (config, { isServer, dev }) => {
-    if (!dev) {
-      config.optimization.minimizer[0].options.terserOptions.compress.drop_console = true;
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.optimization.minimizer.forEach((plugin) => {
+        if (plugin.constructor.name === "TerserPlugin") {
+          plugin.options.terserOptions = {
+            compress: {
+              drop_console: true,
+            },
+          };
+        }
+      });
     }
     return config;
   },
