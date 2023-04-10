@@ -1,4 +1,4 @@
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Stack } from "@chakra-ui/react";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Stack, VStack } from "@chakra-ui/react";
 import { AuthGuardProvider } from "components/provider/AuthGuardProvider";
 import { EmailAuthGuardProvider } from "components/provider/EmailAuthGuardProvider";
 import { useRouter } from "next/router";
@@ -7,10 +7,12 @@ import { BsChevronRight } from "react-icons/bs";
 
 type Props = {
   children: ReactNode;
+  type: string;
+  typeText: string;
   title: string;
 };
 
-export const MypageBody = ({ children, title }: Props) => {
+export const BreadcrumbPageBody = ({ children, type, typeText, title }: Props) => {
   const router = useRouter();
 
   return (
@@ -22,17 +24,19 @@ export const MypageBody = ({ children, title }: Props) => {
               <BreadcrumbItem>
                 <BreadcrumbLink
                   onClick={() => {
-                    router.push("/mypage");
+                    router.push(`/${type}`);
                   }}
                 >
-                  マイページ
+                  {typeText}
                 </BreadcrumbLink>
               </BreadcrumbItem>
               <BreadcrumbItem isCurrentPage>
                 <BreadcrumbLink>{title}</BreadcrumbLink>
               </BreadcrumbItem>
             </Breadcrumb>
-            {children}
+            <VStack spacing="4" width="90%" margin="0 auto">
+              {children}
+            </VStack>
           </Stack>
         </EmailAuthGuardProvider>
       </AuthGuardProvider>

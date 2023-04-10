@@ -1,14 +1,12 @@
 import { Box, BoxProps, Card, CardBody, HStack, Stack, StackDivider } from "@chakra-ui/react";
+import { UploadVideo } from "components/creater//UploadVideo";
+import { ManagementVideo } from "components/creater/ManagementVideo";
 import { ReactNode, useState } from "react";
-import { ChangeEmail } from "components/mypage/ChangeEmail";
-import { ChangePassword } from "components/mypage/ChangePassword";
-import { DeleteAccount } from "components/mypage/DeleteAccount";
-import { ChangeCreaterModeButton } from "components/mypage/ChangeCreaterModeButton";
 
 type Props = {};
 
-export const DesktopMypage = ({}: Props) => {
-  const [menu, setMenu] = useState("email");
+export const DesktopCreaterPage = ({}: Props) => {
+  const [menu, setMenu] = useState("managementVideo");
 
   type CardButtonProps = {
     children: ReactNode;
@@ -36,12 +34,10 @@ export const DesktopMypage = ({}: Props) => {
 
   const MyPageBody = () => {
     switch (menu) {
-      case "email":
-        return <ChangeEmail />;
-      case "password":
-        return <ChangePassword />;
-      case "deleteAccount":
-        return <DeleteAccount />;
+      case "managementVideo":
+        return <ManagementVideo />;
+      case "uploadVideo":
+        return <UploadVideo />;
       default:
         return null;
     }
@@ -54,13 +50,11 @@ export const DesktopMypage = ({}: Props) => {
           <Card bgColor="black">
             <CardBody>
               <Stack spacing={4} divider={<StackDivider />}>
-                <CardButton menu="email">メールアドレスの確認･変更</CardButton>
-                <CardButton menu="password">パスワードの変更</CardButton>
-                <CardButton menu="deleteAccount">退会</CardButton>
+                <CardButton menu="managementVideo">作品の管理</CardButton>
+                <CardButton menu="uploadVideo">作品のアップロード</CardButton>
               </Stack>
             </CardBody>
           </Card>
-          <ChangeCreaterModeButton />
         </Stack>
         <MyPageBody />
       </HStack>

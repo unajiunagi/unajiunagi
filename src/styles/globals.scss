@@ -10,6 +10,8 @@ li {
   color: white;
 }
 
-a.chakra-link:hover {
+a.chakra-link:hover,
+a.chakra-breadcrumb__link:hover,
+span.chakra-breadcrumb__link:hover {
   text-decoration: none;
 }

@@ -1,12 +1,12 @@
+import { BreadcrumbPageBody } from "components/common/BreadcrumbPageBody";
 import { ChangeEmail } from "components/mypage/ChangeEmail";
-import { MypageBody } from "components/mypage/MypageBody";
 
 export default function () {
   return (
     <>
-      <MypageBody title='メールアドレスの確認･変更'>
+      <BreadcrumbPageBody title="メールアドレスの確認･変更" type="mypage" typeText="マイページ">
         <ChangeEmail />
-      </MypageBody>
+      </BreadcrumbPageBody>
     </>
   );
 }

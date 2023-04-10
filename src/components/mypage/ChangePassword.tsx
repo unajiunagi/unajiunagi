@@ -98,7 +98,7 @@ export const ChangePassword = ({}: Props) => {
   };
 
   return (
-    <VStack spacing="4" width="90%" margin="0 auto">
+    <>
       <chakra.form width="100%" onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!formState.errors.password}>
           <FormLabel htmlFor="password" color="white">
@@ -132,6 +132,6 @@ export const ChangePassword = ({}: Props) => {
           こちら
         </Link>
       </Text>
-    </VStack>
+    </>
   );
 };

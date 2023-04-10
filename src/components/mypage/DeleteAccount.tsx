@@ -120,7 +120,7 @@ export const DeleteAccount = ({}: Props) => {
   };
 
   return (
-    <VStack spacing="4" width="90%" margin="0 auto">
+    <>
       <chakra.form width="100%" onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!formState.errors.password}>
           <FormLabel htmlFor="password" color="white">
@@ -153,6 +153,6 @@ export const DeleteAccount = ({}: Props) => {
           </AlertDialogContent>
         </AlertDialogOverlay>
       </AlertDialog>
-    </VStack>
+    </>
   );
 };

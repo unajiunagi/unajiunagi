@@ -1,12 +1,12 @@
+import { BreadcrumbPageBody } from "components/common/BreadcrumbPageBody";
 import { DeleteAccount } from "components/mypage/DeleteAccount";
-import { MypageBody } from "components/mypage/MypageBody";
 
 export default function () {
   return (
     <>
-      <MypageBody title="メールアドレスの確認･変更">
+      <BreadcrumbPageBody title="退会" type="mypage" typeText="マイページ">
         <DeleteAccount />
-      </MypageBody>
+      </BreadcrumbPageBody>
     </>
   );
 }

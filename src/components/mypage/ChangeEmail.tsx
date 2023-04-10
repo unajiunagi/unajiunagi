@@ -90,7 +90,7 @@ export const ChangeEmail = ({}: Props) => {
   };
 
   return (
-    <VStack spacing="4" width="90%" margin="0 auto">
+    <>
       <chakra.form width="100%" onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!formState.errors.newEmail}>
           <FormLabel htmlFor="email" color="white">
@@ -111,6 +111,6 @@ export const ChangeEmail = ({}: Props) => {
           メールアドレスを変更
         </Button>
       </chakra.form>
-    </VStack>
+    </>
   );
 };

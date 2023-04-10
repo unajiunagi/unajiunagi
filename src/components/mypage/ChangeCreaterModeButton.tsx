@@ -16,6 +16,7 @@ export const ChangeCreaterModeButton = ({}: Props) => {
     setIsLoading(true);
     setIsLoading(false);
     onClose();
+    router.push('/creater')
   }
 
   return (

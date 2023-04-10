@@ -1,11 +1,10 @@
 import { Link } from "@chakra-ui/next-js";
 import { Card, CardBody, HStack, LinkProps, Spacer, Stack, StackDivider, Text } from "@chakra-ui/react";
 import { ReactNode } from "react";
-import { ChangeCreaterModeButton } from "components/mypage/ChangeCreaterModeButton";
 
 type Props = {};
 
-export const MobileMypage = ({}: Props) => {
+export const MobileCreaterPage = ({}: Props) => {
   type CardLinkProps = {
     children: ReactNode;
     href: string;
@@ -13,7 +12,7 @@ export const MobileMypage = ({}: Props) => {
 
   const CardLink = ({ children, href, ...props }: CardLinkProps & LinkProps) => {
     return (
-      <Link href={`/mypage/${href}`} _hover={{}} width="100%" textAlign="left" colorScheme="black" color="white" fontWeight="bold" fontSize="xl" {...props}>
+      <Link href={`/creater/${href}`} _hover={{}} width="100%" textAlign="left" colorScheme="black" color="white" fontWeight="bold" fontSize="xl" {...props}>
         <HStack>
           <Text>{children}</Text>
           <Spacer />
@@ -29,13 +28,11 @@ export const MobileMypage = ({}: Props) => {
           <Card bgColor="black">
             <CardBody>
               <Stack spacing={4} divider={<StackDivider />}>
-                <CardLink href="changeEmail">メールアドレスの確認･変更</CardLink>
-                <CardLink href="changePassword">パスワードの変更</CardLink>
-                <CardLink href="deleteAccount">退会</CardLink>
+                <CardLink href="managementVideo">作品の管理</CardLink>
+                <CardLink href="uploadVideo">作品のアップロード</CardLink>
               </Stack>
             </CardBody>
           </Card>
-          <ChangeCreaterModeButton />
         </Stack>
       </HStack>
     </>
