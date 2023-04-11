@@ -12,6 +12,8 @@ export const GoogleAuthButton = ({}: Props) => {
     try {
       await signInWithRedirect(auth, provider);
     } catch (error) {
+      console.log(error);
+      
       toast({
         title: "エラーが発生しました。通信環境の良いところでやり直してみてください。",
         status: "error",
