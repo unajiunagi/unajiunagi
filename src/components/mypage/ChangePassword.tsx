@@ -1,4 +1,4 @@
-import { Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Link, Text, VStack, chakra, useToast } from "@chakra-ui/react";
+import { Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, Input, Link, Stack, Text, VStack, chakra, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FirebaseError } from "firebase/app";
 import { EmailAuthProvider, getAuth, reauthenticateWithCredential, updatePassword } from "firebase/auth";
@@ -98,7 +98,7 @@ export const ChangePassword = ({}: Props) => {
   };
 
   return (
-    <>
+    <Stack width='100%'>
       <chakra.form width="100%" onSubmit={handleSubmit(onSubmit)}>
         <FormControl isInvalid={!!formState.errors.password}>
           <FormLabel htmlFor="password" color="white">
@@ -132,6 +132,6 @@ export const ChangePassword = ({}: Props) => {
           こちら
         </Link>
       </Text>
-    </>
+    </Stack>
   );
 };

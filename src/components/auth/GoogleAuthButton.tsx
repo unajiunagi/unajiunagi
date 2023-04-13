@@ -1,4 +1,4 @@
-import { Button, useToast } from "@chakra-ui/react";
+import { Button, Text, useToast } from "@chakra-ui/react";
 import { GoogleAuthProvider, getAuth, signInWithRedirect } from "firebase/auth";
 import { FcGoogle } from "react-icons/fc";
 
@@ -11,6 +11,11 @@ export const GoogleAuthButton = ({}: Props) => {
     const provider = new GoogleAuthProvider();
     try {
       await signInWithRedirect(auth, provider);
+      toast({
+        title: "ログインしました。",
+        status: "success",
+        position: "top",
+      });
     } catch (error) {
       toast({
         title: "エラーが発生しました。通信環境の良いところでやり直してみてください。",
@@ -25,6 +30,7 @@ export const GoogleAuthButton = ({}: Props) => {
       <Button leftIcon={<FcGoogle size={24} />} bgColor="white" variant="outline" width="100%" onClick={googleAuth}>
         Googleでログイン
       </Button>
+      <Text fontSize='sm'>firebaseの不具合のためsafariではgoogleログインは使えません。</Text>
     </>
   );
 };
