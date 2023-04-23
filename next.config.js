@@ -18,11 +18,4 @@ module.exports = {
     }
     return config;
   },
-  // safariでsign in with googleが使えない不具合の応急処置
-  rewrites: [
-    {
-      source: "/__/auth/:path*",
-      destination: "https://StfirebaseAuthDomain}/__/auth/:path*",
-    },
-  ],
 };

@@ -30,7 +30,7 @@ export const GoogleAuthButton = ({}: Props) => {
       <Button leftIcon={<FcGoogle size={24} />} bgColor="white" variant="outline" width="100%" onClick={googleAuth}>
         Googleでログイン
       </Button>
-      <Text fontSize='sm'>firebaseの不具合のためsafariではgoogleログインは使えません。</Text>
+      <Text fontSize='sm'>※firebaseの不具合のためsafariではgoogleログインは使えません。</Text>
     </>
   );
 };

@@ -1,5 +1,6 @@
 import { Box, Button, Card, CardBody, Divider, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, useToast } from "@chakra-ui/react";
 import { getAuth } from "firebase/auth";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -7,23 +8,41 @@ type Props = {};
 
 export const ChangeCreaterModeButton = ({}: Props) => {
   const user = getAuth().currentUser;
+  const db = getFirestore();
+  const uid = user?.uid!;
   const toast = useToast();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const changeCreaterMode = () => {
+  const changeCreaterMode = async () => {
     setIsLoading(true);
-    setIsLoading(false);
-    onClose();
-    router.push('/creater')
-  }
+    try {
+      const docRef = await doc(db, "users", uid);
+      await setDoc(docRef, { createrMode: true });
+      toast({
+        title: "アカウントがクリエイターモードに変更されました。",
+        status: "success",
+        position: "top",
+      });
+      router.push("/creater");
+    } catch (error) {
+      toast({
+        title: `${error}`,
+        status: "error",
+        position: "top",
+      });
+    } finally {
+      setIsLoading(false);
+      onClose();
+    }
+  };
 
   return (
     <>
       <Card bgColor="black">
         <CardBody>
-          <Box width="100%" textAlign="left" bgColor="black" color="cyan.300" fontWeight="bold" fontSize="xl" onClick={onOpen}>
+          <Box as='button' width="100%" textAlign="left" bgColor="black" color="white" fontWeight="bold" fontSize="xl" onClick={onOpen}>
             クリエイターモードへ変更
           </Box>
           <Divider></Divider>
@@ -36,14 +55,15 @@ export const ChangeCreaterModeButton = ({}: Props) => {
         <ModalContent>
           <ModalHeader>Modal Title</ModalHeader>
           <ModalCloseButton />
-          <ModalBody>一度クリエイターモードに変更すると通常アカウントに戻すことは出来ません。クリエイターモードに変更してよろしいですか？
-          </ModalBody>
+          <ModalBody>一度クリエイターモードに変更すると通常アカウントに戻すことは出来ません。クリエイターモードに変更してよろしいですか？</ModalBody>
 
           <ModalFooter>
             <Button colorScheme="blackAlpha" mr={3} onClick={onClose}>
-              Close
+              キャンセル
             </Button>
-            <Button colorScheme="blue" isLoading={isLoading} onClick={changeCreaterMode}>Secondary Action</Button>
+            <Button colorScheme="blue" isLoading={isLoading} onClick={changeCreaterMode}>
+              クリエイターモードへ変更
+            </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
