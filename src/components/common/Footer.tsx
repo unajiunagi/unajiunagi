@@ -8,13 +8,13 @@ export const Footer = ({}: Props) => {
     <>
       <Stack as='footer' bgColor="black" p={8}>
         <HStack spacing={8}>
-          <Link color="white" href="document/termsOfService">
+          <Link color="white" href="/document/terms">
             利用規約
           </Link>
-          <Link color="white" href="document/commercialTransaction">
+          <Link color="white" href="/document/commercialTransaction">
             特定商取引法に基づく表示
           </Link>
-          <Link color="white" href="document/privacy">
+          <Link color="white" href="/document/privacy">
             プライバシーポリシー
           </Link>
         </HStack>

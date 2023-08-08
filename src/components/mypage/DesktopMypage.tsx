@@ -1,13 +1,16 @@
 import { Box, BoxProps, Card, CardBody, HStack, Stack, StackDivider } from "@chakra-ui/react";
-import { ReactNode, useState } from "react";
+import { Loading } from "components/common/Loading";
+import { ChangeCreaterModeButton } from "components/mypage/ChangeCreaterModeButton";
 import { ChangeEmail } from "components/mypage/ChangeEmail";
 import { ChangePassword } from "components/mypage/ChangePassword";
 import { DeleteAccount } from "components/mypage/DeleteAccount";
-import { ChangeCreaterModeButton } from "components/mypage/ChangeCreaterModeButton";
+import { useCreaterModeContext } from "components/provider/CreaterModeProvider";
+import { ReactNode, useState } from "react";
 
 type Props = {};
 
 export const DesktopMypage = ({}: Props) => {
+  const { createrMode } = useCreaterModeContext();
   const [menu, setMenu] = useState("email");
 
   type CardButtonProps = {
@@ -46,25 +49,30 @@ export const DesktopMypage = ({}: Props) => {
       default:
         return null;
     }
-  };
+  }
 
-  return (
-    <>
-      <HStack spacing="20" align="start">
-        <Stack width="30%">
-          <Card bgColor="black">
-            <CardBody>
-              <Stack spacing={4} divider={<StackDivider />}>
-                <CardButton menu="email">メールアドレスの確認･変更</CardButton>
-                <CardButton menu="password">パスワードの変更</CardButton>
-                <CardButton menu="deleteAccount">退会</CardButton>
-              </Stack>
-            </CardBody>
-          </Card>
-          <ChangeCreaterModeButton />
-        </Stack>
-        <MyPageBody />
-      </HStack>
-    </>
-  );
+  if (createrMode === null) {
+    return <Loading />;
+  } else {
+    return (
+      <>
+        <HStack spacing="20" align="start">
+          <Stack width="30%">
+            <Card bgColor="black">
+              <CardBody>
+                <Stack spacing={4} divider={<StackDivider />}>
+                  <CardButton menu="email">メールアドレスの確認･変更</CardButton>
+                  <CardButton menu="password">パスワードの変更</CardButton>
+                  <CardButton menu="deleteAccount">退会</CardButton>
+                </Stack>
+              </CardBody>
+            </Card>
+            {createrMode ? <></> : <ChangeCreaterModeButton />}
+          </Stack>
+          <MyPageBody />
+        </HStack>
+      </>
+    );
+  }
+
 };

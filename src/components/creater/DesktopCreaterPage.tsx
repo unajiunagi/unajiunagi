@@ -16,6 +16,7 @@ export const DesktopCreaterPage = ({}: Props) => {
   const CardButton = ({ children, menu, ...props }: CardButtonProps & BoxProps) => {
     return (
       <Box
+        as='button'
         width="100%"
         textAlign="left"
         colorScheme="black"

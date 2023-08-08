@@ -1,6 +1,6 @@
 import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import type { User } from "@firebase/auth";
-import { getAuth, onAuthStateChanged } from "@firebase/auth";
+import type { User } from "firebase/auth";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 export type GlobalAuthState = {
   user: User | null | undefined;

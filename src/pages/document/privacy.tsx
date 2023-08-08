@@ -1,12 +1,11 @@
-import { Heading, ListItem, OrderedList, Stack, Text, UnorderedList } from "@chakra-ui/react";
-import { useWindowSize } from "react-use";
+import { Heading, ListItem, Stack, Text, UnorderedList } from "@chakra-ui/react";
 
 export default function () {
   return (
     <>
       <Stack width="90%" margin="auto" pt={6} pb={6}>
         <Heading as="h2" fontSize="5xl">
-          利用規約
+          プライバシーポリシー
         </Heading>
         <Stack spacing="4">
           <Text fontSize="lg">当社は、映画の配信サービスを提供する上で、お客様の個人情報の保護に最大限の注意を払います。以下に、当社が取り扱うお客様の個人情報について、プライバシーポリシーを定めます。</Text>
@@ -68,4 +67,3 @@ export default function () {
     </>
   );
 }
-

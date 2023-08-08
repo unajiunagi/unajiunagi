@@ -1,22 +1,51 @@
-import { getAuth } from "firebase/auth";
-import { doc, getDoc, getFirestore } from "firebase/firestore";
-import { useEffect } from "react";
+import { doc, getFirestore, onSnapshot } from "firebase/firestore";
+import { ReactNode, createContext, useContext, useEffect, useState } from "react";
+import { useAuthContext } from "components/provider/AuthProvider";
 
-type Props = {};
+type InitialState = {
+  createrMode: Boolean | null;
+};
 
-export const CreaterModeProvider = ({}: Props) => {
-  const user = getAuth().currentUser;
+const initialState: InitialState = {
+  createrMode: null,
+};
+const CreaterModeContext = createContext<InitialState>(initialState);
+
+type Props = {
+  children: ReactNode;
+};
+
+export const CreaterModeProvider = ({ children }: Props) => {
+  const [createrMode, setCreaterMode] = useState<InitialState>(initialState);
+  const { user } = useAuthContext();
   const db = getFirestore();
-  const uid = user?.uid!;
 
   useEffect(() => {
-    const checkCreaterMode = async () => {
-      const docRef = doc(db, "users", uid);
-      const d = await getDoc(docRef);
-      // const { createrMode } = d;
-    };
-    checkCreaterMode();
-  }, []);
+    if (!user) {
+      return;
+    }
+    try {
+      const docRef = doc(db, "users", user.uid);
+      return onSnapshot(docRef, (doc) => {
+        if (doc.exists() && doc.data().createrMode) {
+          setCreaterMode({
+            createrMode: doc.data().createrMode,
+          });
+        } else {
+          setCreaterMode({
+            createrMode: false,
+          });
+        }
+      });
+    } catch (error) {
+      setCreaterMode({
+        createrMode: false,
+      });
+      console.log(`error: ${error}`);
+    }
+  }, [user]);
 
-  return <></>;
+  return <CreaterModeContext.Provider value={createrMode}>{children}</CreaterModeContext.Provider>;
 };
+
+export const useCreaterModeContext = () => useContext(CreaterModeContext);

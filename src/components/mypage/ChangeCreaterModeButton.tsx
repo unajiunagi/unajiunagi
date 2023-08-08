@@ -18,8 +18,8 @@ export const ChangeCreaterModeButton = ({}: Props) => {
   const changeCreaterMode = async () => {
     setIsLoading(true);
     try {
-      const docRef = await doc(db, "users", uid);
-      await setDoc(docRef, { createrMode: true });
+      const docRef = doc(db, "users", uid);
+      await setDoc(docRef, { createrMode: true }, { merge: true });
       toast({
         title: "アカウントがクリエイターモードに変更されました。",
         status: "success",

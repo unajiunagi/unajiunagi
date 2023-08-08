@@ -2,6 +2,7 @@ import { Heading, Stack, useBreakpointValue } from "@chakra-ui/react";
 import { DesktopMypage } from "components/mypage/DesktopMypage";
 import { MobileMypage } from "components/mypage/MobileMypage";
 import { AuthGuardProvider } from "components/provider/AuthGuardProvider";
+import { CreaterModeProvider } from "components/provider/CreaterModeProvider";
 import { EmailAuthGuardProvider } from "components/provider/EmailAuthGuardProvider";
 import { useEffect, useState } from "react";
 
@@ -17,10 +18,12 @@ export default function () {
   return (
     <AuthGuardProvider>
       <EmailAuthGuardProvider>
-        <Stack spacing={4} width="90%" margin="auto" pt={4} pb={6}>
-          <Heading fontSize="4xl">マイページ</Heading>
-          {isMobile ? <MobileMypage /> : <DesktopMypage />}
-        </Stack>
+        <CreaterModeProvider>
+          <Stack spacing={4} width="90%" margin="auto" pt={4} pb={6}>
+            <Heading fontSize="4xl">マイページ</Heading>
+            {isMobile ? <MobileMypage /> : <DesktopMypage />}
+          </Stack>
+        </CreaterModeProvider>
       </EmailAuthGuardProvider>
     </AuthGuardProvider>
   );

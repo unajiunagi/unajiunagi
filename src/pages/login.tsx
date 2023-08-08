@@ -49,6 +49,8 @@ export default function () {
       }
     } catch (error) {
       if (error instanceof FirebaseError) {
+        console.log(error);
+
         if (error.code === "auth/user-disabled") {
           toast({
             title: "無効なアカウントです。",

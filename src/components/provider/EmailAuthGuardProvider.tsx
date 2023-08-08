@@ -1,4 +1,5 @@
-import { Spinner, VStack, useToast } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
+import { Loading } from "components/common/Loading";
 import { FirebaseError } from "firebase/app";
 import { getAuth, sendEmailVerification } from "firebase/auth";
 import { useRouter } from "next/router";
@@ -49,11 +50,7 @@ export const EmailAuthGuardProvider = ({ children }: props) => {
   }, []);
 
   if (auth.currentUser?.emailVerified === false) {
-    return (
-      <VStack spacing="4" width="90%" maxWidth="400px" pt="8" margin="0 auto">
-        <Spinner color="white" size="xl" />
-      </VStack>
-    );
+    return <Loading />;
   }
 
   return <>{children}</>;
