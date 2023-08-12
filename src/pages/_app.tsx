@@ -8,7 +8,7 @@ import "styles/globals.scss";
 initializeFirebaseApp();
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ChakraProvider toastOptions={{ defaultOptions: { position: "top" } }}>
+    <ChakraProvider toastOptions={{ defaultOptions: { position: "top", duration: 3000 } }}>
       <AuthProvider>
         <LayoutProvider>
           <Component {...pageProps} />

@@ -4,6 +4,7 @@ import { ChangePassword } from "components/mypage/ChangePassword";
 import { MypageMenuProvider } from "components/mypage/MypageMenuProvider";
 import { useAuthGuard } from "hooks/useAuthGuard";
 import { useIsMobile } from "hooks/useIsMobile";
+import { useRouter } from "next/router";
 
 export default function () {
   const isMobile = useIsMobile();

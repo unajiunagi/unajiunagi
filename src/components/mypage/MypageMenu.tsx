@@ -1,8 +1,9 @@
 import { Link, LinkProps } from "@chakra-ui/next-js";
-import { Card, CardBody, HStack, Spacer, Stack, StackDivider, Text } from "@chakra-ui/react";
+import { Avatar, Card, CardBody, HStack, Heading, Spacer, Stack, StackDivider, Text } from "@chakra-ui/react";
+import { ChangeCreaterModeButton } from "components/mypage/ChangeCreaterModeButton";
+import { useAuthContext } from "components/provider/AuthProvider";
 import { useCreaterMode } from "hooks/useCreaterMode";
 import { ReactNode } from "react";
-import { ChangeCreaterModeButton } from "components/mypage/ChangeCreaterModeButton";
 
 type Props = {};
 
@@ -23,10 +24,15 @@ export const CardLink = ({ children, href, ...props }: CardLinkProps & LinkProps
 };
 
 export const MypageMenu = ({}: Props) => {
+  const user = useAuthContext();
   const createrMode = useCreaterMode();
 
   return (
     <Stack width="100%">
+      <HStack>
+        <Avatar size="xl" src={user?.user_metadata.avater_url} />
+        <Heading fontSize="2xl">{user?.user_metadata.name}</Heading>
+      </HStack>
       <Text fontSize="2xl" fontWeight="bold">
         マイページ
       </Text>
