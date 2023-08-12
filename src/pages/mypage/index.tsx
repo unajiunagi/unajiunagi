@@ -1,30 +1,25 @@
-import { Heading, Stack, useBreakpointValue } from "@chakra-ui/react";
-import { DesktopMypage } from "components/mypage/DesktopMypage";
-import { MobileMypage } from "components/mypage/MobileMypage";
-import { AuthGuardProvider } from "components/provider/AuthGuardProvider";
-import { CreaterModeProvider } from "components/provider/CreaterModeProvider";
-import { EmailAuthGuardProvider } from "components/provider/EmailAuthGuardProvider";
-import { useEffect, useState } from "react";
+import { Stack } from "@chakra-ui/react";
+import { ChangeEmail } from "components/mypage/ChangeEmail";
+import { MypageMenu } from "components/mypage/MypageMenu";
+import { MypageMenuProvider } from "components/mypage/MypageMenuProvider";
+import { useAuthGuard } from "hooks/useAuthGuard";
+import { useIsMobile } from "hooks/useIsMobile";
 
 export default function () {
-  const [isMobile, setIsMobile] = useState(false);
-
-  const isMobileBreakpoint = useBreakpointValue({ base: true, lg: false }) as boolean;
-
-  useEffect(() => {
-    setIsMobile(isMobileBreakpoint);
-  }, [isMobileBreakpoint]);
+  const isMobile = useIsMobile();
+  useAuthGuard();
 
   return (
-    <AuthGuardProvider>
-      <EmailAuthGuardProvider>
-        <CreaterModeProvider>
-          <Stack spacing={4} width="90%" margin="auto" pt={4} pb={6}>
-            <Heading fontSize="4xl">マイページ</Heading>
-            {isMobile ? <MobileMypage /> : <DesktopMypage />}
-          </Stack>
-        </CreaterModeProvider>
-      </EmailAuthGuardProvider>
-    </AuthGuardProvider>
+    <>
+      {isMobile ? (
+        <Stack spacing={4} width="90%" margin="auto" pt={4} pb={6}>
+          <MypageMenu />
+        </Stack>
+      ) : (
+        <MypageMenuProvider>
+          <ChangeEmail />
+        </MypageMenuProvider>
+      )}
+    </>
   );
 }

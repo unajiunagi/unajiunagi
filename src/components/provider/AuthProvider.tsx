@@ -1,36 +1,21 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from "react";
-import type { User } from "firebase/auth";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { User } from "@supabase/supabase-js";
+import supabase from "lib/supabase";
+import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 
-export type GlobalAuthState = {
-  user: User | null | undefined;
-};
-const initialState: GlobalAuthState = {
-  user: undefined,
-};
-const AuthContext = createContext<GlobalAuthState>(initialState);
+const AuthContext = createContext<User | null | undefined>(null);
 
 type Props = { children: ReactNode };
 
 export const AuthProvider = ({ children }: Props) => {
-  const [user, setUser] = useState<GlobalAuthState>(initialState);
+  const [user, setUser] = useState<User | null | undefined>(null);
 
   useEffect(() => {
-    try {
-      const auth = getAuth();
-      return onAuthStateChanged(auth, (user) => {
-        setUser({
-          user,
-        });
-      });
-    } catch (error) {
-      setUser(initialState);
-      throw error;
-    }
+    supabase.auth.onAuthStateChange((_, session) => {
+      setUser(session?.user);
+    });
   }, []);
 
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 };
 
 export const useAuthContext = () => useContext(AuthContext);
-

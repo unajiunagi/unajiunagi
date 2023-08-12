@@ -1,9 +1,9 @@
+import { Image } from "@chakra-ui/next-js";
 import { Button, FormControl, FormErrorMessage, FormLabel, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay, Progress, Stack, Text, Textarea, chakra, useDisclosure, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FormFields } from "components/creater/FormFields";
 import { getAuth } from "firebase/auth";
 import { doc, getFirestore } from "firebase/firestore";
-import Image from "next/image";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Upload } from "tus-js-client";
@@ -41,7 +41,8 @@ const schema = zod.object({
 });
 
 export const UploadVideo = () => {
-  const toast = useToast();
+  const errorToast = useToast({ status: "error" });
+  const sucessToast = useToast({ status: "success" });
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [progress, setProgress] = useState<number>(0);
   const [uploadState, setUploadState] = useState<Upload | null>(null);
@@ -74,11 +75,7 @@ export const UploadVideo = () => {
           console.log("sucess");
 
           setProgress(100);
-          toast({
-            title: "動画がアップロードされました",
-            status: "success",
-            position: "top",
-          });
+          sucessToast({            title: "動画がアップロードされました"          });
         },
       });
 
@@ -117,11 +114,7 @@ export const UploadVideo = () => {
       console.log("complete");
     } catch (error) {
       console.log(`error: ${error}`);
-      toast({
-        title: `${error}`,
-        status: "error",
-        position: "top",
-      });
+      errorToast({        title: `${error}`      });
     }
   };
 
@@ -129,11 +122,7 @@ export const UploadVideo = () => {
     console.log("abort");
     try {
       await uploadState?.abort(true);
-      toast({
-        title: "アップロードをキャンセルしました",
-        status: "success",
-        position: "top",
-      });
+    sucessToast({        title: "アップロードをキャンセルしました"      });
       setUploadState(null);
       setProgress(0);
       await fetch("/api/deleteVimeo", {
@@ -144,11 +133,7 @@ export const UploadVideo = () => {
       });
     } catch (error) {
       console.log(`error: ${error}`);
-      toast({
-        title: `${error}`,
-        status: "error",
-        position: "top",
-      });
+    errorToast({        title: `${error}`      });
     }
   };
 

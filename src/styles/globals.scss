@@ -15,3 +15,8 @@ a.chakra-breadcrumb__link:hover,
 span.chakra-breadcrumb__link:hover {
   text-decoration: none;
 }
+
+.imageItem {
+  object-fit: contain;
+  position: relative !important;
+}

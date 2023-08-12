@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 
 module.exports = {
-  reactStrictMode: false,
+  reactStrictMode: true,
   trailingSlash: true,
   // 本番環境でconsoleを削除
   webpack: (config, { isServer }) => {

@@ -1,45 +1,41 @@
-import { Button, FormLabel, Input, Stack, chakra, useToast } from "@chakra-ui/react";
+import { Button, VStack, chakra, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AuthError } from "@supabase/supabase-js";
+import { AuthError } from "@supabase/gotrue-js";
 import { EmailForm } from "components/forms/EmailForm";
-import { useAuthContext } from "components/provider/AuthProvider";
 import supabase from "lib/supabase";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import zod from "zod";
-
-type Props = {};
+import * as zod from "zod";
 
 type FormData = {
   email: string;
+  password: string;
 };
 
 const schema = zod.object({
   email: zod.string().nonempty("メールアドレスを入力してください。").email("正しいメールアドレスを入力してください。"),
 });
 
-export const ChangeEmail = ({}: Props) => {
-  const user = useAuthContext();
+export default function () {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const errorToast = useToast({ status: "error" });
   const sucessToast = useToast({ status: "success" });
-
   const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
-  const onSubmit = async (data: FormData) => {
+  const resetPassword = async (data: FormData) => {
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.updateUser({ email: data.email });
+      const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
+        redirectTo: `${process.env.NEXT_PUBLIC_END_POINT}/auth/setNewPassword`,
+      });
       if (error) throw error;
-      sucessToast({ title: "新しいメールアドレスに「メールアドレス変更の確認」のメールを送信しました。" });
+      sucessToast({ title: "入力したメールアドレスにパスワードをリセットするリンクを送りました。" });
     } catch (error) {
       if (!(error instanceof AuthError)) return;
-
-      if (error.message === "A user with this email address has already been registered") {
-        errorToast({ title: "このメールアドレスは既に使用されています。" });
-      } else if (error.message === "Email rate limit exceeded") {
+      
+      if (error.message === "Email rate limit exceeded") {
         errorToast({ title: "メールリクエストの数が制限を超えています。時間をおいてからやり直してください。" });
       } else {
         errorToast({ title: "エラーが発生しました。通信環境の良いところでやり直してみてください。" });
@@ -50,17 +46,13 @@ export const ChangeEmail = ({}: Props) => {
   };
 
   return (
-    <Stack width={"100%"}>
-      <FormLabel htmlFor="old-email" color="white">
-        現在のメールアドレス
-      </FormLabel>
-      <Input id="old-email" value={user?.email} color="white" />
-      <chakra.form width="100%" onSubmit={handleSubmit(onSubmit)}>
-        <EmailForm formError={formState.errors.email} register={register} id="email" label="新しいメールアドレス" placeholder="メールアドレスが設定されていません。" />
+    <VStack spacing="4" width="90%" maxWidth="400px" pt="8" margin="0 auto">
+      <chakra.form width="100%" onSubmit={handleSubmit(resetPassword)}>
+        <EmailForm formError={formState.errors.email} register={register} id="email" label="Eメール" helperText="入力したメールアドレスにパスワードをリセットするリンクを送ります。" />
         <Button mt="4" colorScheme="blue" width="100%" isLoading={isLoading} type="submit">
-          メールアドレスを変更
+          パスワードをリセット
         </Button>
       </chakra.form>
-    </Stack>
+    </VStack>
   );
-};
+}

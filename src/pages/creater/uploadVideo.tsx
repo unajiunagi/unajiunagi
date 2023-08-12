@@ -1,21 +1,17 @@
 import { BreadcrumbPageBody } from "components/common/BreadcrumbPageBody";
 import { UploadVideo } from "components/creater/UploadVideo";
-import { AuthGuardProvider } from "components/provider/AuthGuardProvider";
-import { CreaterModeGuardProvider } from "components/provider/CreaterModeGuardProvider";
-import { EmailAuthGuardProvider } from "components/provider/EmailAuthGuardProvider";
+import { useAuthGuard } from "hooks/useAuthGuard";
+import { useCreaterModeGuard } from "hooks/useCreaterModeGuard";
 
 export default function () {
+  useAuthGuard();
+  useCreaterModeGuard();
+
   return (
     <>
-      <AuthGuardProvider>
-        <EmailAuthGuardProvider>
-          <CreaterModeGuardProvider>
-            <BreadcrumbPageBody title="作品のアップロード" type="creater" typeText="クリエイターページ">
-              <UploadVideo />
-            </BreadcrumbPageBody>
-          </CreaterModeGuardProvider>
-        </EmailAuthGuardProvider>
-      </AuthGuardProvider>
+      <BreadcrumbPageBody title="作品のアップロード" type="creater" typeText="クリエイターページ">
+        <UploadVideo />
+      </BreadcrumbPageBody>
     </>
   );
 }

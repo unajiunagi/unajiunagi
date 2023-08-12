@@ -10,8 +10,9 @@ export const ChangeCreaterModeButton = ({}: Props) => {
   const user = getAuth().currentUser;
   const db = getFirestore();
   const uid = user?.uid!;
-  const toast = useToast();
-  const router = useRouter();
+  const errorToast = useToast({ status: "error" });
+  const sucessToast = useToast({ status: "success" });
+  const { push } = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -20,18 +21,10 @@ export const ChangeCreaterModeButton = ({}: Props) => {
     try {
       const docRef = doc(db, "users", uid);
       await setDoc(docRef, { createrMode: true }, { merge: true });
-      toast({
-        title: "アカウントがクリエイターモードに変更されました。",
-        status: "success",
-        position: "top",
-      });
-      router.push("/creater");
+      sucessToast({ title: "アカウントがクリエイターモードに変更されました。" });
+      push("/creater");
     } catch (error) {
-      toast({
-        title: `${error}`,
-        status: "error",
-        position: "top",
-      });
+      errorToast({ title: `${error}` });
     } finally {
       setIsLoading(false);
       onClose();
@@ -42,11 +35,11 @@ export const ChangeCreaterModeButton = ({}: Props) => {
     <>
       <Card bgColor="black">
         <CardBody>
-          <Box as='button' width="100%" textAlign="left" bgColor="black" color="white" fontWeight="bold" fontSize="xl" onClick={onOpen}>
+          <Box as="button" width="100%" textAlign="left" bgColor="black" color="white" fontWeight="bold" fontSize="xl" onClick={onOpen}>
             クリエイターモードへ変更
           </Box>
           <Divider></Divider>
-          <Text color="gray">クリエイターモードは作品の上映や管理など、クリエイターのための機能が開放されるモードです。映画を上映したい方はクリエイターモードする必要があります。</Text>
+          <Text color="gray">クリエイターモードは作品の公開や管理など、クリエイターのための機能が開放されるモードです。作品を公開するためには、クリエイターモードする必要があります。</Text>
         </CardBody>
       </Card>
 

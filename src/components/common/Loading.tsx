@@ -1,12 +1,13 @@
-import { VStack, Spinner } from "@chakra-ui/react";
+import { Spinner, VStack } from "@chakra-ui/react";
+import { useWindowSize } from "hooks/useWindowSize";
 
-type Props = {};
+export const Loading = () => {
+  const [height, width] = useWindowSize();
 
-export const Loading = ({}: Props) => {
   return (
     <>
-      <VStack spacing="4" width="90%" maxWidth="400px" pt="8" margin="0 auto">
-        <Spinner color="white" size="xl" />
+      <VStack spacing="4" minHeight={`${height}px`} minWidth={`${width}px`} pb={16} width="90%" maxWidth="400px" pt="8" margin="0 auto">
+        <Spinner size="xl" color="white" />
       </VStack>
     </>
   );

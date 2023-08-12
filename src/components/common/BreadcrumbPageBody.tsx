@@ -1,6 +1,5 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Stack, VStack } from "@chakra-ui/react";
-import { AuthGuardProvider } from "components/provider/AuthGuardProvider";
-import { EmailAuthGuardProvider } from "components/provider/EmailAuthGuardProvider";
+import { useAuthGuard } from "hooks/useAuthGuard";
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
 import { BsChevronRight } from "react-icons/bs";
@@ -13,33 +12,31 @@ type Props = {
 };
 
 export const BreadcrumbPageBody = ({ children, type, typeText, title }: Props) => {
-  const router = useRouter();
+  const { push } = useRouter();
+  useAuthGuard();
 
   return (
     <>
-      <AuthGuardProvider>
-        <EmailAuthGuardProvider>
-          <Stack width="100%" ml="5%" pt="8">
-            <Breadcrumb spacing="2" separator={<BsChevronRight color="white" />}>
-              <BreadcrumbItem>
-                <BreadcrumbLink
-                  onClick={() => {
-                    router.push(`/${type}`);
-                  }}
-                >
-                  {typeText}
-                </BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbItem isCurrentPage>
-                <BreadcrumbLink>{title}</BreadcrumbLink>
-              </BreadcrumbItem>
-            </Breadcrumb>
-            <VStack spacing="4" width="90%" margin="0 auto">
-              {children}
-            </VStack>
-          </Stack>
-        </EmailAuthGuardProvider>
-      </AuthGuardProvider>
+      <Stack width="100%">
+        <Breadcrumb spacing="2" mb={"4"} separator={<BsChevronRight color="white" />}>
+          <BreadcrumbItem>
+            <BreadcrumbLink
+              onClick={() => {
+                push(`/${type}`);
+              }}
+              fontSize={"xl"}
+            >
+              {typeText}
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbItem isCurrentPage>
+            <BreadcrumbLink fontSize={"xl"}>{title}</BreadcrumbLink>
+          </BreadcrumbItem>
+        </Breadcrumb>
+        <VStack spacing="4" width="100%" margin="0 auto">
+          {children}
+        </VStack>
+      </Stack>
     </>
   );
 };
