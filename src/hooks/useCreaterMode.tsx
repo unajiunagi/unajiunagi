@@ -8,7 +8,7 @@ export const useCreaterMode = () => {
 
   useEffect(() => {
     // サインインしていないならcreaterModeをfalseに設定
-    if (!user === undefined) setCreaterMode(false);
+    if (!user === null) setCreaterMode(false);
     // サインインしていない、もしくは状態を確認中なら何もしない
     if (!user) return;
 

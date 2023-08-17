@@ -1,15 +1,12 @@
 import { Box, Button, Card, CardBody, Divider, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, useToast } from "@chakra-ui/react";
-import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 import { AuthError } from "@supabase/supabase-js";
-import { useAuthContext } from "components/provider/AuthProvider";
+import supabaseClient from "lib/supabaseClient";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { Database } from "../../../schema";
 
 type Props = {};
 
 export const ChangeCreaterModeButton = ({}: Props) => {
-  const supabaseClient = createPagesBrowserClient<Database>();
   const errorToast = useToast({ status: "error" });
   const sucessToast = useToast({ status: "success" });
   const { push } = useRouter();

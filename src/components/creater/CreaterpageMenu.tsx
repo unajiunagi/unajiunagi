@@ -1,11 +1,11 @@
 import { Card, CardBody, HStack, Heading, Stack, StackDivider, Text } from "@chakra-ui/react";
+import { useUser } from "@supabase/auth-helpers-react";
 import { CardLink } from "components/mypage/MypageMenu";
-import { useAuthContext } from "components/provider/AuthProvider";
 
 type Props = {};
 
 export const CreaterpageMenu = ({}: Props) => {
-  const user = useAuthContext();
+  const user = useUser();
 
   return (
     <Stack width="100%">

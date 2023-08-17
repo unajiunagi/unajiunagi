@@ -1,12 +1,11 @@
 import { Button, Stack, chakra, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 import { AuthError } from "@supabase/supabase-js";
 import { PassForm } from "components/forms/PassForm";
+import supabaseClient from "lib/supabaseClient";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import zod from "zod";
-import { Database } from "../../../schema";
 
 type Props = {};
 
@@ -43,7 +42,6 @@ const schema = zod
   });
 
 export const ChangePassword = ({}: Props) => {
-  const supabaseClient = createPagesBrowserClient<Database>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const errorToast = useToast({ status: "error" });
   const sucessToast = useToast({ status: "success" });

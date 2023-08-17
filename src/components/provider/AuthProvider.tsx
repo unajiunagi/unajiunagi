@@ -1,5 +1,5 @@
-import { useUser } from "@supabase/auth-helpers-react";
 import { User } from "@supabase/supabase-js";
+import supabaseClient from "lib/supabaseClient";
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext<User | null | undefined>(null);
@@ -7,33 +7,17 @@ const AuthContext = createContext<User | null | undefined>(null);
 type Props = { children: ReactNode };
 
 export const AuthProvider = ({ children }: Props) => {
-  const userData = useUser();
-  const [user, setUser] = useState<User | null | undefined>(null);
+  const [user, setUser] = useState<User | null | undefined>(undefined);
 
   useEffect(() => {
-    if (userData) {
-      setUser(userData);
-    } else {
-      setUser(undefined)
-    }
-    //   supabase.auth.onAuthStateChange((event, _session) => {
-    //     console.log(`event: ${event}`);
-    //     console.log(`_session: ${_session}`);
-    //     setUser(_session?.user);
-    //   });
-    //   // (async () => {
-    //   //   // const {
-    //   //   //   data: { session },
-    //   //   // } = await supabase.auth.getSession();
-    //   //   const {
-    //   //     data: { session },
-    //   //   } = await supabase.auth.refreshSession();
-    //   //   console.log(`session: ${session}`);
-    //   //   setUser(session?.user);
-    //   // })();
+    supabaseClient.auth.onAuthStateChange((_, session) => {
+      if (session) {
+        setUser(session?.user);
+      } else {
+        setUser(null);
+      }
+    });
   }, []);
-
-  // console.log(`user: ${user}`);
 
   return <AuthContext.Provider value={user}>{children}</AuthContext.Provider>;
 };

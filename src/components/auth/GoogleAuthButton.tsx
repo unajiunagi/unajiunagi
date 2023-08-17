@@ -1,22 +1,23 @@
 import { Button, useToast } from "@chakra-ui/react";
-import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
+import { AuthError } from "@supabase/supabase-js";
+import supabaseClient from "lib/supabaseClient";
 import { FcGoogle } from "react-icons/fc";
-import { Database } from "../../../schema";
 
 type Props = {};
 
 export const GoogleAuthButton = ({}: Props) => {
-  const supabaseClient = createPagesBrowserClient<Database>();
   const errorToast = useToast({ status: "error" });
   const sucessToast = useToast({ status: "success" });
   const googleAuth = async () => {
-    // const provider = new GoogleAuthProvider();
     try {
-      await supabaseClient.auth.signInWithOAuth({
+      const { error } = await supabaseClient.auth.signInWithOAuth({
         provider: "google",
       });
-      sucessToast({ title: "ログインしました。" });
+      if (error) throw error;
+      sucessToast({ title: "サインインしました。" });
     } catch (error) {
+      if (!(error instanceof AuthError)) return;
+
       errorToast({ title: "エラーが発生しました。通信環境の良いところでやり直してみてください。" });
     }
   };

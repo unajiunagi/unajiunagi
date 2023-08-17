@@ -1,7 +1,7 @@
 import { Link, LinkProps } from "@chakra-ui/next-js";
-import { Avatar, Card, CardBody, HStack, Heading, Spacer, Stack, StackDivider, Text } from "@chakra-ui/react";
+import { Card, CardBody, HStack, Heading, Spacer, Stack, StackDivider, Text } from "@chakra-ui/react";
+import { useUser } from "@supabase/auth-helpers-react";
 import { ChangeCreaterModeButton } from "components/mypage/ChangeCreaterModeButton";
-import { useAuthContext } from "components/provider/AuthProvider";
 import { useCreaterMode } from "hooks/useCreaterMode";
 import { ReactNode } from "react";
 
@@ -24,7 +24,7 @@ export const CardLink = ({ children, href, ...props }: CardLinkProps & LinkProps
 };
 
 export const MypageMenu = ({}: Props) => {
-  const user = useAuthContext();
+  const user = useUser();
   const createrMode = useCreaterMode();
 
   return (

@@ -1,5 +1,4 @@
 import { useToast } from "@chakra-ui/toast";
-import { Loading } from "components/common/Loading";
 import { useAuthContext } from "components/provider/AuthProvider";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -11,7 +10,7 @@ export const useAuthGuard = () => {
 
   useEffect(() => {
     //サインイン確認中、またはサインインしている状態ならreturn
-    if (user === null || user) {
+    if (user === undefined || user) {
       return;
       //サインインしていないならリダイレクト
     } else {
@@ -19,8 +18,4 @@ export const useAuthGuard = () => {
       infoToast({ title: "サインインが必要です。" });
     }
   }, [user]);
-
-  if (user === null) {
-    return <Loading />;
-  }
 };

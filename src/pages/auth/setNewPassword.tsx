@@ -1,13 +1,12 @@
 import { Button, VStack, chakra, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 import { AuthError } from "@supabase/gotrue-js";
 import { PassForm } from "components/forms/PassForm";
+import supabaseClient from "lib/supabaseClient";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import zod from "zod";
-import { Database } from "../../../schema";
 
 type FormData = {
   password: string;
@@ -42,7 +41,6 @@ const schema = zod
   });
 
 export default function () {
-  const supabaseClient = createPagesBrowserClient<Database>();
   const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: zodResolver(schema),
   });

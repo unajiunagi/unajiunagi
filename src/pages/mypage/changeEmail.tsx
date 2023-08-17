@@ -7,7 +7,7 @@ import { useIsMobile } from "hooks/useIsMobile";
 
 export default function () {
   const isMobile = useIsMobile();
-  // useAuthGuard();
+  useAuthGuard();
 
   return (
     <>

@@ -1,13 +1,12 @@
 import { Button, FormLabel, Input, Stack, chakra, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
+import { useUser } from "@supabase/auth-helpers-react";
 import { AuthError } from "@supabase/supabase-js";
 import { EmailForm } from "components/forms/EmailForm";
-import { useAuthContext } from "components/provider/AuthProvider";
+import supabaseClient from "lib/supabaseClient";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import zod from "zod";
-import { Database } from "../../../schema";
 
 type Props = {};
 
@@ -20,8 +19,7 @@ const schema = zod.object({
 });
 
 export const ChangeEmail = ({}: Props) => {
-  const supabaseClient = createPagesBrowserClient<Database>();
-  const user = useAuthContext();
+  const user = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const errorToast = useToast({ status: "error" });
   const sucessToast = useToast({ status: "success" });

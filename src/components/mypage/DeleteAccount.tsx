@@ -1,35 +1,20 @@
 import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, useDisclosure, useToast } from "@chakra-ui/react";
-import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
+import { useUser } from "@supabase/auth-helpers-react";
 import { AuthError } from "@supabase/supabase-js";
 import axios from "axios";
-import { useAuthContext } from "components/provider/AuthProvider";
+import supabaseClient from "lib/supabaseClient";
 import { useRouter } from "next/router";
 import { useRef } from "react";
-import { Database } from "../../../schema";
 
 type Props = {};
 
-// type FormData = {
-//   password: string;
-// };
-
-// const schema = zod.object({
-//   password: zod.string().nonempty("パスワードを入力してください。"),
-// });
-
 export const DeleteAccount = ({}: Props) => {
-  const supabaseClient = createPagesBrowserClient<Database>();
-  const user = useAuthContext();
+  const user = useUser();
   const errorToast = useToast({ status: "error" });
   const sucessToast = useToast({ status: "success" });
   const { push } = useRouter();
-  // const [isLoading, setIsLoading] = useState<boolean>(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef<HTMLButtonElement>(null);
-
-  // const { register, handleSubmit, formState } = useForm<FormData>({
-  //   resolver: zodResolver(schema),
-  // });
 
   const deleteAccount = async () => {
     try {
@@ -50,19 +35,9 @@ export const DeleteAccount = ({}: Props) => {
 
   return (
     <>
-      {/* <chakra.form width="100%" onSubmit={handleSubmit(onSubmit)}>
-        <FormControl isInvalid={!!formState.errors.password}>
-          <FormLabel htmlFor="password" color="white">
-            パスワード
-          </FormLabel>
-          <Input id="password" type="password" {...register("password")} color="white" />
-          <FormHelperText>アカウントを削除するにはパスワードを入力してください。</FormHelperText>
-          <FormErrorMessage>{formState.errors.password?.message}</FormErrorMessage>
-        </FormControl> */}
       <Button mt="4" colorScheme="red" width="100%" onClick={onOpen}>
         アカウントの削除
       </Button>
-      {/* </chakra.form> */}
 
       <AlertDialog isOpen={isOpen} leastDestructiveRef={cancelRef} onClose={onClose}>
         <AlertDialogOverlay>
