@@ -1,11 +1,12 @@
 import { Button, VStack, chakra, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 import { AuthError } from "@supabase/gotrue-js";
 import { EmailForm } from "components/forms/EmailForm";
-import supabase from "lib/supabase";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import * as zod from "zod";
+import { Database } from "../../../schema";
 
 type FormData = {
   email: string;
@@ -17,6 +18,7 @@ const schema = zod.object({
 });
 
 export default function () {
+  const supabaseClient = createPagesBrowserClient<Database>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const errorToast = useToast({ status: "error" });
   const sucessToast = useToast({ status: "success" });
@@ -27,14 +29,14 @@ export default function () {
   const resetPassword = async (data: FormData) => {
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.resetPasswordForEmail(data.email, {
-        redirectTo: `${process.env.NEXT_PUBLIC_END_POINT}/auth/setNewPassword`,
+      const { error } = await supabaseClient.auth.resetPasswordForEmail(data.email, {
+        redirectTo: `${process.env.NEXT_PUBLIC_END_POINT}/api/auth/callback`,
       });
       if (error) throw error;
       sucessToast({ title: "入力したメールアドレスにパスワードをリセットするリンクを送りました。" });
     } catch (error) {
       if (!(error instanceof AuthError)) return;
-      
+
       if (error.message === "Email rate limit exceeded") {
         errorToast({ title: "メールリクエストの数が制限を超えています。時間をおいてからやり直してください。" });
       } else {

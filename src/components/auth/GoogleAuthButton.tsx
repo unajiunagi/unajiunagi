@@ -1,18 +1,18 @@
 import { Button, useToast } from "@chakra-ui/react";
-import { getAuth } from "firebase/auth";
-import supabase from "lib/supabase";
+import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 import { FcGoogle } from "react-icons/fc";
+import { Database } from "../../../schema";
 
 type Props = {};
 
 export const GoogleAuthButton = ({}: Props) => {
+  const supabaseClient = createPagesBrowserClient<Database>();
   const errorToast = useToast({ status: "error" });
   const sucessToast = useToast({ status: "success" });
-  const auth = getAuth();
   const googleAuth = async () => {
     // const provider = new GoogleAuthProvider();
     try {
-      await supabase.auth.signInWithOAuth({
+      await supabaseClient.auth.signInWithOAuth({
         provider: "google",
       });
       sucessToast({ title: "ログインしました。" });

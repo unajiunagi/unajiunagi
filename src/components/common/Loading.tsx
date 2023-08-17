@@ -6,7 +6,7 @@ export const Loading = () => {
 
   return (
     <>
-      <VStack spacing="4" minHeight={`${height}px`} minWidth={`${width}px`} pb={16} width="90%" maxWidth="400px" pt="8" margin="0 auto">
+      <VStack spacing="4" minHeight={`${height}px`} minWidth={`${width}px`} pb={16} width="90%" maxWidth="400px" pt="8" margin="0 auto" backgroundColor='black' >
         <Spinner size="xl" color="white" />
       </VStack>
     </>

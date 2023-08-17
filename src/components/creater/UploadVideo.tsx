@@ -1,9 +1,5 @@
-import { Image } from "@chakra-ui/next-js";
-import { Button, FormControl, FormErrorMessage, FormLabel, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay, Progress, Stack, Text, Textarea, chakra, useDisclosure, useToast } from "@chakra-ui/react";
+import { Button, Input, Progress, Stack, Text, useDisclosure, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormFields } from "components/creater/FormFields";
-import { getAuth } from "firebase/auth";
-import { doc, getFirestore } from "firebase/firestore";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Upload } from "tus-js-client";
@@ -12,8 +8,8 @@ import zod from "zod";
 export type FormData = {
   title: string;
   description: string;
-  birthyear: string;
-  running_minutes: string;
+  birth_year: string;
+  running_time: string;
   casts: string[];
   directors: string[];
   screen_writers: string[];
@@ -31,8 +27,8 @@ export type FormData = {
 const schema = zod.object({
   title: zod.string().nonempty("タイトルを入力してください。"),
   description: zod.string().nonempty("あらすじを入力してください。"),
-  birthyear: zod.string().nonempty("公開年を入力してください。"),
-  running_minutes: zod.string().nonempty("上映時間を入力してください。"),
+  birth_year: zod.string().nonempty("公開年を入力してください。"),
+  running_time: zod.string().nonempty("上映時間を入力してください。"),
   uploadImg: zod
     .custom<FileList>()
     .refine((file) => file.length !== 0, { message: "必須です" })
@@ -75,7 +71,7 @@ export const UploadVideo = () => {
           console.log("sucess");
 
           setProgress(100);
-          sucessToast({            title: "動画がアップロードされました"          });
+          sucessToast({ title: "動画がアップロードされました" });
         },
       });
 
@@ -114,7 +110,7 @@ export const UploadVideo = () => {
       console.log("complete");
     } catch (error) {
       console.log(`error: ${error}`);
-      errorToast({        title: `${error}`      });
+      errorToast({ title: `${error}` });
     }
   };
 
@@ -122,7 +118,7 @@ export const UploadVideo = () => {
     console.log("abort");
     try {
       await uploadState?.abort(true);
-    sucessToast({        title: "アップロードをキャンセルしました"      });
+      sucessToast({ title: "アップロードをキャンセルしました" });
       setUploadState(null);
       setProgress(0);
       await fetch("/api/deleteVimeo", {
@@ -133,21 +129,14 @@ export const UploadVideo = () => {
       });
     } catch (error) {
       console.log(`error: ${error}`);
-    errorToast({        title: `${error}`      });
+      errorToast({ title: `${error}` });
     }
   };
 
   const showImg = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files) return;
-    const file = event.target.files[0]
-    setIsImgUploded(window.URL.createObjectURL(file))
-  };
-
-  const storeData = (data: FormData) => {
-    const user = getAuth().currentUser;
-    const db = getFirestore();
-    const uid = user?.uid!;
-    const docRef = doc(db, "movies", uid);
+    const file = event.target.files[0];
+    setIsImgUploded(window.URL.createObjectURL(file));
   };
 
   return (
@@ -164,7 +153,7 @@ export const UploadVideo = () => {
         </Button>
       )}
 
-      <Button onClick={onOpen} colorScheme="blue">
+      {/* <Button onClick={onOpen} colorScheme="blue">
         Open Modal
       </Button>
       <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
@@ -186,19 +175,19 @@ export const UploadVideo = () => {
                 <Textarea id="description" {...register("description")} color="white" />
                 <FormErrorMessage>{formState.errors.description?.message}</FormErrorMessage>
               </FormControl>
-              <FormControl isInvalid={!!formState.errors.birthyear}>
-                <FormLabel htmlFor="birthyear" color="white">
+              <FormControl isInvalid={!!formState.errors.birth_year}>
+                <FormLabel htmlFor="birth_year" color="white">
                   公開年(西暦)
                 </FormLabel>
-                <Input id="birthyear" type="number" {...register("birthyear")} color="white" />
-                <FormErrorMessage>{formState.errors.birthyear?.message}</FormErrorMessage>
+                <Input id="birth_year" type="number" {...register("birth_year")} color="white" />
+                <FormErrorMessage>{formState.errors.birth_year?.message}</FormErrorMessage>
               </FormControl>
-              <FormControl isInvalid={!!formState.errors.running_minutes}>
-                <FormLabel htmlFor="running_minutes" color="white">
+              <FormControl isInvalid={!!formState.errors.running_time}>
+                <FormLabel htmlFor="running_time" color="white">
                   上映時間
                 </FormLabel>
-                <Input id="running_minutes" type="text" {...register("running_minutes")} color="white" />
-                <FormErrorMessage>{formState.errors.running_minutes?.message}</FormErrorMessage>
+                <Input id="running_time" type="text" {...register("running_time")} color="white" />
+                <FormErrorMessage>{formState.errors.running_time?.message}</FormErrorMessage>
               </FormControl>
               <FormLabel color="white">スタッフ</FormLabel>
               <FormFields roles={formState.errors.directors} roleName="directors" labelName="監督" register={register} />
@@ -230,7 +219,7 @@ export const UploadVideo = () => {
             </ModalFooter>
           </chakra.form>
         </ModalContent>
-      </Modal>
+      </Modal> */}
     </Stack>
   );
 };

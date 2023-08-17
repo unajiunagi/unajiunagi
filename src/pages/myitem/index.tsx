@@ -3,7 +3,7 @@ import { Thumbnail } from "components/common/Thumbnail";
 import { useAuthGuard } from "hooks/useAuthGuard";
 
 export default function () {
-  useAuthGuard();
+  // useAuthGuard();
 
   const org = [1, 2, 3, 4, 5, 6, 7, 8];
   return (

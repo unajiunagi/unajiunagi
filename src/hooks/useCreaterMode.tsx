@@ -1,5 +1,4 @@
 import { useAuthContext } from "components/provider/AuthProvider";
-import supabase from "lib/supabase";
 import { useEffect, useState } from "react";
 
 export const useCreaterMode = () => {
@@ -13,8 +12,8 @@ export const useCreaterMode = () => {
     // サインインしていない、もしくは状態を確認中なら何もしない
     if (!user) return;
 
-    const mode: boolean = user.user_metadata.createrMode
-    setCreaterMode(mode)
+    const mode: boolean = user.user_metadata.createrMode;
+    setCreaterMode(mode);
 
     // const getData = async () => {
     //   try {

@@ -1,12 +1,13 @@
 import { Button, FormLabel, Input, Stack, chakra, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 import { AuthError } from "@supabase/supabase-js";
 import { EmailForm } from "components/forms/EmailForm";
 import { useAuthContext } from "components/provider/AuthProvider";
-import supabase from "lib/supabase";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import zod from "zod";
+import { Database } from "../../../schema";
 
 type Props = {};
 
@@ -19,6 +20,7 @@ const schema = zod.object({
 });
 
 export const ChangeEmail = ({}: Props) => {
+  const supabaseClient = createPagesBrowserClient<Database>();
   const user = useAuthContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const errorToast = useToast({ status: "error" });
@@ -31,7 +33,7 @@ export const ChangeEmail = ({}: Props) => {
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.updateUser({ email: data.email });
+      const { error } = await supabaseClient.auth.updateUser({ email: data.email });
       if (error) throw error;
       sucessToast({ title: "新しいメールアドレスに「メールアドレス変更の確認」のメールを送信しました。" });
     } catch (error) {

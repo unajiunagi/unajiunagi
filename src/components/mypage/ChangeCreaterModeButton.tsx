@@ -1,15 +1,15 @@
 import { Box, Button, Card, CardBody, Divider, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, useToast } from "@chakra-ui/react";
-import { getAuth } from "firebase/auth";
-import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
+import { AuthError } from "@supabase/supabase-js";
+import { useAuthContext } from "components/provider/AuthProvider";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { Database } from "../../../schema";
 
 type Props = {};
 
 export const ChangeCreaterModeButton = ({}: Props) => {
-  const user = getAuth().currentUser;
-  const db = getFirestore();
-  const uid = user?.uid!;
+  const supabaseClient = createPagesBrowserClient<Database>();
   const errorToast = useToast({ status: "error" });
   const sucessToast = useToast({ status: "success" });
   const { push } = useRouter();
@@ -19,12 +19,17 @@ export const ChangeCreaterModeButton = ({}: Props) => {
   const changeCreaterMode = async () => {
     setIsLoading(true);
     try {
-      const docRef = doc(db, "users", uid);
-      await setDoc(docRef, { createrMode: true }, { merge: true });
+      const { data, error } = await supabaseClient.from("works").select();
+      if (error) return error;
+      console.log(data);
+
       sucessToast({ title: "アカウントがクリエイターモードに変更されました。" });
       push("/creater");
     } catch (error) {
-      errorToast({ title: `${error}` });
+      if (!(error instanceof AuthError)) return;
+      console.log(error.message);
+
+      errorToast({ title: `${error.message}` });
     } finally {
       setIsLoading(false);
       onClose();
@@ -49,7 +54,6 @@ export const ChangeCreaterModeButton = ({}: Props) => {
           <ModalHeader>Modal Title</ModalHeader>
           <ModalCloseButton />
           <ModalBody>一度クリエイターモードに変更すると通常アカウントに戻すことは出来ません。クリエイターモードに変更してよろしいですか？</ModalBody>
-
           <ModalFooter>
             <Button colorScheme="blackAlpha" mr={3} onClick={onClose}>
               キャンセル

@@ -1,13 +1,15 @@
 import { Button, MenuItem, useToast } from "@chakra-ui/react";
+import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 import { HeaderMenuItem } from "components/header/HeaderMenuItem";
 import { useAuthContext } from "components/provider/AuthProvider";
-import supabase from "lib/supabase";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { Database } from "../../../schema";
 
 type Props = {};
 
 export const HeaderMenuSigninButton = ({}: Props) => {
+  const supabaseClient = createPagesBrowserClient<Database>();
   const user = useAuthContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const errorToast = useToast({ status: "error" });
@@ -17,7 +19,7 @@ export const HeaderMenuSigninButton = ({}: Props) => {
   const handleSignOut = async () => {
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.signOut();
+      const { error } = await supabaseClient.auth.signOut();
       if (error) throw error;
       sucessToast({ title: "サインアウトしました。" });
       push("/");

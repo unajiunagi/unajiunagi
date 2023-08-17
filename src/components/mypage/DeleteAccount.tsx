@@ -1,10 +1,11 @@
 import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, useDisclosure, useToast } from "@chakra-ui/react";
+import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 import { AuthError } from "@supabase/supabase-js";
 import axios from "axios";
 import { useAuthContext } from "components/provider/AuthProvider";
-import supabase from "lib/supabase";
-import router, { useRouter } from "next/router";
+import { useRouter } from "next/router";
 import { useRef } from "react";
+import { Database } from "../../../schema";
 
 type Props = {};
 
@@ -17,6 +18,7 @@ type Props = {};
 // });
 
 export const DeleteAccount = ({}: Props) => {
+  const supabaseClient = createPagesBrowserClient<Database>();
   const user = useAuthContext();
   const errorToast = useToast({ status: "error" });
   const sucessToast = useToast({ status: "success" });
@@ -32,7 +34,7 @@ export const DeleteAccount = ({}: Props) => {
   const deleteAccount = async () => {
     try {
       await axios.post("/api/deleteUser", { id: user?.id });
-      const { error } = await supabase.auth.signOut();
+      const { error } = await supabaseClient.auth.signOut();
       if (error) throw error;
       sucessToast({ title: "アカウントを削除しました。" });
       push("/");

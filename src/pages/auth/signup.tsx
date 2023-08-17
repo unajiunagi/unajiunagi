@@ -1,14 +1,15 @@
 import { Link } from "@chakra-ui/next-js";
 import { Button, Divider, Text, VStack, chakra, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
 import { AuthError } from "@supabase/gotrue-js";
 import { GoogleAuthButton } from "components/auth/GoogleAuthButton";
 import { EmailForm } from "components/forms/EmailForm";
 import { PassForm } from "components/forms/PassForm";
-import supabase from "lib/supabase";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import zod from "zod";
+import { Database } from "../../../schema";
 
 type FormData = {
   email: string;
@@ -27,6 +28,7 @@ const schema = zod.object({
 });
 
 export default function () {
+  const supabaseClient = createPagesBrowserClient<Database>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const errorToast = useToast({ status: "error" });
   const sucessToast = useToast({ status: "success" });
@@ -37,7 +39,7 @@ export default function () {
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     try {
-      const { data: authData, error } = await supabase.auth.signUp({
+      const { data: authData, error } = await supabaseClient.auth.signUp({
         email: data.email,
         password: data.password,
         options: {

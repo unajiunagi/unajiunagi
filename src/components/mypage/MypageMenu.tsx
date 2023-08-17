@@ -30,7 +30,7 @@ export const MypageMenu = ({}: Props) => {
   return (
     <Stack width="100%">
       <HStack>
-        <Avatar size="xl" src={user?.user_metadata.avater_url} />
+        {/* <Avatar size="xl" src={user?.user_metadata.avater_url} /> */}
         <Heading fontSize="2xl">{user?.user_metadata.name}</Heading>
       </HStack>
       <Text fontSize="2xl" fontWeight="bold">
