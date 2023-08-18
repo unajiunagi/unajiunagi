@@ -18,9 +18,11 @@ export const DeleteAccount = ({}: Props) => {
 
   const deleteAccount = async () => {
     try {
-      await axios.post("/api/deleteUser", { id: user?.id });
+      console.log("trigger");
+
+      await axios.get(`/api/deleteUser/${user?.id}`);
       const { error } = await supabaseClient.auth.signOut();
-      if (error) throw error;
+      if (error) throw error
       sucessToast({ title: "アカウントを削除しました。" });
       push("/");
     } catch (error) {

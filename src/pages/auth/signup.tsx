@@ -40,11 +40,6 @@ export default function () {
       const { data: authData, error } = await supabaseClient.auth.signUp({
         email: data.email,
         password: data.password,
-        options: {
-          data: {
-            creater_mode: false,
-          },
-        },
       });
       if (error) throw error;
       // 登録されているメールアドレスの場合、空の配列が返ってくる。

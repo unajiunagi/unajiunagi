@@ -6,6 +6,7 @@ import { LayoutProvider } from "components/provider/LayoutProvider";
 import type { AppProps } from "next/app";
 import { useState } from "react";
 import "styles/globals.scss";
+import { SWRConfig } from "swr";
 
 export default function App({
   Component,
@@ -13,16 +14,19 @@ export default function App({
 }: AppProps<{
   initialSession: Session;
 }>) {
+  // supabase/auth-helperの設定
   const [supabaseClient] = useState(() => createPagesBrowserClient());
 
   return (
     <ChakraProvider toastOptions={{ defaultOptions: { position: "top", duration: 3000 } }}>
       <SessionContextProvider supabaseClient={supabaseClient} initialSession={pageProps.initialSession}>
-        <AuthProvider>
-          <LayoutProvider>
-            <Component {...pageProps} />
-          </LayoutProvider>
-        </AuthProvider>
+        <SWRConfig >
+          <AuthProvider>
+            <LayoutProvider>
+              <Component {...pageProps} />
+            </LayoutProvider>
+          </AuthProvider>
+        </SWRConfig>
       </SessionContextProvider>
     </ChakraProvider>
   );
