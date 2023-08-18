@@ -1,15 +1,14 @@
 import { Box, Button, Card, CardBody, Divider, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, useToast } from "@chakra-ui/react";
-import { getAuth } from "firebase/auth";
-import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { useUser } from "@supabase/auth-helpers-react";
+import { AuthError } from "@supabase/supabase-js";
+import supabaseClient from "lib/supabaseClient";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
 type Props = {};
 
 export const ChangeCreaterModeButton = ({}: Props) => {
-  const user = getAuth().currentUser;
-  const db = getFirestore();
-  const uid = user?.uid!;
+  const user = useUser()
   const errorToast = useToast({ status: "error" });
   const sucessToast = useToast({ status: "success" });
   const { push } = useRouter();
@@ -19,12 +18,16 @@ export const ChangeCreaterModeButton = ({}: Props) => {
   const changeCreaterMode = async () => {
     setIsLoading(true);
     try {
-      const docRef = doc(db, "users", uid);
-      await setDoc(docRef, { createrMode: true }, { merge: true });
+      if (!user) return
+      const { error } = await supabaseClient.from("users").update({ creater_mode : true }).eq('id', user.id)
+      if (error) return error;
       sucessToast({ title: "アカウントがクリエイターモードに変更されました。" });
       push("/creater");
     } catch (error) {
-      errorToast({ title: `${error}` });
+      if (!(error instanceof AuthError)) return;
+      console.log(error.message);
+
+      errorToast({ title: `${error.message}` });
     } finally {
       setIsLoading(false);
       onClose();
@@ -49,7 +52,6 @@ export const ChangeCreaterModeButton = ({}: Props) => {
           <ModalHeader>Modal Title</ModalHeader>
           <ModalCloseButton />
           <ModalBody>一度クリエイターモードに変更すると通常アカウントに戻すことは出来ません。クリエイターモードに変更してよろしいですか？</ModalBody>
-
           <ModalFooter>
             <Button colorScheme="blackAlpha" mr={3} onClick={onClose}>
               キャンセル

@@ -1,5 +1,5 @@
 import { User } from "@supabase/supabase-js";
-import supabase from "lib/supabase";
+import supabaseClient from "lib/supabaseClient";
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext<User | null | undefined>(null);
@@ -7,11 +7,15 @@ const AuthContext = createContext<User | null | undefined>(null);
 type Props = { children: ReactNode };
 
 export const AuthProvider = ({ children }: Props) => {
-  const [user, setUser] = useState<User | null | undefined>(null);
+  const [user, setUser] = useState<User | null | undefined>(undefined);
 
   useEffect(() => {
-    supabase.auth.onAuthStateChange((_, session) => {
-      setUser(session?.user);
+    supabaseClient.auth.onAuthStateChange((_, session) => {
+      if (session) {
+        setUser(session?.user);
+      } else {
+        setUser(null);
+      }
     });
   }, []);
 

@@ -1,14 +1,14 @@
 import { Button, MenuItem, useToast } from "@chakra-ui/react";
+import { useUser } from "@supabase/auth-helpers-react";
 import { HeaderMenuItem } from "components/header/HeaderMenuItem";
-import { useAuthContext } from "components/provider/AuthProvider";
-import supabase from "lib/supabase";
+import supabaseClient from "lib/supabaseClient";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
 type Props = {};
 
 export const HeaderMenuSigninButton = ({}: Props) => {
-  const user = useAuthContext();
+  const user = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const errorToast = useToast({ status: "error" });
   const sucessToast = useToast({ status: "success" });
@@ -17,7 +17,7 @@ export const HeaderMenuSigninButton = ({}: Props) => {
   const handleSignOut = async () => {
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.signOut();
+      const { error } = await supabaseClient.auth.signOut();
       if (error) throw error;
       sucessToast({ title: "サインアウトしました。" });
       push("/");

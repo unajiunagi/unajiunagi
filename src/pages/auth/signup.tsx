@@ -5,7 +5,7 @@ import { AuthError } from "@supabase/gotrue-js";
 import { GoogleAuthButton } from "components/auth/GoogleAuthButton";
 import { EmailForm } from "components/forms/EmailForm";
 import { PassForm } from "components/forms/PassForm";
-import supabase from "lib/supabase";
+import supabaseClient from "lib/supabaseClient";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import zod from "zod";
@@ -37,14 +37,9 @@ export default function () {
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     try {
-      const { data: authData, error } = await supabase.auth.signUp({
+      const { data: authData, error } = await supabaseClient.auth.signUp({
         email: data.email,
         password: data.password,
-        options: {
-          data: {
-            creater_mode: false,
-          },
-        },
       });
       if (error) throw error;
       // 登録されているメールアドレスの場合、空の配列が返ってくる。

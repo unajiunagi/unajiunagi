@@ -2,7 +2,7 @@ import { Button, Stack, chakra, useToast } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthError } from "@supabase/supabase-js";
 import { PassForm } from "components/forms/PassForm";
-import supabase from "lib/supabase";
+import supabaseClient from "lib/supabaseClient";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import zod from "zod";
@@ -52,7 +52,7 @@ export const ChangePassword = ({}: Props) => {
   const onSubmit = async (data: FormData) => {
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.updateUser({ password: data.newPassword });
+      const { error } = await supabaseClient.auth.updateUser({ password: data.newPassword });
       if (error) throw error;
       sucessToast({ title: "パスワードを変更しました。" });
     } catch (error) {

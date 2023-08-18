@@ -5,7 +5,7 @@ import { AuthError } from "@supabase/gotrue-js";
 import { GoogleAuthButton } from "components/auth/GoogleAuthButton";
 import { EmailForm } from "components/forms/EmailForm";
 import { PassForm } from "components/forms/PassForm";
-import supabase from "lib/supabase";
+import supabaseClient from "lib/supabaseClient";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -31,9 +31,10 @@ export default function () {
   });
 
   const onSubmit = async (data: FormData) => {
+    6;
     setIsLoading(true);
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error } = await supabaseClient.auth.signInWithPassword({
         email: data.email,
         password: data.password,
       });
@@ -59,7 +60,7 @@ export default function () {
 
   const sendEmail = async (data: FormData) => {
     try {
-      const { error } = await supabase.auth.signInWithOtp({
+      const { error } = await supabaseClient.auth.signInWithOtp({
         email: data.email,
       });
       if (error) throw error;
