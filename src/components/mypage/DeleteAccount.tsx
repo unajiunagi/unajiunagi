@@ -1,8 +1,9 @@
-import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, useDisclosure, useToast } from "@chakra-ui/react";
+import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, useDisclosure } from "@chakra-ui/react";
 import { useUser } from "@supabase/auth-helpers-react";
 import { AuthError } from "@supabase/supabase-js";
 import axios from "axios";
-import supabaseClient from "lib/supabaseClient";
+import { useToasts } from "hooks/useToasts";
+import supabaseClient from "lib/supabase/supabaseClient";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 
@@ -10,8 +11,7 @@ type Props = {};
 
 export const DeleteAccount = ({}: Props) => {
   const user = useUser();
-  const errorToast = useToast({ status: "error" });
-  const sucessToast = useToast({ status: "success" });
+  const { sucessToast, errorToast } = useToasts();
   const { push } = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef<HTMLButtonElement>(null);
@@ -20,9 +20,9 @@ export const DeleteAccount = ({}: Props) => {
     try {
       console.log("trigger");
 
-      await axios.get(`/api/deleteUser/${user?.id}`);
+      await axios.get(`/api/auth/deleteUser/${user?.id}`);
       const { error } = await supabaseClient.auth.signOut();
-      if (error) throw error
+      if (error) throw error;
       sucessToast({ title: "アカウントを削除しました。" });
       push("/");
     } catch (error) {

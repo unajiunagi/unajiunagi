@@ -10,7 +10,7 @@ type Props = {
   helperText?: string;
 };
 
-export const TextForm = ({ formError, register, id, label, placeholder = '', helperText }: Props) => {
+export const NumberForm = ({ formError, register, id, label, placeholder = "", helperText }: Props) => {
   return (
     <FormControl isInvalid={!!formError}>
       {label && (
@@ -18,7 +18,7 @@ export const TextForm = ({ formError, register, id, label, placeholder = '', hel
           {label}
         </FormLabel>
       )}
-      <Input id={id} type="text" placeholder={placeholder} {...register(id)} color="white" />
+      <Input id={id} type="number" placeholder={placeholder} {...register(id)} color="white" />
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
       <FormErrorMessage>{formError?.message}</FormErrorMessage>
     </FormControl>

@@ -1,8 +1,9 @@
-import { Button, VStack, chakra, useToast } from "@chakra-ui/react";
+import { Button, VStack, chakra } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthError } from "@supabase/gotrue-js";
 import { PassForm } from "components/forms/PassForm";
-import supabaseClient from "lib/supabaseClient";
+import { useToasts } from "hooks/useToasts";
+import supabaseClient from "lib/supabase/supabaseClient";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -44,8 +45,7 @@ export default function () {
   const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
-  const errorToast = useToast({ status: "error" });
-  const sucessToast = useToast({ status: "success" });
+  const { sucessToast, errorToast } = useToasts();
   const { replace } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 

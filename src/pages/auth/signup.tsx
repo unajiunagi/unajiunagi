@@ -1,11 +1,12 @@
 import { Link } from "@chakra-ui/next-js";
-import { Button, Divider, Text, VStack, chakra, useToast } from "@chakra-ui/react";
+import { Button, Divider, Text, VStack, chakra } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthError } from "@supabase/gotrue-js";
 import { GoogleAuthButton } from "components/auth/GoogleAuthButton";
 import { EmailForm } from "components/forms/EmailForm";
 import { PassForm } from "components/forms/PassForm";
-import supabaseClient from "lib/supabaseClient";
+import { useToasts } from "hooks/useToasts";
+import supabaseClient from "lib/supabase/supabaseClient";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import zod from "zod";
@@ -28,8 +29,7 @@ const schema = zod.object({
 
 export default function () {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const errorToast = useToast({ status: "error" });
-  const sucessToast = useToast({ status: "success" });
+  const { sucessToast, errorToast } = useToasts();
   const { register, handleSubmit, formState, reset } = useForm<FormData>({
     resolver: zodResolver(schema),
   });

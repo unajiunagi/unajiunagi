@@ -1,7 +1,8 @@
-import { Button, MenuItem, useToast } from "@chakra-ui/react";
+import { Button, MenuItem } from "@chakra-ui/react";
 import { useUser } from "@supabase/auth-helpers-react";
 import { HeaderMenuItem } from "components/header/HeaderMenuItem";
-import supabaseClient from "lib/supabaseClient";
+import { useToasts } from "hooks/useToasts";
+import supabaseClient from "lib/supabase/supabaseClient";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
@@ -10,8 +11,7 @@ type Props = {};
 export const HeaderMenuSigninButton = ({}: Props) => {
   const user = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const errorToast = useToast({ status: "error" });
-  const sucessToast = useToast({ status: "success" });
+  const { sucessToast, errorToast } = useToasts();
   const { push } = useRouter();
 
   const handleSignOut = async () => {

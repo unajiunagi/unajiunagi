@@ -1,5 +1,5 @@
 import { useAuthContext } from "components/provider/AuthProvider";
-import supabaseClient from "lib/supabaseClient";
+import supabaseClient from "lib/supabase/supabaseClient";
 import { useEffect, useState } from "react";
 
 export const useCreaterMode = () => {
@@ -15,14 +15,14 @@ export const useCreaterMode = () => {
 
     (async () => {
       try {
-        const { data, error } = await supabaseClient.from("users").select("creater_mode").eq("id", user?.id).single()
+        const { data, error } = await supabaseClient.from("users").select("creater_mode").eq("id", user?.id).single();
         if (error) throw error;
         setCreaterMode(data.creater_mode);
       } catch (e) {
         console.log(e);
       }
-    }) ()
-  }, [user]);
+    })();
+  }, []);
 
   return createrMode;
 };

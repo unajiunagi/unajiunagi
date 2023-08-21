@@ -1,16 +1,16 @@
 import { Box, Button, Card, CardBody, Divider, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, useToast } from "@chakra-ui/react";
 import { useUser } from "@supabase/auth-helpers-react";
 import { AuthError } from "@supabase/supabase-js";
-import supabaseClient from "lib/supabaseClient";
+import { useToasts } from "hooks/useToasts";
+import supabaseClient from "lib/supabase/supabaseClient";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
 type Props = {};
 
 export const ChangeCreaterModeButton = ({}: Props) => {
-  const user = useUser()
-  const errorToast = useToast({ status: "error" });
-  const sucessToast = useToast({ status: "success" });
+  const user = useUser();
+  const { sucessToast, errorToast } = useToasts();
   const { push } = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -18,8 +18,8 @@ export const ChangeCreaterModeButton = ({}: Props) => {
   const changeCreaterMode = async () => {
     setIsLoading(true);
     try {
-      if (!user) return
-      const { error } = await supabaseClient.from("users").update({ creater_mode : true }).eq('id', user.id)
+      if (!user) return;
+      const { error } = await supabaseClient.from("users").update({ creater_mode: true }).eq("id", user.id);
       if (error) return error;
       sucessToast({ title: "アカウントがクリエイターモードに変更されました。" });
       push("/creater");

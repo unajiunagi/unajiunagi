@@ -1,9 +1,10 @@
-import { Button, FormLabel, Input, Stack, chakra, useToast } from "@chakra-ui/react";
+import { Button, FormLabel, Input, Stack, chakra } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUser } from "@supabase/auth-helpers-react";
 import { AuthError } from "@supabase/supabase-js";
 import { EmailForm } from "components/forms/EmailForm";
-import supabaseClient from "lib/supabaseClient";
+import { useToasts } from "hooks/useToasts";
+import supabaseClient from "lib/supabase/supabaseClient";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import zod from "zod";
@@ -21,8 +22,7 @@ const schema = zod.object({
 export const ChangeEmail = ({}: Props) => {
   const user = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const errorToast = useToast({ status: "error" });
-  const sucessToast = useToast({ status: "success" });
+  const { sucessToast, errorToast } = useToasts();
 
   const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: zodResolver(schema),

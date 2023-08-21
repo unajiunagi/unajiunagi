@@ -1,13 +1,13 @@
 import { Button, useToast } from "@chakra-ui/react";
 import { AuthError } from "@supabase/supabase-js";
-import supabaseClient from "lib/supabaseClient";
+import { useToasts } from "hooks/useToasts";
+import supabaseClient from "lib/supabase/supabaseClient";
 import { FcGoogle } from "react-icons/fc";
 
 type Props = {};
 
 export const GoogleAuthButton = ({}: Props) => {
-  const errorToast = useToast({ status: "error" });
-  const sucessToast = useToast({ status: "success" });
+  const { sucessToast, errorToast } = useToasts();
   const googleAuth = async () => {
     try {
       const { error } = await supabaseClient.auth.signInWithOAuth({
