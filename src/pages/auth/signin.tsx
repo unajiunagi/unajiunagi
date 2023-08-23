@@ -12,15 +12,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z} from "zod";
 
-type FormData = {
-  email: string;
-  password: string;
-};
-
 const schema = z.object({
   email: z.string().nonempty("メールアドレスを入力してください。").email("正しいメールアドレスを入力してください。"),
   password: z.string().nonempty("パスワードを入力してください。"),
 });
+
+type FormData = z.infer<typeof schema>;
 
 export default function () {
   const [isLoading, setIsLoading] = useState<boolean>(false);

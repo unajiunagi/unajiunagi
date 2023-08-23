@@ -6,16 +6,13 @@ import { useToasts } from "hooks/useToasts";
 import supabaseClient from "lib/supabase/supabaseClient";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import * as zod from "zod";
+import { z } from "zod";
 
-type FormData = {
-  email: string;
-  password: string;
-};
-
-const schema = zod.object({
-  email: zod.string().nonempty("メールアドレスを入力してください。").email("正しいメールアドレスを入力してください。"),
+const schema = z.object({
+  email: z.string().nonempty("メールアドレスを入力してください。").email("正しいメールアドレスを入力してください。"),
 });
+
+type FormData = z.infer<typeof schema>;
 
 export default function () {
   const [isLoading, setIsLoading] = useState<boolean>(false);

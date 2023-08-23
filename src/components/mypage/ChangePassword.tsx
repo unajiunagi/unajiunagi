@@ -6,25 +6,20 @@ import { useToasts } from "hooks/useToasts";
 import supabaseClient from "lib/supabase/supabaseClient";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import zod from "zod";
+import { z } from "zod";
 
 type Props = {};
 
-type FormData = {
-  newPassword: string;
-  newPasswordConf: string;
-};
-
-const schema = zod
+const schema = z
   .object({
-    newPassword: zod
+    newPassword: z
       .string()
       .nonempty("パスワードは必須項目です。")
       .min(8, "最低８文字含めてください。")
       .max(32, "32文字以内にしてください。")
       .regex(/^[a-zA-Z0-9-]+$/, "使える文字は大文字と小文字、数字、-(ハイフン)だけです")
       .regex(/^(?=.*?[a-z])(?=.*?\d).+$/, "小文字と数字を必ず含んでください"),
-    newPasswordConf: zod
+    newPasswordConf: z
       .string()
       .nonempty("パスワードは必須項目です。")
       .min(8, "最低８文字含めてください。")
@@ -42,10 +37,12 @@ const schema = zod
     }
   });
 
+  type FormData = z.infer<typeof schema>;
+
 export const ChangePassword = ({}: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { sucessToast, errorToast } = useToasts();
-  
+
   const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: zodResolver(schema),
   });

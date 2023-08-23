@@ -7,23 +7,18 @@ import supabaseClient from "lib/supabase/supabaseClient";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import zod from "zod";
+import { z } from "zod";
 
-type FormData = {
-  password: string;
-  passwordConf: string;
-};
-
-const schema = zod
+const schema = z
   .object({
-    password: zod
+    password: z
       .string()
       .nonempty("パスワードは必須項目です。")
       .min(8, "最低８文字含めてください。")
       .max(32, "32文字以内にしてください。")
       .regex(/^[a-zA-Z0-9-]+$/, "使える文字は大文字と小文字、数字、-(ハイフン)だけです")
       .regex(/^(?=.*?[a-z])(?=.*?\d).+$/, "小文字と数字を必ず含んでください"),
-    passwordConf: zod
+    passwordConf: z
       .string()
       .nonempty("パスワードは必須項目です。")
       .min(8, "最低８文字含めてください。")
@@ -40,6 +35,8 @@ const schema = zod
       });
     }
   });
+
+  type FormData = z.infer<typeof schema>;
 
 export default function () {
   const { register, handleSubmit, formState } = useForm<FormData>({

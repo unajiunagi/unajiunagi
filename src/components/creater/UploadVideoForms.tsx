@@ -1,18 +1,20 @@
-import { Button, FormLabel, ModalBody, ModalFooter, chakra } from "@chakra-ui/react";
+import { Button, FormLabel, ModalBody, ModalFooter, chakra, useBoolean } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useUser } from "@supabase/auth-helpers-react";
+import { UploadThumbnailImg } from "components/creater/UploadThumbnailImg";
+import { UploadVideoComponent } from "components/creater/UploadVideoComponent";
 import { TextArrayForm } from "components/forms/TextArrayForm";
 import { TextForm } from "components/forms/TextForm";
 import { TextareaForm } from "components/forms/TextareaForm";
 import { useToasts } from "hooks/useToasts";
 import supabaseClient from "lib/supabase/supabaseClient";
-import { Dispatch, SetStateAction, useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import useSWR from "swr";
+import { fetcherDefault } from "util/fetcherDefault";
 import { numberForm } from "util/numberForm";
 import { v4 } from "uuid";
 import { z } from "zod";
-import { UploadThumbnailImg } from "./UploadThumbnailImg";
-import { UploadVideoComponent } from "./UploadVideoComponent";
 
 // 配列に空文字の要素があれば削除
 const nonEmptyArrayFilter = (value: string[]) => value.filter((item) => item !== "");
@@ -21,7 +23,7 @@ const schema = z.object({
   title: z.string().nonempty("タイトルを入力してください。"),
   description: z.string().nonempty("あらすじを入力してください。"),
   birth_year: z.string().refine(numberForm, { message: "有効な数字を入力してください。" }),
-  running_time: z.string().refine(numberForm, { message: "有効な数字を入力してください。" }),
+  running_time: z.string().refine(numberForm, { message: "有効な数字を入力してください。" }).default("0"),
   casts: z.array(z.string()).default([]).transform(nonEmptyArrayFilter),
   directors: z.array(z.string()).default([]).transform(nonEmptyArrayFilter),
   writers: z.array(z.string()).default([]).transform(nonEmptyArrayFilter),
@@ -32,29 +34,45 @@ const schema = z.object({
   music_directors: z.array(z.string()).default([]).transform(nonEmptyArrayFilter),
   art_directors: z.array(z.string()).default([]).transform(nonEmptyArrayFilter),
   editors: z.array(z.string()).default([]).transform(nonEmptyArrayFilter),
-  producers: z.array(z.string()).default([]).transform(nonEmptyArrayFilter)``,
+  producers: z.array(z.string()).default([]).transform(nonEmptyArrayFilter),
 });
 
 type FormData = z.infer<typeof schema>;
 
 type Props = {
   onClose: () => void;
-  videoId: string | null;
-  setVideoId: Dispatch<SetStateAction<string | null>>;
+  id: string | null;
 };
 
-export const UploadVideoForms = ({ onClose, videoId, setVideoId }: Props) => {
+export const UploadVideoForms = ({ onClose, id }: Props) => {
   const user = useUser();
+  const [videoId, setVideoId] = useState<string | null>(id);
   const [thumbnailUrl, setThumbnailUrl] = useState<string | null>(null);
-  const [isLoadingSubmit, setIsLoadingSubmit] = useState(false);
-  const [isLoadingCancel, setIsLoadingCancel] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
+  const [isCancel, setIsCancel] = useBoolean(false);
   const { sucessToast, errorToast } = useToasts();
-  const { register, handleSubmit, formState, getValues } = useForm<FormData>({
+  const { data, error } = useSWR(`api/supabase/getVideo/${id}`, fetcherDefault);
+
+  const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
 
+  useEffect(() => {
+    // const getVideoData = async () => {
+    //   if (videoId) {
+    //     const { data, error } = await supabaseClient.from("videos").select("*").eq("id", videoId).single();
+    //     if (error) throw error;
+    //     if (data) {
+    //       setThumbnailUrl(data.thumbnail_url);
+    //       setVideoId(data.id);
+    //     }
+    //   }
+    // };
+    // getVideoData();
+  }, [data]);
+
   const uploadDatabase = async (data: FormData) => {
-    console.log("second");
+    setisLoading(true);
 
     const casts = { no_name: data.casts };
     const staffs = {
@@ -83,31 +101,18 @@ export const UploadVideoForms = ({ onClose, videoId, setVideoId }: Props) => {
         setVideoId(id);
       }
       sucessToast({ title: "情報が保存されました。" });
+      if (isCancel) onClose();
     } catch (e) {
-      console.log();
-
       errorToast({ title: "エラーが発生しました。情報が保存されませんでした。" });
+    } finally {
+      setisLoading(false);
+      if (isCancel) setIsCancel.off();
     }
-  };
-
-  const submitHandler = (data: FormData) => {
-    console.log("first");
-
-    setIsLoadingSubmit(true);
-    uploadDatabase(data);
-    setIsLoadingSubmit(false);
-  };
-
-  const cancelHandler = (data: FormData) => {
-    setIsLoadingCancel(true);
-    uploadDatabase(data);
-    setIsLoadingCancel(false);
-    onClose();
   };
 
   return (
     <>
-      <chakra.form width="100%" onSubmit={handleSubmit(submitHandler)} overflowY="scroll">
+      <chakra.form width="100%" onSubmit={handleSubmit(uploadDatabase)} overflowY="scroll">
         <ModalBody>
           <UploadThumbnailImg setThumbnailUrl={setThumbnailUrl} />
           <UploadVideoComponent />
@@ -134,10 +139,10 @@ export const UploadVideoForms = ({ onClose, videoId, setVideoId }: Props) => {
         </ModalBody>
 
         <ModalFooter>
-          <Button colorScheme="blue" mr={3} type="submit" isLoading={isLoadingSubmit}>
+          <Button colorScheme="blue" mr={3} type="submit" isLoading={isLoading}>
             保存
           </Button>
-          <Button onClick={() => console.log(getValues("lighting_designers"))} isLoading={isLoadingCancel}>
+          <Button type="submit" onClick={setIsCancel.on}>
             Cancel
           </Button>
         </ModalFooter>
