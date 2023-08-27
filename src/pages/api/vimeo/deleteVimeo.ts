@@ -1,25 +1,23 @@
+import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
-import { vimeoRequest } from "./vimeo-client";
-
-type Body = {
-  uri: string;
-};
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-  console.log("api");
-  const body: Body = JSON.parse(req.body);
-  const { uri } = body;
-  
   console.log("body:");
-  console.log(body);
+  console.log(req.body);
 
   try {
-    await vimeoRequest({
-      method: "DELETE",
-      path: uri,
-    });
+    const url = `${process.env.VIMEO_API_URL}/me/videos`;
+    const body = {
+      path: req.body.uri,
+    };
+    const headers = {
+      Authorization: `bearer ${process.env.VIMEO_ACCESS_TOKEN}`,
+    };
+    await axios.delete(url, { data: body, headers });
+
     return res.status(200);
   } catch (error) {
     console.log(`APIerror: ${error}`);
+    return res.status(500).json({ message: error });
   }
 }

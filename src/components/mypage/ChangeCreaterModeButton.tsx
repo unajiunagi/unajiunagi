@@ -1,4 +1,4 @@
-import { Box, Button, Card, CardBody, Divider, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure, useToast } from "@chakra-ui/react";
+import { Box, Button, Card, CardBody, Divider, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from "@chakra-ui/react";
 import { useUser } from "@supabase/auth-helpers-react";
 import { AuthError } from "@supabase/supabase-js";
 import { useToasts } from "hooks/useToasts";
@@ -8,21 +8,21 @@ import { useState } from "react";
 
 type Props = {};
 
-export const ChangeCreaterModeButton = ({}: Props) => {
+export const ChangecreatorModeButton = ({}: Props) => {
   const user = useUser();
-  const { sucessToast, errorToast } = useToasts();
+  const { successToast, errorToast } = useToasts();
   const { push } = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const changeCreaterMode = async () => {
+  const changecreatorMode = async () => {
     setIsLoading(true);
     try {
       if (!user) return;
-      const { error } = await supabaseClient.from("users").update({ creater_mode: true }).eq("id", user.id);
+      const { error } = await supabaseClient.from("users").update({ creator_mode: true }).eq("id", user.id);
       if (error) return error;
-      sucessToast({ title: "アカウントがクリエイターモードに変更されました。" });
-      push("/creater");
+      successToast({ title: "アカウントがクリエイターモードに変更されました。" });
+      push("/creator");
     } catch (error) {
       if (!(error instanceof AuthError)) return;
       console.log(error.message);
@@ -56,7 +56,7 @@ export const ChangeCreaterModeButton = ({}: Props) => {
             <Button colorScheme="blackAlpha" mr={3} onClick={onClose}>
               キャンセル
             </Button>
-            <Button colorScheme="blue" isLoading={isLoading} onClick={changeCreaterMode}>
+            <Button colorScheme="blue" isLoading={isLoading} onClick={changecreatorMode}>
               クリエイターモードへ変更
             </Button>
           </ModalFooter>

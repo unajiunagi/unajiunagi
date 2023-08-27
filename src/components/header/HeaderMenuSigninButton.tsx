@@ -11,7 +11,7 @@ type Props = {};
 export const HeaderMenuSigninButton = ({}: Props) => {
   const user = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { sucessToast, errorToast } = useToasts();
+  const { successToast, errorToast } = useToasts();
   const { push } = useRouter();
 
   const handleSignOut = async () => {
@@ -19,7 +19,7 @@ export const HeaderMenuSigninButton = ({}: Props) => {
     try {
       const { error } = await supabaseClient.auth.signOut();
       if (error) throw error;
-      sucessToast({ title: "サインアウトしました。" });
+      successToast({ title: "サインアウトしました。" });
       push("/");
     } catch (e) {
       errorToast({ title: "エラーが発生しました。通信環境の良いところでやり直してみてください。" });

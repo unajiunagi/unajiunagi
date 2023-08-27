@@ -10,7 +10,7 @@ import supabaseClient from "lib/supabase/supabaseClient";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z} from "zod";
+import { z } from "zod";
 
 const schema = z.object({
   email: z.string().nonempty("メールアドレスを入力してください。").email("正しいメールアドレスを入力してください。"),
@@ -21,7 +21,7 @@ type FormData = z.infer<typeof schema>;
 
 export default function () {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { sucessToast, errorToast } = useToasts();
+  const { successToast, errorToast } = useToasts();
   const { push } = useRouter();
   const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -36,7 +36,7 @@ export default function () {
         password: data.password,
       });
       if (error) throw error;
-      sucessToast({ title: "サインインしました。" });
+      successToast({ title: "サインインしました。" });
       push("/");
     } catch (error) {
       if (!(error instanceof AuthError)) return;

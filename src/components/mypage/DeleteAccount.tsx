@@ -11,7 +11,7 @@ type Props = {};
 
 export const DeleteAccount = ({}: Props) => {
   const user = useUser();
-  const { sucessToast, errorToast } = useToasts();
+  const { successToast, errorToast } = useToasts();
   const { push } = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = useRef<HTMLButtonElement>(null);
@@ -23,7 +23,7 @@ export const DeleteAccount = ({}: Props) => {
       await axios.get(`/api/auth/deleteUser/${user?.id}`);
       const { error } = await supabaseClient.auth.signOut();
       if (error) throw error;
-      sucessToast({ title: "アカウントを削除しました。" });
+      successToast({ title: "アカウントを削除しました。" });
       push("/");
     } catch (error) {
       if (!(error instanceof AuthError)) return;

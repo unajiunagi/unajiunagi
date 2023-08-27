@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { ChangeCreaterModeButton } from "./ChangeCreaterModeButton";
+import { ChangecreatorModeButton } from "./ChangecreatorModeButton";
 
-const meta: Meta<typeof ChangeCreaterModeButton> = {
-  component: ChangeCreaterModeButton,
+const meta: Meta<typeof ChangecreatorModeButton> = {
+  component: ChangecreatorModeButton,
 };
 export default meta;
 
-export const Default: StoryObj<typeof ChangeCreaterModeButton> = {
+export const Default: StoryObj<typeof ChangecreatorModeButton> = {
   args: {},
   name: "デフォルト",
 };

@@ -1,13 +1,13 @@
 import { Box, Button, Menu, MenuButton, MenuList } from "@chakra-ui/react";
 import { HeaderMenuItem } from "components/header/HeaderMenuItem";
 import { HeaderMenuSigninButton } from "components/header/HeaderMenuSigninButton";
-import { useCreaterMode } from "hooks/useCreaterMode";
+import { usecreatorMode } from "hooks/usecreatorMode";
 import { BsList } from "react-icons/bs";
 
 type Props = {};
 
 export const MobileHeaderBurgar = ({ ...props }: Props) => {
-  const createrMode = useCreaterMode();
+  const creatorMode = usecreatorMode();
 
   return (
     <>
@@ -21,7 +21,7 @@ export const MobileHeaderBurgar = ({ ...props }: Props) => {
           <HeaderMenuItem href="/mylist">マイリスト</HeaderMenuItem>
           <HeaderMenuItem href="/myitem">マイアイテム</HeaderMenuItem>
           <HeaderMenuItem href="/mypage">アカウント設定</HeaderMenuItem>
-          {createrMode && <HeaderMenuItem href="/creater">クリエイターページ</HeaderMenuItem>}
+          {creatorMode && <HeaderMenuItem href="/creator">クリエイターページ</HeaderMenuItem>}
           <HeaderMenuSigninButton />
         </MenuList>
       </Menu>

@@ -37,11 +37,11 @@ const schema = z
     }
   });
 
-  type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof schema>;
 
 export const ChangePassword = ({}: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { sucessToast, errorToast } = useToasts();
+  const { successToast, errorToast } = useToasts();
 
   const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -52,7 +52,7 @@ export const ChangePassword = ({}: Props) => {
     try {
       const { error } = await supabaseClient.auth.updateUser({ password: data.newPassword });
       if (error) throw error;
-      sucessToast({ title: "パスワードを変更しました。" });
+      successToast({ title: "パスワードを変更しました。" });
     } catch (error) {
       if (!(error instanceof AuthError)) return;
       errorToast({ title: "エラーが発生しました。通信環境の良いところでやり直してみてください。" });

@@ -1,8 +1,8 @@
 import { Link, LinkProps } from "@chakra-ui/next-js";
 import { Card, CardBody, HStack, Heading, Spacer, Stack, StackDivider, Text } from "@chakra-ui/react";
 import { useUser } from "@supabase/auth-helpers-react";
-import { ChangeCreaterModeButton } from "components/mypage/ChangeCreaterModeButton";
-import { useCreaterMode } from "hooks/useCreaterMode";
+import { ChangecreatorModeButton } from "components/mypage/ChangecreatorModeButton";
+import { usecreatorMode } from "hooks/usecreatorMode";
 import { ReactNode } from "react";
 
 type Props = {};
@@ -25,7 +25,7 @@ export const CardLink = ({ children, href, ...props }: CardLinkProps & LinkProps
 
 export const MypageMenu = ({}: Props) => {
   const user = useUser();
-  const createrMode = useCreaterMode();
+  const creatorMode = usecreatorMode();
 
   return (
     <Stack width="100%">
@@ -45,16 +45,16 @@ export const MypageMenu = ({}: Props) => {
           </Stack>
         </CardBody>
       </Card>
-      {createrMode ? (
+      {creatorMode ? (
         <Card bgColor="black">
           <CardBody>
             <Stack>
-              <CardLink href="/creater">クリエイターページ</CardLink>
+              <CardLink href="/creator">クリエイターページ</CardLink>
             </Stack>
           </CardBody>
         </Card>
       ) : (
-        <ChangeCreaterModeButton />
+        <ChangecreatorModeButton />
       )}
     </Stack>
   );

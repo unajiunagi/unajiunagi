@@ -36,13 +36,13 @@ const schema = z
     }
   });
 
-  type FormData = z.infer<typeof schema>;
+type FormData = z.infer<typeof schema>;
 
 export default function () {
   const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
-  const { sucessToast, errorToast } = useToasts();
+  const { successToast, errorToast } = useToasts();
   const { replace } = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
@@ -53,7 +53,7 @@ export default function () {
         password: data.password,
       });
       if (error) throw error;
-      sucessToast({ title: "パスワードを再設定しました。" });
+      successToast({ title: "パスワードを再設定しました。" });
       replace("/");
     } catch (error) {
       if (!(error instanceof AuthError)) return;

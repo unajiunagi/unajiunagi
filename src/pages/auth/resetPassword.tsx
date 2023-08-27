@@ -16,7 +16,7 @@ type FormData = z.infer<typeof schema>;
 
 export default function () {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { sucessToast, errorToast } = useToasts();
+  const { successToast, errorToast } = useToasts();
   const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
@@ -25,10 +25,10 @@ export default function () {
     setIsLoading(true);
     try {
       const { error } = await supabaseClient.auth.resetPasswordForEmail(data.email, {
-        redirectTo: `${process.env.NEXT_PUBLIC_END_POINT}/api/auth/callback`,
+        redirectTo: `${process.env.NEXT_PUBLIC_END_POINT}/api/supabase/callback`,
       });
       if (error) throw error;
-      sucessToast({ title: "入力したメールアドレスにパスワードをリセットするリンクを送りました。" });
+      successToast({ title: "入力したメールアドレスにパスワードをリセットするリンクを送りました。" });
     } catch (error) {
       if (!(error instanceof AuthError)) return;
 

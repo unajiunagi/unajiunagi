@@ -20,7 +20,7 @@ type FormData = z.infer<typeof schema>;
 export const ChangeEmail = ({}: Props) => {
   const user = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { sucessToast, errorToast } = useToasts();
+  const { successToast, errorToast } = useToasts();
 
   const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: zodResolver(schema),
@@ -31,7 +31,7 @@ export const ChangeEmail = ({}: Props) => {
     try {
       const { error } = await supabaseClient.auth.updateUser({ email: data.email });
       if (error) throw error;
-      sucessToast({ title: "新しいメールアドレスに「メールアドレス変更の確認」のメールを送信しました。" });
+      successToast({ title: "新しいメールアドレスに「メールアドレス変更の確認」のメールを送信しました。" });
     } catch (error) {
       if (!(error instanceof AuthError)) return;
 

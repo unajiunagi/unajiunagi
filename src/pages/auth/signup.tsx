@@ -26,7 +26,7 @@ type FormData = z.infer<typeof schema>;
 
 export default function () {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { sucessToast, errorToast } = useToasts();
+  const { successToast, errorToast } = useToasts();
   const { register, handleSubmit, formState, reset } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
@@ -45,7 +45,7 @@ export default function () {
         errorToast({ title: "このメールアドレスは既に使用されています。" });
         return;
       }
-      sucessToast({ title: "入力したメールアドレスに認証メールを送信しました。メールアドレスを認証してください。" });
+      successToast({ title: "入力したメールアドレスに認証メールを送信しました。メールアドレスを認証してください。" });
       reset();
     } catch (error) {
       if (!(error instanceof AuthError)) return;

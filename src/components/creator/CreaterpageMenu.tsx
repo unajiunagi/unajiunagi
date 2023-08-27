@@ -4,7 +4,7 @@ import { CardLink } from "components/mypage/MypageMenu";
 
 type Props = {};
 
-export const CreaterpageMenu = ({}: Props) => {
+export const creatorpageMenu = ({}: Props) => {
   const user = useUser();
 
   return (
@@ -19,8 +19,8 @@ export const CreaterpageMenu = ({}: Props) => {
       <Card bgColor="black">
         <CardBody>
           <Stack spacing={4} divider={<StackDivider />}>
-            <CardLink href="/creater/managementVideo">作品の管理</CardLink>
-            <CardLink href="/creater/uploadVideo">作品のアップロード</CardLink>
+            <CardLink href="/creator/managementVideo">作品の管理</CardLink>
+            <CardLink href="/creator/uploadVideo">作品のアップロード</CardLink>
           </Stack>
         </CardBody>
       </Card>
