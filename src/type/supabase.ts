@@ -48,10 +48,12 @@ export interface Database {
           creator_id: string | null;
           description: string | null;
           id: string;
+          is_uploaded: boolean | null;
           running_time: number | null;
           staffs: Json | null;
           thumbnail_url: string | null;
           title: string | null;
+          vimeo_uri: string | null;
         };
         Insert: {
           birth_year?: number | null;
@@ -60,10 +62,12 @@ export interface Database {
           creator_id?: string | null;
           description?: string | null;
           id: string;
+          is_uploaded?: boolean | null;
           running_time?: number | null;
           staffs?: Json | null;
           thumbnail_url?: string | null;
           title?: string | null;
+          vimeo_uri?: string | null;
         };
         Update: {
           birth_year?: number | null;
@@ -72,10 +76,12 @@ export interface Database {
           creator_id?: string | null;
           description?: string | null;
           id?: string;
+          is_uploaded?: boolean | null;
           running_time?: number | null;
           staffs?: Json | null;
           thumbnail_url?: string | null;
           title?: string | null;
+          vimeo_uri?: string | null;
         };
         Relationships: [];
       };

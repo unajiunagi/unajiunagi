@@ -10,8 +10,8 @@ export const Thumbnail = ({ src, alt, href }: Props) => {
           src={src}
           alt={alt}
           width={320}
-          height={180}
-          minWidth='320px'
+          height={90}
+          minWidth="320px"
           background="#D9D9D9"
           rounded={8}
         />

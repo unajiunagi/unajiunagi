@@ -4,7 +4,7 @@ import { CardLink } from "components/mypage/MypageMenu";
 
 type Props = {};
 
-export const creatorpageMenu = ({}: Props) => {
+export const CreatorpageMenu = ({}: Props) => {
   const user = useUser();
 
   return (

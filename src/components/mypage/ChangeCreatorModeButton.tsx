@@ -8,14 +8,14 @@ import { useState } from "react";
 
 type Props = {};
 
-export const ChangecreatorModeButton = ({}: Props) => {
+export const ChangeCreatorModeButton = ({}: Props) => {
   const user = useUser();
   const { successToast, errorToast } = useToasts();
   const { push } = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const changecreatorMode = async () => {
+  const changeCreatorMode = async () => {
     setIsLoading(true);
     try {
       if (!user) return;
@@ -56,7 +56,7 @@ export const ChangecreatorModeButton = ({}: Props) => {
             <Button colorScheme="blackAlpha" mr={3} onClick={onClose}>
               キャンセル
             </Button>
-            <Button colorScheme="blue" isLoading={isLoading} onClick={changecreatorMode}>
+            <Button colorScheme="blue" isLoading={isLoading} onClick={changeCreatorMode}>
               クリエイターモードへ変更
             </Button>
           </ModalFooter>

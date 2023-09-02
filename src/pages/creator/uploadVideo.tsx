@@ -1,14 +1,15 @@
 import { Stack } from "@chakra-ui/react";
 import { BreadcrumbPageBody } from "components/common/BreadcrumbPageBody";
+import { CreatorpageMenuProvider } from "components/creator/CreatorpageProvider";
 import { UploadVideo } from "components/creator/UploadVideo";
 import { useAuthGuard } from "hooks/useAuthGuard";
-import { usecreatorModeGuard } from "hooks/usecreatorModeGuard";
+import { useCreatorModeGuard } from "hooks/useCreatorModeGuard";
 import { useIsMobile } from "hooks/useIsMobile";
 
 export default function () {
   const isMobile = useIsMobile();
   useAuthGuard();
-  usecreatorModeGuard();
+  useCreatorModeGuard();
 
   return (
     <>
@@ -19,9 +20,9 @@ export default function () {
           </BreadcrumbPageBody>
         </Stack>
       ) : (
-        <creatorpageMenuProvider>
+        <CreatorpageMenuProvider>
           <UploadVideo />
-        </creatorpageMenuProvider>
+        </CreatorpageMenuProvider>
       )}
     </>
   );

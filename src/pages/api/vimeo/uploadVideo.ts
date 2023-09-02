@@ -20,7 +20,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
       };
 
       const response = await axios.post(url, body, { headers });
-
+      // console.log(response.data);
 
       return res.status(200).json({
         uploadLink: response.data.upload.upload_link,

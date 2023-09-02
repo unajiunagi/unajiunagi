@@ -1,10 +1,10 @@
 import { useToast } from "@chakra-ui/react";
-import { usecreatorMode } from "hooks/usecreatorMode";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import { useCreatorMode } from "./usecreatorMode";
 
-export const usecreatorModeGuard = () => {
-  const creatorMode = usecreatorMode();
+export const useCreatorModeGuard = () => {
+  const creatorMode = useCreatorMode();
   const { replace } = useRouter();
   const infoToast = useToast({ status: "info" });
 

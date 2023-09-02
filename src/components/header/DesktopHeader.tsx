@@ -3,12 +3,12 @@ import { Avatar, Box, Button, Menu, MenuButton, MenuList, Spacer } from "@chakra
 import { HeaderItem } from "components/header/HeaderItem";
 import { HeaderMenuItem } from "components/header/HeaderMenuItem";
 import { HeaderMenuSigninButton } from "components/header/HeaderMenuSigninButton";
-import { usecreatorMode } from "hooks/usecreatorMode";
+import { useCreatorMode } from "hooks/useCreatorMode";
 
 type Props = {};
 
 export const DesktopHeader = ({ ...props }: Props) => {
-  const creatorMode = usecreatorMode();
+  const creatorMode = useCreatorMode();
 
   return (
     <>
