@@ -1,6 +1,7 @@
 import { Box, Heading, SimpleGrid, Stack } from "@chakra-ui/react";
 import { Thumbnail } from "components/common/Thumbnail";
 import { useAuthGuard } from "hooks/useAuthGuard";
+import { staticPath } from "type/$path";
 
 export default function () {
   useAuthGuard();
@@ -12,7 +13,7 @@ export default function () {
       <SimpleGrid columns={4} gap={6}>
         {org.map((org) => (
           <Box key={org}>
-            <Thumbnail src="/img.png" alt="サムネイル" href="" />
+            <Thumbnail src={staticPath.logo_png} alt="サムネイル" href="" />
           </Box>
         ))}
       </SimpleGrid>

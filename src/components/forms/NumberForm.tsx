@@ -19,7 +19,7 @@ export const NumberForm = ({ formError, register, id, label, placeholder = "", h
         </FormLabel>
       )}
       <Input id={id} type="number" placeholder={placeholder} {...register(id)} color="white" />
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      {helperText && <FormHelperText color="white">{helperText}</FormHelperText>}
       <FormErrorMessage>{formError?.message}</FormErrorMessage>
     </FormControl>
   );

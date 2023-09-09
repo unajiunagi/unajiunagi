@@ -10,6 +10,7 @@ import supabaseClient from "lib/supabase/supabaseClient";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { pagesPath } from "type/$path";
 import { z } from "zod";
 
 const schema = z.object({
@@ -88,13 +89,13 @@ export default function () {
       </chakra.form>
       <Text>
         パスワードを忘れた場合は
-        <Link href="/auth/resetPassword" color="blue.400">
+        <Link href={pagesPath.auth.resetPassword.$url()} color="blue.400">
           こちら
         </Link>
       </Text>
       <Text>
         アカウントをお持ちでない場合は
-        <Link href="/auth/signup" color="blue.400">
+        <Link href={pagesPath.auth.signup.$url()} color="blue.400">
           新規登録
         </Link>
         してください。

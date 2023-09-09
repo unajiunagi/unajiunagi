@@ -19,7 +19,7 @@ export const EmailForm = ({ formError, register, id, label, placeholder = "", he
         </FormLabel>
       )}
       <Input id={id} type="email" placeholder={placeholder} {...register(id)} color="white" />
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      {helperText && <FormHelperText color="white">{helperText}</FormHelperText>}
       <FormErrorMessage>{formError?.message}</FormErrorMessage>
     </FormControl>
   );

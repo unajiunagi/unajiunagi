@@ -1,3 +1,4 @@
+import { Thumbnail } from 'components/common/Thumbnail';
 export type VideoData = {
   birth_year: number | null;
   casts: CastsType
@@ -9,6 +10,7 @@ export type VideoData = {
   running_time: number | null;
   staffs: StaffsType
   thumbnail_url: string | null;
+  thumbnail_path: string | null;
   title: string | null;
   vimeo_uri: string | null;
 };

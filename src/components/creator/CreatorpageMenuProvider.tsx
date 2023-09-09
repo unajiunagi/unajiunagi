@@ -1,6 +1,6 @@
 import { HStack, Stack } from "@chakra-ui/react";
+import { CreatorpageMenu } from "components/creator/creatorpageMenu";
 import { ReactNode } from "react";
-import { CreatorpageMenu } from "./CreatorpageMenu";
 
 type Props = {
   children: ReactNode;

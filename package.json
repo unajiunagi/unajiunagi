@@ -11,7 +11,9 @@
     "react-dev": "npx react-devtools",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "comp": "npx hygen component new"
+    "new-comp": "npx hygen component new",
+    "pathpida": "pathpida --enableStatic --ignorepath .gitignore --output ./src/type",
+    "gen-supabase-type": "npx supabase gen types typescript --linked > ./src/type/supabase.ts"
   },
   "dependencies": {
     "@chakra-ui/next-js": "^2.1.5",
@@ -22,8 +24,10 @@
     "@supabase/auth-helpers-nextjs": "^0.7.4",
     "@supabase/auth-helpers-react": "^0.4.2",
     "@supabase/supabase-js": "^2.32.0",
+    "@uidotdev/usehooks": "^2.2.0",
     "axios": "^1.4.0",
     "next": "13.2.4",
+    "pathpida": "^0.22.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.4",

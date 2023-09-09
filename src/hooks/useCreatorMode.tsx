@@ -1,28 +1,19 @@
 import { useAuthContext } from "components/provider/AuthProvider";
-import supabaseClient from "lib/supabase/supabaseClient";
-import { useEffect, useState } from "react";
+import useSWR from "swr";
+import { fetcherDefault } from "util/fetcherDefault";
+
+type CreaterModeRes = {
+  creator_mode: boolean;
+};
 
 export const useCreatorMode = () => {
-  // 取得中はundefined
-  const [creatorMode, setCreatorMode] = useState<Boolean | undefined>(undefined);
   const user = useAuthContext();
+  const key = user ? `/api/supabase/getCreatorMode/${user.id}` : null;
+  const { data, error } = useSWR<CreaterModeRes>(key, fetcherDefault);
 
-  useEffect(() => {
-    // サインインしていない、もしくは状態を確認中なら何もしない
-    if (user === undefined) return;
-    // サインインしていないならcreatorModeをfalseに設定
-    if (user === null) return setCreatorMode(false);
+  if (error || user === null) return false;
+  // 取得中はundefined
+  if (!data || user === undefined) return undefined;
 
-    (async () => {
-      try {
-        const { data, error } = await supabaseClient.from("users").select("creator_mode").eq("id", user?.id).single();
-        if (error) throw error;
-        setCreatorMode(data.creator_mode);
-      } catch (e) {
-        console.log(e);
-      }
-    })();
-  }, []);
-
-  return creatorMode;
+  return data.creator_mode;
 };

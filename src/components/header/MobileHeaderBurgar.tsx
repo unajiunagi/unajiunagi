@@ -4,6 +4,7 @@ import { HeaderMenuSigninButton } from "components/header/HeaderMenuSigninButton
 import { useCreatorMode } from "hooks/useCreatorMode";
 
 import { BsList } from "react-icons/bs";
+import { pagesPath } from "type/$path";
 
 type Props = {};
 
@@ -19,10 +20,10 @@ export const MobileHeaderBurgar = ({ ...props }: Props) => {
           </Box>
         </MenuButton>
         <MenuList bgColor="black">
-          <HeaderMenuItem href="/mylist">マイリスト</HeaderMenuItem>
-          <HeaderMenuItem href="/myitem">マイアイテム</HeaderMenuItem>
-          <HeaderMenuItem href="/mypage">アカウント設定</HeaderMenuItem>
-          {creatorMode && <HeaderMenuItem href="/creator">クリエイターページ</HeaderMenuItem>}
+          <HeaderMenuItem href={pagesPath.mylist.$url().pathname}>マイリスト</HeaderMenuItem>
+          <HeaderMenuItem href={pagesPath.myitem.$url().pathname}>マイアイテム</HeaderMenuItem>
+          <HeaderMenuItem href={pagesPath.mypage.$url().pathname}>アカウント設定</HeaderMenuItem>
+          {creatorMode && <HeaderMenuItem href={pagesPath.creator.$url().pathname}>クリエイターページ</HeaderMenuItem>}
           <HeaderMenuSigninButton />
         </MenuList>
       </Menu>

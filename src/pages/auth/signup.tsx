@@ -7,8 +7,10 @@ import { EmailForm } from "components/forms/EmailForm";
 import { PassForm } from "components/forms/PassForm";
 import { useToasts } from "hooks/useToasts";
 import supabaseClient from "lib/supabase/supabaseClient";
+import pages from "pages";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { pagesPath } from "type/$path";
 import { z } from "zod";
 
 const schema = z.object({
@@ -73,18 +75,18 @@ export default function () {
       </chakra.form>
       <Text>
         アカウントを登録することにより、
-        <Link href="/termsOfService" color="blue.400">
+        <Link href={pagesPath.document.terms.$url()} color="blue.400">
           利用規約
         </Link>
         と
-        <Link href="/privacy" color="blue.400">
+        <Link href={pagesPath.document.commercialTransaction.$url()} color="blue.400">
           プライバシーポリシー
         </Link>
         に同意したとみなされます。
       </Text>
       <Text>
         アカウントをお持ちの方は
-        <Link href="/auth/signin" color="blue.400">
+        <Link href={pagesPath.auth.signin.$url()} color="blue.400">
           サインイン
         </Link>
         してください。

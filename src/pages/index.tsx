@@ -5,7 +5,7 @@ import { RecommendBox } from "components/top/RecommendBox";
 export default function () {
   return (
     <>
-      <MovieDescription bgimg="/img.png" title="title" description="紹介文" />
+      <MovieDescription bgimg="/logo.png" title="title" description="紹介文" />
       <Box width="90%" margin="auto" mt={6} pb={6}>
         <Stack spacing={8}>
           <RecommendBox heading="こちらもオススメ" />

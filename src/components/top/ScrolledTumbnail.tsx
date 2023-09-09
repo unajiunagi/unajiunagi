@@ -1,5 +1,6 @@
 import { HStack, Stack } from "@chakra-ui/react";
 import { Thumbnail } from "components/common/Thumbnail";
+import { staticPath } from "type/$path";
 
 type Props = {
   scrollRef: React.RefObject<HTMLInputElement>;
@@ -13,7 +14,7 @@ export const ScrolledTumbnail = ({ scrollRef }: Props) => {
       <HStack ref={scrollRef} spacing={4} overflow="hidden" position="relative">
         {org.map((org) => (
           <Stack key={org} spacing={4}>
-            <Thumbnail src="/img.png" alt="サムネイル" href="" />
+            <Thumbnail src={staticPath.logo_png} alt="サムネイル" href="" />
           </Stack>
         ))}
       </HStack>

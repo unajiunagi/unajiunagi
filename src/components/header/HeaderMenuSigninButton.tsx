@@ -5,6 +5,7 @@ import { useToasts } from "hooks/useToasts";
 import supabaseClient from "lib/supabase/supabaseClient";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import { pagesPath } from "type/$path";
 
 type Props = {};
 
@@ -39,8 +40,8 @@ export const HeaderMenuSigninButton = ({}: Props) => {
   } else {
     return (
       <>
-        <HeaderMenuItem href="/auth/signin">サインイン</HeaderMenuItem>
-        <HeaderMenuItem href="/auth/signup">アカウント作成</HeaderMenuItem>
+        <HeaderMenuItem href={pagesPath.auth.signin.$url().pathname}>サインイン</HeaderMenuItem>
+        <HeaderMenuItem href={pagesPath.auth.signup.$url().pathname}>アカウント作成</HeaderMenuItem>
       </>
     );
   }

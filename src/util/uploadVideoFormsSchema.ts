@@ -1,7 +1,7 @@
 import { UseFormSetValue } from "react-hook-form";
 import { StaffsType, VideoData } from "type/videoData";
+import { numberForm } from "util/numberForm";
 import { z } from "zod";
-import { numberForm } from "./numberForm";
 
 // 配列に空文字の要素があれば削除
 const nonEmptyArrayFilter = (value: string[]) => value.filter((item) => item !== "");
@@ -44,22 +44,22 @@ export const uploadVideoFormsStaffs = (formData: StaffsType) => {
 };
 
 // formのデフォルト値をセット
-export const setUploadVideoFormDefaults = (data: VideoData | null, setValue: UseFormSetValue<UploadVideoFormData>) => {
+export const uploadVideoFormDefaults = (data: VideoData | null, setValue: UseFormSetValue<UploadVideoFormData>) => {
   setValue("title", data?.title ?? "タイトル");
   setValue("description", data?.description ?? "あらすじ");
   setValue("birth_year", data?.birth_year?.toString() ?? "2000");
   setValue("running_time", data?.running_time?.toString() ?? "60");
-  setValue("casts", data?.casts.no_name ?? []);
-  setValue("directors", data?.staffs.directors ?? []);
-  setValue("writers", data?.staffs.writers ?? []);
-  setValue("producers", data?.staffs.producers ?? []);
-  setValue("cinematographers", data?.staffs.cinematographers ?? []);
-  setValue("editors", data?.staffs.editors ?? []);
-  setValue("sound_designers", data?.staffs.sound_designers ?? []);
-  setValue("lighting_designers", data?.staffs.lighting_designers ?? []);
-  setValue("sound_recordists", data?.staffs.sound_recordists ?? []);
-  setValue("music_directors", data?.staffs.music_directors ?? []);
-  setValue("art_directors", data?.staffs.art_directors ?? []);
-  setValue("editors", data?.staffs.editors ?? []);
-  setValue("producers", data?.staffs.producers ?? []);
+  setValue("casts", data?.casts?.no_name ?? []);
+  setValue("directors", data?.staffs?.directors ?? []);
+  setValue("writers", data?.staffs?.writers ?? []);
+  setValue("producers", data?.staffs?.producers ?? []);
+  setValue("cinematographers", data?.staffs?.cinematographers ?? []);
+  setValue("editors", data?.staffs?.editors ?? []);
+  setValue("sound_designers", data?.staffs?.sound_designers ?? []);
+  setValue("lighting_designers", data?.staffs?.lighting_designers ?? []);
+  setValue("sound_recordists", data?.staffs?.sound_recordists ?? []);
+  setValue("music_directors", data?.staffs?.music_directors ?? []);
+  setValue("art_directors", data?.staffs?.art_directors ?? []);
+  setValue("editors", data?.staffs?.editors ?? []);
+  setValue("producers", data?.staffs?.producers ?? []);
 };

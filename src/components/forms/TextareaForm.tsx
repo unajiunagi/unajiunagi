@@ -19,7 +19,7 @@ export const TextareaForm = ({ formError, register, id, label, placeholder = "",
         </FormLabel>
       )}
       <Textarea id={id} placeholder={placeholder} {...register(id)} color="white" />
-      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+      {helperText && <FormHelperText color="white">{helperText}</FormHelperText>}
       <FormErrorMessage>{formError?.message}</FormErrorMessage>
     </FormControl>
   );

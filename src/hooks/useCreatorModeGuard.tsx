@@ -1,7 +1,7 @@
 import { useToast } from "@chakra-ui/react";
+import { useCreatorMode } from "hooks/useCreatorMode";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { useCreatorMode } from "./usecreatorMode";
 
 export const useCreatorModeGuard = () => {
   const creatorMode = useCreatorMode();

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { UploadThumbnailImg } from "creator/UploadThumbnailImg";
+import { UploadThumbnailImg } from "./UploadThumbnailImg";
 
 const meta: Meta<typeof UploadThumbnailImg> = {
   component: UploadThumbnailImg,

@@ -1,6 +1,7 @@
 import { Card, CardBody, HStack, Heading, Stack, StackDivider, Text } from "@chakra-ui/react";
 import { useUser } from "@supabase/auth-helpers-react";
 import { CardLink } from "components/mypage/MypageMenu";
+import { pagesPath } from "type/$path";
 
 type Props = {};
 
@@ -19,15 +20,15 @@ export const CreatorpageMenu = ({}: Props) => {
       <Card bgColor="black">
         <CardBody>
           <Stack spacing={4} divider={<StackDivider />}>
-            <CardLink href="/creator/managementVideo">作品の管理</CardLink>
-            <CardLink href="/creator/uploadVideo">作品のアップロード</CardLink>
+            <CardLink href={pagesPath.creator.managementVideo.$url().pathname}>作品の管理</CardLink>
+            <CardLink href={pagesPath.creator.uploadVideo.$url().pathname}>作品のアップロード</CardLink>
           </Stack>
         </CardBody>
       </Card>
       <Card bgColor="black">
         <CardBody>
           <Stack>
-            <CardLink href="/mypage">マイページ</CardLink>
+            <CardLink href={pagesPath.mypage.$url().pathname}>マイページ</CardLink>
           </Stack>
         </CardBody>
       </Card>

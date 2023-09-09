@@ -4,6 +4,7 @@ import { useUser } from "@supabase/auth-helpers-react";
 import { ChangeCreatorModeButton } from "components/mypage/ChangeCreatorModeButton";
 import { useCreatorMode } from "hooks/useCreatorMode";
 import { ReactNode } from "react";
+import { pagesPath } from "type/$path";
 
 type Props = {};
 
@@ -39,9 +40,9 @@ export const MypageMenu = ({}: Props) => {
       <Card bgColor="black">
         <CardBody>
           <Stack spacing={4} divider={<StackDivider />}>
-            <CardLink href="/mypage/changeEmail">メールアドレスの変更</CardLink>
-            <CardLink href="/mypage/changePassword">パスワードの変更</CardLink>
-            <CardLink href="/mypage/deleteAccount">退会</CardLink>
+            <CardLink href={pagesPath.mypage.changeEmail.$url().pathname}>メールアドレスの変更</CardLink>
+            <CardLink href={pagesPath.mypage.changePassword.$url().pathname}>パスワードの変更</CardLink>
+            <CardLink href={pagesPath.mypage.deleteAccount.$url().pathname}>退会</CardLink>
           </Stack>
         </CardBody>
       </Card>
