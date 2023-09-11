@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
   if (req.method !== "POST") return res.status(405).json({ message: "Method not allowed" });
-  
+
   try {
     const url = `${process.env.VIMEO_API_URL}${req.body.uri}`;
     const body = req.body.object ?? {};
@@ -16,7 +16,7 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
 
     return res.status(200).json({ message: "Success" });
   } catch (error) {
-    console.log(`APIerror: ${error}`);
+    console.error(`APIerror: ${error}`);
     return res.status(500).json({ message: error });
   }
 }

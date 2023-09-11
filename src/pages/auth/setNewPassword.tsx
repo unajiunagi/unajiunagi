@@ -70,7 +70,7 @@ export default function () {
       <chakra.form width="100%" onSubmit={handleSubmit(onSubmit)}>
         <PassForm formError={formState.errors.password} register={register} id="password" label="パスワード" />
         <PassForm formError={formState.errors.passwordConf} register={register} id="passwordConf" label="パスワードの確認" />
-        <Button mt="4" colorScheme="blue" width="100%" isLoading={isLoading} type="submit">
+        <Button mt="4" colorScheme="facebook" width="100%" isLoading={isLoading} type="submit">
           送信
         </Button>
       </chakra.form>

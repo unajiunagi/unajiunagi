@@ -7,9 +7,9 @@ import supabaseClient from "lib/supabase/supabaseClient";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 
-type Props = {};
 
-export const DeleteAccount = ({}: Props) => {
+
+export const DeleteAccount = () => {
   const user = useUser();
   const { successToast, errorToast } = useToasts();
   const { push } = useRouter();

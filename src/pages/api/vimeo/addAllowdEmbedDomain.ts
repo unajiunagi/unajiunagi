@@ -1,7 +1,7 @@
 import axios from "axios";
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function (req: NextApiRequest, res: NextApiResponse) {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "POST") return res.status(405).json({ message: "Method not allowed" });
 
   try {

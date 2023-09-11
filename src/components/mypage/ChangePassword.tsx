@@ -8,8 +8,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-type Props = {};
-
 const schema = z
   .object({
     newPassword: z
@@ -39,7 +37,7 @@ const schema = z
 
 type FormData = z.infer<typeof schema>;
 
-export const ChangePassword = ({}: Props) => {
+export const ChangePassword = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { successToast, errorToast } = useToasts();
 
@@ -66,7 +64,7 @@ export const ChangePassword = ({}: Props) => {
       <chakra.form width="100%" onSubmit={handleSubmit(onSubmit)}>
         <PassForm formError={formState.errors.newPassword} register={register} id="newPassword" label="新しいパスワード" />
         <PassForm formError={formState.errors.newPasswordConf} register={register} id="newPasswordConf" label="新しいパスワードの確認" helperText="確認のため新しいパスワードをもう一度入力してください。" />
-        <Button mt="4" colorScheme="blue" width="100%" isLoading={isLoading} type="submit">
+        <Button mt="4" colorScheme="facebook" width="100%" isLoading={isLoading} type="submit">
           パスワードを変更
         </Button>
       </chakra.form>

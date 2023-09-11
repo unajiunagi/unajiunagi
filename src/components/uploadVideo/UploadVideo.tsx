@@ -1,12 +1,12 @@
-import { Button, HStack, Heading, useDisclosure } from "@chakra-ui/react";
-import { UploadVideoModal } from "components/creator/uploadVideo/UploadVideoModal";
-import { useToasts } from "hooks/useToasts";
-import { useState } from "react";
-import useSWR from "swr";
-import { VideoData } from "type/videoData";
-import { fetcherDefault } from "util/fetcherDefault";
-import { UploadVideoDeleteModal } from "components/creator/uploadVideo/UploadVideoDeleteModal";
-import { UploadVideoCard } from "components/creator/uploadVideo/UploadVideoCard";
+import { Button, HStack, Heading, useDisclosure } from '@chakra-ui/react';
+import { UploadVideoCard } from 'components/uploadVideo/UploadVideoCard';
+import { UploadVideoDeleteModal } from 'components/uploadVideo/UploadVideoDeleteModal';
+import { UploadVideoModal } from 'components/uploadVideo/UploadVideoModal';
+import { useToasts } from 'hooks/useToasts';
+import { useState } from 'react';
+import useSWR from 'swr';
+import { VideoData } from 'type/videoData';
+import { fetcherDefault } from 'util/fetcherDefault';
 
 export const UploadVideo = () => {
   const { errorToast } = useToasts();
@@ -14,11 +14,11 @@ export const UploadVideo = () => {
   const [modalIndex, setModalIndex] = useState<number | null>(null);
   const { isOpen: isOpenDelete, onOpen: onOpenDelete, onClose: onCloseDelete } = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data, error } = useSWR<VideoData[]>("/api/supabase/getUnuploadedVideos", fetcherDefault);
+  const { data, error } = useSWR<VideoData[]>('/api/supabase/getUnuploadedVideos', fetcherDefault);
 
   if (error) {
-    errorToast({ title: "動画の取得に失敗しました。" });
-    return <></>;
+    errorToast({ title: '動画の取得に失敗しました。' });
+    return null;
   }
 
   const popDeleteModal = (video: VideoData) => {
@@ -34,14 +34,14 @@ export const UploadVideo = () => {
   return (
     <>
       {data?.length && (
-        <Heading size="lg" mb={1} textAlign="center">
-          公開途中の動画
+        <Heading size='lg' mb={1} textAlign='center'>
+          下書き
         </Heading>
       )}
-      <Button onClick={() => popUploadModal(null)} colorScheme="blue" mb={2}>
+      <Button onClick={() => popUploadModal(null)} colorScheme='facebook' mb={2}>
         動画をアップロード
       </Button>
-      <HStack wrap={"wrap"} width="100%" spacing="2%">
+      <HStack wrap='wrap' width='100%' spacing='2%'>
         {data?.map((video, index) => (
           <UploadVideoCard video={video} index={index} popDeleteModal={popDeleteModal} popUploadModal={popUploadModal} />
         ))}

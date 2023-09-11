@@ -1,4 +1,4 @@
-import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, FormLabel, Spacer, Stack } from "@chakra-ui/react";
+import { Accordion, AccordionButton, AccordionIcon, AccordionItem, AccordionPanel, FormControl, FormErrorMessage, FormLabel, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Spacer, Stack } from "@chakra-ui/react";
 import { TextArrayForm } from "components/forms/TextArrayForm";
 import { TextForm } from "components/forms/TextForm";
 import { TextareaForm } from "components/forms/TextareaForm";
@@ -38,7 +38,7 @@ export const UploadVideoForms = ({ errors, register, data }: Props) => {
       <Accordion allowMultiple>
         <AccordionItem>
           <AccordionButton>
-            <FormLabel color="white">スタッフ</FormLabel>
+            <FormLabel>スタッフ</FormLabel>
             <Spacer />
             <AccordionIcon color={"white"} fontSize={"3xl"} />
           </AccordionButton>
@@ -58,7 +58,7 @@ export const UploadVideoForms = ({ errors, register, data }: Props) => {
 
         <AccordionItem>
           <AccordionButton>
-            <FormLabel color="white">キャスト</FormLabel>
+            <FormLabel>キャスト</FormLabel>
             <Spacer />
             <AccordionIcon color={"white"} fontSize={"3xl"} />
           </AccordionButton>

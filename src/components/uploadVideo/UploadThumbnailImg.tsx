@@ -1,6 +1,6 @@
 import { Button, HStack, Stack, Text, VisuallyHiddenInput } from "@chakra-ui/react";
 import { useUser } from "@supabase/auth-helpers-react";
-import { FixedAspectImage } from "components/common/FixedAspectImage";
+import { FixedAspectImage } from "components/feature/FixedAspectImage";
 import { useToasts } from "hooks/useToasts";
 import supabaseClient from "lib/supabase/supabaseClient";
 import { useState } from "react";
@@ -29,8 +29,7 @@ export const UploadThumbnailImg = ({ videoId, thumbnailUrl, thumbnailPath }: Pro
     if (checkFileSize(files, limitSize)) return errorToast({ title: `ファイルサイズは${limitSize}メガバイトまでです` });
     try {
       const bucket = "video_thumbnail_imgs";
-      const { path, url, error } = await uploadStorage(bucket, `${user?.id}/${v4()}`, files[0]); // 画像をアップロードしパスとURLを取得
-      if (error) throw error;
+      const { path, url } = await uploadStorage(bucket, `${user?.id}/${v4()}`, files[0]); // 画像をアップロードしパスとURLを取得
       const { error: err } = await supabaseClient.storage.from(bucket).remove([thumbnailPath!]); // 以前のファイルを削除
       if (err) throw err;
       const { error: DBerrror } = await supabaseClient.from("videos").upsert({ id: videoId, creator_id: user?.id, thumbnail_url: url!, thumbnail_path: path }, { onConflict: "id" }); // 画像のURLとパスをDBに保存
@@ -49,13 +48,13 @@ export const UploadThumbnailImg = ({ videoId, thumbnailUrl, thumbnailPath }: Pro
       <Stack spacing={2} mb={2}>
         <FixedAspectImage src={file ? window.URL.createObjectURL(file) : thumbnailUrl ?? staticPath.logo_jpg} alt="サムネイル画像" width={16} height={9} rounded={4} />
         <HStack>
-          <Button colorScheme="blue" as="label" htmlFor="coverImg" isLoading={isLoading}>
+          <Button colorScheme="facebook" as="label" htmlFor="coverImg" isLoading={isLoading}>
             サムネイル画像を設定
           </Button>
         </HStack>
         <Text fontSize="xs">動画のサムネイルに使用されます。必須です。 (16:9推奨)</Text>
       </Stack>
-      <VisuallyHiddenInput id="coverImg" type="file" onChange={uploadThumbnail} accept=".jpg, .png" />
+      <VisuallyHiddenInput id="coverImg" type="file" onChange={uploadThumbnail} accept="image/*" />
     </>
   );
 };

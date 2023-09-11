@@ -1,6 +1,9 @@
 /** @type {import('next').NextConfig} */
 
 module.exports = {
+  experimental: {
+    appDir: false,
+  },
   // バグ検出用に2度レンダリングされる
   reactStrictMode: true,
   // next exportで静的ファイルを出力するための設定

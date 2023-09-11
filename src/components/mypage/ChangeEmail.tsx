@@ -9,15 +9,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-type Props = {};
-
 const schema = z.object({
   email: z.string().nonempty("メールアドレスを入力してください。").email("正しいメールアドレスを入力してください。"),
 });
 
 type FormData = z.infer<typeof schema>;
 
-export const ChangeEmail = ({}: Props) => {
+export const ChangeEmail = () => {
   const user = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { successToast, errorToast } = useToasts();
@@ -49,13 +47,11 @@ export const ChangeEmail = ({}: Props) => {
 
   return (
     <Stack width={"100%"}>
-      <FormLabel htmlFor="old-email" color="white">
-        現在のメールアドレス
-      </FormLabel>
-      <Input id="old-email" value={user?.email} color="white" />
+      <FormLabel htmlFor="old-email">現在のメールアドレス</FormLabel>
+      <Input id="old-email" value={user?.email} />
       <chakra.form width="100%" onSubmit={handleSubmit(onSubmit)}>
         <EmailForm formError={formState.errors.email} register={register} id="email" label="新しいメールアドレス" placeholder="メールアドレスが設定されていません。" />
-        <Button mt="4" colorScheme="blue" width="100%" isLoading={isLoading} type="submit">
+        <Button mt="4" colorScheme="facebook" width="100%" isLoading={isLoading} type="submit">
           メールアドレスを変更
         </Button>
       </chakra.form>

@@ -1,7 +1,7 @@
 import { Stack } from "@chakra-ui/react";
 import { BreadcrumbPageBody } from "components/common/BreadcrumbPageBody";
 import { CreatorpageMenuProvider } from "components/creator/CreatorpageMenuProvider";
-import { UploadVideo } from "components/creator/uploadVideo/UploadVideo";
+import { UploadVideo } from "components/uploadVideo/UploadVideo";
 import { useAuthGuard } from "hooks/useAuthGuard";
 import { useCreatorModeGuard } from "hooks/useCreatorModeGuard";
 import { useIsMobile } from "hooks/useIsMobile";

@@ -14,12 +14,12 @@ export const TextForm = ({ formError, register, id, label, placeholder = '', hel
   return (
     <FormControl isInvalid={!!formError}>
       {label && (
-        <FormLabel htmlFor={id} color="white">
+        <FormLabel htmlFor={id}>
           {label}
         </FormLabel>
       )}
-      <Input id={id} type="text" placeholder={placeholder} {...register(id)} color="white" />
-      {helperText && <FormHelperText color="white" >{helperText}</FormHelperText>}
+      <Input id={id} placeholder={placeholder} {...register(id)}  />
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
       <FormErrorMessage>{formError?.message}</FormErrorMessage>
     </FormControl>
   );

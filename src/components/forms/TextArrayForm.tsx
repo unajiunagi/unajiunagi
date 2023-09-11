@@ -1,5 +1,5 @@
 import { Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, HStack, Input } from "@chakra-ui/react";
-import { use, useEffect, useState } from "react";
+import { useState } from "react";
 import { FieldError, Merge, UseFormRegister } from "react-hook-form";
 import { BsPlus } from "react-icons/bs";
 
@@ -14,7 +14,6 @@ type Props = {
 };
 
 export const TextArrayForm = ({ formError, register, id, label, placeholder = "", helperText, value }: Props) => {
-
   const [length, setLength] = useState<number>(value?.length || 1);
   const fields = [];
 
@@ -24,12 +23,12 @@ export const TextArrayForm = ({ formError, register, id, label, placeholder = ""
     fields.push(
       <FormControl key={fieldName} isInvalid={!!formError?.[i]} pl={4} mb={2}>
         <HStack>
-          <Input id={fieldName} type="text" placeholder={placeholder} {...register(fieldName)} color="white" />
-          <Button color="blue" mr={3} onClick={() => setLength((prevLength) => prevLength + 1)}>
-            <BsPlus />
+          <Input id={fieldName} type="text" placeholder={placeholder} {...register(fieldName)} />
+          <Button color="facebook" mr={3} onClick={() => setLength((prevLength) => prevLength + 1)}>
+            <BsPlus color={'black'} size={'24'} />
           </Button>
         </HStack>
-        {helperText && <FormHelperText color="white">{helperText}</FormHelperText>}
+        {helperText && <FormHelperText>{helperText}</FormHelperText>}
         <FormErrorMessage>{formError?.[i]?.message}</FormErrorMessage>
       </FormControl>
     );
@@ -38,7 +37,7 @@ export const TextArrayForm = ({ formError, register, id, label, placeholder = ""
   return (
     <>
       {label && (
-        <FormLabel color="white" pl={4}>
+        <FormLabel pl={4}>
           {label}
         </FormLabel>
       )}

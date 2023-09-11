@@ -1,0 +1,42 @@
+{
+  "env": {
+    "browser": true,        // ブラウザ環境でのコードを許可
+    "node": true,           // Node.js環境でのコードを許可
+    "es2022": true          // ECMAScript 2022の機能を有効化
+  },
+  "parser": "@typescript-eslint/parser", // TypeScriptコードを解析するためのパーサーを指定
+  "parserOptions": {
+    "ecmaVersion": "latest",  // 最新のECMAScript仕様を使用
+    "project": "./tsconfig.json", // TypeScriptプロジェクトの設定ファイルへのパスを指定
+    "ecmaFeatures": {
+      "jsx": true            // JSXをサポートする
+    }
+  },
+  "ignorePatterns": ["next.config.js"],
+  "extends": [
+    "eslint:recommended",        // ESLintの推奨設定を使用
+    "next/core-web-vitals",      // Next.js向けのコアウェブバイタルスルールを適用
+    "plugin:@typescript-eslint/recommended", // TypeScript向けの推奨設定を使用
+    "plugin:react/recommended",  // React向けの推奨設定を使用
+    "airbnb",                    // Airbnbスタイルガイドに基づくルールを適用
+    "airbnb-typescript",         // AirbnbスタイルガイドとTypeScriptを組み合わせたルールを適用
+    "prettier"                   // Prettierのルールを適用
+  ],
+  "plugins": ["@typescript-eslint", "react"], // TypeScriptとReactプラグインを有効化
+  "rules": {
+    "react/react-in-jsx-scope": "off", // JSXスコープ内でReactをimportする必要がないため無効化
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function", // 名前付きコンポーネントをアロー関数で定義
+        "unnamedComponents": "arrow-function" // 名前なしコンポーネントをアロー関数で定義
+      }
+    ],
+    "react/prop-types": "off", // PropTypesの使用を無効化
+    "import/prefer-default-export": "off", // ファイル内で単一のエクスポートしか行われていない場合、default exportを強制する設定を無効化
+    "react/jsx-props-no-spreading": "off", // propsのスプレッドを許可
+    "@typescript-eslint/no-throw-literal": "off", // エラーを投げれるようにする
+    "@typescript-eslint/no-explicit-any": "off", // 明示的なanyの禁止を無効化
+    "arrow-body-style": "off" // アロー関数の本体をブロックで囲む必要を無効化
+  }
+}

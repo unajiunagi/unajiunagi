@@ -1,5 +1,4 @@
 import { FormControl, FormErrorMessage, FormHelperText, FormLabel, Input } from "@chakra-ui/react";
-import { UploadVideoComponent } from "components/creator/uploadVideo/UploadVideoComponent";
 import { FieldError, UseFormRegister } from "react-hook-form";
 
 type Props = {
@@ -14,13 +13,9 @@ type Props = {
 export const PassForm = ({ formError, register, id, label, placeholder = "", helperText }: Props) => {
   return (
     <FormControl isInvalid={!!formError}>
-      {label && (
-        <FormLabel htmlFor={id} color="white">
-          {label}
-        </FormLabel>
-      )}
-      <Input id={id} type="password" placeholder={placeholder} {...register(id)} color="white" />
-      {helperText && <FormHelperText color="white">{helperText}</FormHelperText>}
+      {label && <FormLabel htmlFor={id}>{label}</FormLabel>}
+      <Input id={id} type="password" placeholder={placeholder} {...register(id)} />
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
       <FormErrorMessage>{formError?.message}</FormErrorMessage>
     </FormControl>
   );

@@ -7,7 +7,6 @@ import { EmailForm } from "components/forms/EmailForm";
 import { PassForm } from "components/forms/PassForm";
 import { useToasts } from "hooks/useToasts";
 import supabaseClient from "lib/supabase/supabaseClient";
-import pages from "pages";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { pagesPath } from "type/$path";
@@ -69,7 +68,7 @@ export default function () {
       <chakra.form width="100%" onSubmit={handleSubmit(onSubmit)}>
         <EmailForm formError={formState.errors.email} register={register} id="email" label="メールアドレス" />
         <PassForm formError={formState.errors.password} register={register} id="password" label="パスワード" helperText="必ず小文字と数字を含む8文字以上のパスワードを設定してください" />
-        <Button mt="4" colorScheme="blue" width="100%" isLoading={isLoading} type="submit">
+        <Button mt="4" colorScheme="facebook" width="100%" isLoading={isLoading} type="submit">
           アカウントを作成
         </Button>
       </chakra.form>

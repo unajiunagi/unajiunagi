@@ -3,7 +3,7 @@ import { Cast } from "components/watchPage/Cast";
 import { Staff } from "components/watchPage/Staff";
 import { BsPlus } from "react-icons/bs";
 
-type Props = {};
+
 
 export const WatchUI = ({ ...props }: Props) => {
   return (

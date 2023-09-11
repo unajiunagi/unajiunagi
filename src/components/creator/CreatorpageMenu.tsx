@@ -1,11 +1,9 @@
 import { Card, CardBody, HStack, Heading, Stack, StackDivider, Text } from "@chakra-ui/react";
 import { useUser } from "@supabase/auth-helpers-react";
-import { CardLink } from "components/mypage/MypageMenu";
+import { CardLink } from "components/feature/CardLink";
 import { pagesPath } from "type/$path";
 
-type Props = {};
-
-export const CreatorpageMenu = ({}: Props) => {
+export const CreatorpageMenu = () => {
   const user = useUser();
 
   return (

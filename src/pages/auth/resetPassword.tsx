@@ -46,7 +46,7 @@ export default function () {
     <VStack spacing="4" width="90%" maxWidth="400px" pt="8" margin="0 auto">
       <chakra.form width="100%" onSubmit={handleSubmit(resetPassword)}>
         <EmailForm formError={formState.errors.email} register={register} id="email" label="Eメール" helperText="入力したメールアドレスにパスワードをリセットするリンクを送ります。" />
-        <Button mt="4" colorScheme="blue" width="100%" isLoading={isLoading} type="submit">
+        <Button mt="4" colorScheme="facebook" width="100%" isLoading={isLoading} type="submit">
           パスワードをリセット
         </Button>
       </chakra.form>

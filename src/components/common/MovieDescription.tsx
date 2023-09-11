@@ -1,4 +1,4 @@
-import { Box, Stack, Text, Spacer } from "@chakra-ui/react";
+import { Box, Spacer, Stack, Text } from "@chakra-ui/react";
 
 type Props = { bgimg: string; title: string; description: string };
 
@@ -6,8 +6,7 @@ export const MovieDescription = ({
   bgimg = "logo.png",
   title = "title",
   description = "紹介文",
-}: Props) => {
-  return (
+}: Props) => (
     <Box
       bgImage={`url("${bgimg}")`}
       bgSize="100% auto"
@@ -37,4 +36,3 @@ export const MovieDescription = ({
       </Box>
     </Box>
   );
-};

@@ -7,9 +7,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { pagesPath } from "type/$path";
 
-type Props = {};
-
-export const HeaderMenuSigninButton = ({}: Props) => {
+export const HeaderMenuAuthButton = () => {
   const user = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { successToast, errorToast } = useToasts();
@@ -31,8 +29,8 @@ export const HeaderMenuSigninButton = ({}: Props) => {
 
   if (user) {
     return (
-      <MenuItem as={Button} bgColor="black" _hover={{ bg: "none" }} color="white">
-        <Button bgColor="black" _hover={{ bg: "none" }} color="white" onClick={handleSignOut} isLoading={isLoading}>
+      <MenuItem bgColor="black">
+        <Button onClick={handleSignOut} isLoading={isLoading} _hover={{ bg: "none" }} height={"100%"} mx={"auto"} bgColor="black" fontWeight={"normal"}>
           サインアウト
         </Button>
       </MenuItem>

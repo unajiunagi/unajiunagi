@@ -1,8 +1,8 @@
 import { Text } from "@chakra-ui/react";
 
-type Props = {};
 
-export const ManagementVideo = ({}: Props) => {
+
+export const ManagementVideo = () => {
   return (
     <>
       <Text>マネジメント</Text>

@@ -3,8 +3,7 @@ import { StaffsType, VideoData } from "type/videoData";
 import { numberForm } from "util/numberForm";
 import { z } from "zod";
 
-// 配列に空文字の要素があれば削除
-const nonEmptyArrayFilter = (value: string[]) => value.filter((item) => item !== "");
+const nonEmptyArrayFilter = (value: string[]) => value.filter((item) => item !== ""); // 配列に空文字の要素があれば削除
 
 // スキーマ
 export const uploadVideoFormsSchema = z.object({

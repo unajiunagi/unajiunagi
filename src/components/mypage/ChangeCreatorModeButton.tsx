@@ -6,9 +6,7 @@ import supabaseClient from "lib/supabase/supabaseClient";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
-type Props = {};
-
-export const ChangeCreatorModeButton = ({}: Props) => {
+export const ChangeCreatorModeButton = () => {
   const user = useUser();
   const { successToast, errorToast } = useToasts();
   const { push } = useRouter();
@@ -56,7 +54,7 @@ export const ChangeCreatorModeButton = ({}: Props) => {
             <Button colorScheme="blackAlpha" mr={3} onClick={onClose}>
               キャンセル
             </Button>
-            <Button colorScheme="blue" isLoading={isLoading} onClick={changeCreatorMode}>
+            <Button colorScheme="facebook" isLoading={isLoading} onClick={changeCreatorMode}>
               クリエイターモードへ変更
             </Button>
           </ModalFooter>
