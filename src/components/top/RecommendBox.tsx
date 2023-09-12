@@ -47,18 +47,16 @@ export const RecommendBox = ({ heading }: Props) => {
   };
 
   return (
-    <>
-      <Stack spacing={4}>
-        <Heading fontSize='3xl'>{heading}</Heading>
-        <Box>
-          <HStack position='relative' zIndex='overlay' top='180px' mt='-180px'>
-            {leftIsShowed ? <Chevron directionIsLeft action={scrollLeft} /> : <></>}
-            <Spacer />
-            <Chevron directionIsLeft={false} action={scrollRight} />
-          </HStack>
-          <ScrolledTumbnail scrollRef={scrollRef} />
-        </Box>
-      </Stack>
-    </>
+    <Stack spacing={4}>
+      <Heading fontSize='3xl'>{heading}</Heading>
+      <Box>
+        <HStack position='relative' zIndex='overlay' top='180px' mt='-180px'>
+          {leftIsShowed ? <Chevron directionIsLeft action={scrollLeft} /> : null}
+          <Spacer />
+          <Chevron directionIsLeft={false} action={scrollRight} />
+        </HStack>
+        <ScrolledTumbnail scrollRef={scrollRef} />
+      </Box>
+    </Stack>
   );
 };

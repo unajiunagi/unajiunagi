@@ -42,21 +42,19 @@ export const UploadVideoDeleteModal = ({ isOpenDelete, onCloseDelete, removeData
   };
 
   return (
-    <>
-      <Modal isOpen={isOpenDelete} onClose={onCloseDelete}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader>この動画を削除してもよろしいですか？削除した動画は戻せません。</ModalHeader>
-          <ModalFooter>
-            <Button colorScheme='blackAlpha' mr={3} onClick={onCloseDelete}>
-              キャンセル
-            </Button>
-            <Button colorScheme='red' onClick={removeVideo} isLoading={isLoading}>
-              削除する
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-    </>
+    <Modal isOpen={isOpenDelete} onClose={onCloseDelete}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>この動画を削除してもよろしいですか？削除した動画は戻せません。</ModalHeader>
+        <ModalFooter>
+          <Button colorScheme='blackAlpha' mr={3} onClick={onCloseDelete}>
+            キャンセル
+          </Button>
+          <Button colorScheme='red' onClick={removeVideo} isLoading={isLoading}>
+            削除する
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
   );
 };

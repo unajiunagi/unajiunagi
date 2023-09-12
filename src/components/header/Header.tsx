@@ -17,9 +17,7 @@ export const Header = () => {
         <ChakraNextImage src={staticPath.logo_svg} alt='ロゴ' height={isMobile ? 16 : 20} width={isMobile ? 20 : 28} />
       </ChakraNextLink>
       {isMobile ? (
-        <>
-          <Spacer />
-        </>
+        <Spacer />
       ) : (
         <>
           <ChakraNextLink href={pagesPath.mylist.$url().pathname} fontWeight='black' fontSize={24}>
