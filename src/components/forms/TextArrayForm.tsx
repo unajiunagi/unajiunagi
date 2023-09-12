@@ -1,7 +1,7 @@
-import { Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, HStack, Input } from "@chakra-ui/react";
-import { useState } from "react";
-import { FieldError, Merge, UseFormRegister } from "react-hook-form";
-import { BsPlus } from "react-icons/bs";
+import { Button, FormControl, FormErrorMessage, FormHelperText, FormLabel, HStack, Input } from '@chakra-ui/react';
+import { useState } from 'react';
+import { FieldError, Merge, UseFormRegister } from 'react-hook-form';
+import { BsPlus } from 'react-icons/bs';
 
 type Props = {
   formError: Merge<FieldError, (FieldError | undefined)[]> | undefined;
@@ -13,7 +13,7 @@ type Props = {
   value?: string[];
 };
 
-export const TextArrayForm = ({ formError, register, id, label, placeholder = "", helperText, value }: Props) => {
+export const TextArrayForm = ({ formError, register, id, label, placeholder = '', helperText, value }: Props) => {
   const [length, setLength] = useState<number>(value?.length || 1);
   const fields = [];
 
@@ -23,9 +23,9 @@ export const TextArrayForm = ({ formError, register, id, label, placeholder = ""
     fields.push(
       <FormControl key={fieldName} isInvalid={!!formError?.[i]} pl={4} mb={2}>
         <HStack>
-          <Input id={fieldName} type="text" placeholder={placeholder} {...register(fieldName)} />
-          <Button color="facebook" mr={3} onClick={() => setLength((prevLength) => prevLength + 1)}>
-            <BsPlus color={'black'} size={'24'} />
+          <Input id={fieldName} type='text' placeholder={placeholder} {...register(fieldName)} />
+          <Button color='facebook' mr={3} onClick={() => setLength((prevLength) => prevLength + 1)}>
+            <BsPlus color='black' size='24' />
           </Button>
         </HStack>
         {helperText && <FormHelperText>{helperText}</FormHelperText>}
@@ -36,11 +36,7 @@ export const TextArrayForm = ({ formError, register, id, label, placeholder = ""
 
   return (
     <>
-      {label && (
-        <FormLabel pl={4}>
-          {label}
-        </FormLabel>
-      )}
+      {label && <FormLabel pl={4}>{label}</FormLabel>}
       {fields}
     </>
   );
