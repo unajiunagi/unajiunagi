@@ -18,8 +18,12 @@ export const UploadVideoDeleteModal = ({ isOpenDelete, onCloseDelete, removeData
 
   const removeVideo = async () => {
     setIsLoading(true);
+    if (!removeData) {
+      errorToast({ title: '動画の削除に失敗しました。' });
+      return;
+    }
     try {
-      const { error } = await supabaseClient.storage.from('video_thumbnail_imgs').remove([removeData?.thumbnail_path!]); // 画像をストレージから削除
+      const { error } = await supabaseClient.storage.from('video_thumbnail_imgs').remove([removeData.thumbnail_path!]); // 画像をストレージから削除
       if (error) throw error;
       const { error: err } = await supabaseClient
         .from('videos')

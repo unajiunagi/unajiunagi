@@ -1,30 +1,23 @@
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, Stack, VStack } from '@chakra-ui/react';
 import { useAuthGuard } from 'hooks/useAuthGuard';
-import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
 import { FaChevronRight } from 'react-icons/fa';
 
 type Props = {
   children: ReactNode;
-  type: string;
+  href: string;
   typeText: string;
   title: string;
 };
 
-export const BreadcrumbPageBody = ({ children, type, typeText, title }: Props) => {
-  const { push } = useRouter();
+export const BreadcrumbPageBody = ({ children, href, typeText, title }: Props) => {
   useAuthGuard();
 
   return (
     <Stack width='100%'>
-      <Breadcrumb spacing='2' mb='4' separator={<FaChevronRight color='white' size='12' />}>
+      <Breadcrumb spacing='2' mb='4' separator={<FaChevronRight size='12' />}>
         <BreadcrumbItem>
-          <BreadcrumbLink
-            onClick={() => {
-              push(`/${type}`);
-            }}
-            fontSize='md'
-          >
+          <BreadcrumbLink href={href} fontSize='md'>
             {typeText}
           </BreadcrumbLink>
         </BreadcrumbItem>
