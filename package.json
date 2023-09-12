@@ -14,7 +14,8 @@
     "new-component": "npx hygen component new",
     "pathpida": "pathpida --enableStatic --ignorepath .gitignore --output ./src/type",
     "gen-supabase-type": "npx supabase gen types typescript --linked > ./src/type/supabase.ts",
-    "chakra-theme": "chakra-cli tokens ./src/lib/chakra/theme.ts --out ./src/type/chakra.ts --template augmentation"
+    "chakra-theme": "chakra-cli tokens ./src/lib/chakra/theme.ts --out ./src/type/chakra.ts --template augmentation",
+    "update-package": "npx -p npm-check-updates  -c 'ncu -u' && npm install"
   },
   "dependencies": {
     "@chakra-ui/next-js": "^2.1.5",
@@ -22,21 +23,19 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@hookform/resolvers": "^3.2.0",
-    "@next/font": "^13.4.19",
     "@supabase/auth-helpers-nextjs": "^0.7.4",
     "@supabase/auth-helpers-react": "^0.4.2",
     "@supabase/supabase-js": "^2.32.0",
     "@uidotdev/usehooks": "^2.2.0",
-    "axios": "^1.4.0",
     "next": "13.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.4",
     "react-icons": "^4.10.1",
+    "redaxios": "^0.5.1",
     "swr": "^2.2.1",
     "tus-js-client": "^3.1.1",
     "uuid": "^9.0.0",
-    "vimeo": "^2.3.1",
     "zod": "^3.22.1"
   },
   "devDependencies": {
@@ -54,9 +53,7 @@
     "@types/node": "^20.5.1",
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
-    "@types/tus-js-client": "^2.1.0",
     "@types/uuid": "^9.0.2",
-    "@types/vimeo": "^2.1.5",
     "@typescript-eslint/eslint-plugin": "^6.4.0",
     "@typescript-eslint/parser": "^6.4.0",
     "eslint": "^8.47.0",

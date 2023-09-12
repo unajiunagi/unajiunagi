@@ -1,22 +1,22 @@
-import axios from "axios";
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from 'next';
+import axios from 'redaxios';
 
 export default async function (req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== "POST") return res.status(405).json({ message: "Method not allowed" });
+  if (req.method !== 'POST') return res.status(405).json({ message: 'Method not allowed' });
   try {
     // Vimeoにアップロードするための動画枠を作成する
     const url = `${process.env.VIMEO_API_URL}/me/videos`;
     const body = {
       name: req.body.name,
       upload: {
-        approach: "tus",
+        approach: 'tus',
         size: req.body.size,
       },
     };
     const headers = {
       Authorization: `bearer ${process.env.VIMEO_ACCESS_TOKEN}`,
-      "Content-Type": "application/json",
-      Accept: "application/vnd.vimeo.*+json;version=3.4",
+      'Content-Type': 'application/json',
+      Accept: 'application/vnd.vimeo.*+json;version=3.4',
     };
 
     const response = await axios.post(url, body, { headers });

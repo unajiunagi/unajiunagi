@@ -1,7 +1,7 @@
 import { Button, Divider, Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay, Spinner, chakra, useBoolean } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useUser } from '@supabase/auth-helpers-react';
-import axios from 'axios';
+import axios from 'redaxios';
 import { UploadThumbnailImg } from 'components/uploadVideo/UploadThumbnailImg';
 import { UploadVideoComponent } from 'components/uploadVideo/UploadVideoComponent';
 import { UploadVideoForms } from 'components/uploadVideo/UploadVideoForms';

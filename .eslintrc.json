@@ -36,6 +36,8 @@
     "import/prefer-default-export": "off", // ファイル内で単一のエクスポートしか行われていない場合、default exportを強制する設定を無効化
     "react/jsx-props-no-spreading": "off", // propsのスプレッドを許可
     "@typescript-eslint/no-throw-literal": "off", // エラーを投げれるようにする
+    "react/jsx-no-useless-fragment": "off", // Fragmentの中に単一のJSXが存在するのを許さない設定を無効化
+    "react/require-default-props": "off", // prop?を許さない設定を無効化
     "@typescript-eslint/no-explicit-any": "off", // 明示的なanyの禁止を無効化
     "arrow-body-style": "off" // アロー関数の本体をブロックで囲む必要を無効化
   }
