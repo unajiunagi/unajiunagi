@@ -15,7 +15,7 @@ export default () => {
     <>
       {isMobile ? (
         <Stack spacing={4} width='90%' margin='auto' pt={4} pb={6}>
-          <BreadcrumbPageBody title='作品の管理' type='creator' typeText='クリエイターページ'>
+          <BreadcrumbPageBody title='作品の管理' href='/creator' typeText='クリエイターページ'>
             <ManagementVideo />
           </BreadcrumbPageBody>
         </Stack>

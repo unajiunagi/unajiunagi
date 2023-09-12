@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'redaxios';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-  if (req.method !== 'POST') return res.status(405).json({ message: 'Method not allowed' });
+  if (req.method !== 'POST') res.status(405).json({ message: 'Method not allowed' });
 
   try {
     // https:// と http:// を削除して、ドメインのみの文字列にする

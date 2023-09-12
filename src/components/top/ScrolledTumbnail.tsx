@@ -12,8 +12,8 @@ export const ScrolledTumbnail = ({ scrollRef }: Props) => {
   return (
     <>
       <HStack ref={scrollRef} spacing={4} overflow="hidden" position="relative">
-        {org.map((org) => (
-          <Stack key={org} spacing={4}>
+        {org.map((value) => (
+          <Stack key={value} spacing={4}>
             <Thumbnail src={staticPath.logo_png} alt="サムネイル" href="" />
           </Stack>
         ))}

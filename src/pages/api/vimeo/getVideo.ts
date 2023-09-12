@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import axios from 'redaxios';
 
-export default async function (req: NextApiRequest, res: NextApiResponse) {
-  if (req.method !== 'POST') return res.status(405).json({ message: 'Method not allowed' });
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  if (req.method !== 'POST') res.status(405).json({ message: 'Method not allowed' });
   try {
     const url = `${process.env.VIMEO_API_URL}${req.body.uri}`;
     const headers = {
@@ -16,6 +16,6 @@ export default async function (req: NextApiRequest, res: NextApiResponse) {
     return res.status(200).json({ data: response.data });
   } catch (error) {
     console.error(`APIerror: ${error}`);
-    res.status(500).json({ message: error });
+    return res.status(500).json({ message: error });
   }
 }

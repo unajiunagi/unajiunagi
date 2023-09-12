@@ -6,7 +6,7 @@ import { useAuthGuard } from "hooks/useAuthGuard";
 import { useCreatorModeGuard } from "hooks/useCreatorModeGuard";
 import { useIsMobile } from "hooks/useIsMobile";
 
-export default function () {
+export default () => {
   const isMobile = useIsMobile();
   useAuthGuard();
   useCreatorModeGuard();
@@ -15,7 +15,7 @@ export default function () {
     <>
       {isMobile ? (
         <Stack spacing={4} width="90%" margin="auto" pt={4} pb={6}>
-          <BreadcrumbPageBody title="作品のアップロード" type="creator" typeText="クリエイターページ">
+          <BreadcrumbPageBody title="作品のアップロード" href="/creator" typeText="クリエイターページ">
             <UploadVideo />
           </BreadcrumbPageBody>
         </Stack>

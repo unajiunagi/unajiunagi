@@ -3,7 +3,7 @@ import { Thumbnail } from "components/common/Thumbnail";
 import { useAuthGuard } from "hooks/useAuthGuard";
 import { staticPath } from "type/$path";
 
-export default function () {
+export default () => {
   useAuthGuard();
 
   const org = [1, 2, 3, 4, 5, 6, 7, 8];
@@ -12,8 +12,8 @@ export default function () {
       <Stack spacing={4}>
         <Heading fontSize="4xl">購入済みの作品</Heading>
         <SimpleGrid columns={4} gap={6}>
-          {org.map((org) => (
-            <Box key={org}>
+          {org.map((value) => (
+            <Box key={value}>
               <Thumbnail src={staticPath.logo_png} alt="サムネイル" href="" />
             </Box>
           ))}

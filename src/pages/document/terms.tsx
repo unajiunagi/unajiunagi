@@ -1,6 +1,6 @@
 import { Heading, ListItem, OrderedList, Stack, Text } from "@chakra-ui/react";
 
-export default function () {
+export default () => {
   return (
     <>
       <Stack width="90%" margin="auto" pt={6} pb={6}>

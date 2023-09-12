@@ -1,5 +1,4 @@
-import { StorageError } from "@supabase/storage-js";
-import supabaseClient from "lib/supabase/supabaseClient";
+import supabaseClient from 'lib/supabase/supabaseClient';
 
 export const uploadStorage = async (
   bucketName: string,
@@ -8,7 +7,6 @@ export const uploadStorage = async (
 ): Promise<{
   url?: string;
   path?: string;
-
 }> => {
   const { data: pathData, error } = await supabaseClient.storage.from(bucketName).upload(pathName, file); // ファイルをストレージにアップロード
   if (error) throw error;

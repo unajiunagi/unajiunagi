@@ -6,7 +6,7 @@ import { useAuthGuard } from "hooks/useAuthGuard";
 import { useCreatorModeGuard } from "hooks/useCreatorModeGuard";
 import { useIsMobile } from "hooks/useIsMobile";
 
-export default function () {
+export default () => {
   const isMobile = useIsMobile();
   useAuthGuard();
   useCreatorModeGuard();

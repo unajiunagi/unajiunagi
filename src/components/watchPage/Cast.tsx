@@ -1,17 +1,15 @@
-import { Box, Divider, Heading, VStack, Text } from "@chakra-ui/react";
+import { Box, Divider, Heading, Text, VStack } from '@chakra-ui/react';
 
-type Props = {}
-
-export const Cast = ({ ...props }: Props) => {
+export const Cast = () => {
   return (
     <>
       <VStack spacing={2}>
-        <Heading fontSize="md">キャスト</Heading>
-        <Divider></Divider>
-        <Box height={2}></Box>
-        <Text fontSize="md">たけだたけし</Text>
-        <Text fontSize="md">たけだたけし</Text>
+        <Heading fontSize='md'>キャスト</Heading>
+        <Divider />
+        <Box height={2} />
+        <Text fontSize='md'>たけだたけし</Text>
+        <Text fontSize='md'>たけだたけし</Text>
       </VStack>
     </>
   );
-}
+};

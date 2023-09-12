@@ -2,7 +2,7 @@ import { Box, Stack } from "@chakra-ui/react";
 import { MovieDescription } from "components/common/MovieDescription";
 import { RecommendBox } from "components/top/RecommendBox";
 
-export default function () {
+export default () => {
   return (
     <>
       <MovieDescription bgimg="/logo.png" title="title" description="紹介文" />

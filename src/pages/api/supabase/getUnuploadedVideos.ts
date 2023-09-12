@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "GET") return res.status(405).json({ message: "Method not allowed" });
   const { data, error } = await supabaseServerClient.from("videos").select().eq("is_uploaded", false).order("updated_at", { ascending: false });
 
-  if (error) return res.status(500).json({ message: error });
+  if (error) res.status(500).json({ message: error });
 
   return res.status(200).json(data);
 };

@@ -1,14 +1,13 @@
-import { Thumbnail } from 'components/common/Thumbnail';
 export type VideoData = {
   birth_year: number | null;
-  casts: CastsType
+  casts: CastsType;
   created_at: string;
   creator_id: string | null;
   description: string | null;
   id: string;
   is_uploaded: boolean | null;
   running_time: number | null;
-  staffs: StaffsType
+  staffs: StaffsType;
   thumbnail_url: string | null;
   thumbnail_path: string | null;
   title: string | null;
@@ -30,4 +29,4 @@ export type StaffsType = {
 
 export type CastsType = {
   no_name: string[];
-}
+};

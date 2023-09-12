@@ -1,7 +1,6 @@
 import { Button, Divider, Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay, Spinner, chakra, useBoolean } from '@chakra-ui/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useUser } from '@supabase/auth-helpers-react';
-import axios from 'redaxios';
 import { UploadThumbnailImg } from 'components/uploadVideo/UploadThumbnailImg';
 import { UploadVideoComponent } from 'components/uploadVideo/UploadVideoComponent';
 import { UploadVideoForms } from 'components/uploadVideo/UploadVideoForms';
@@ -10,6 +9,7 @@ import { useToasts } from 'hooks/useToasts';
 import supabaseClient from 'lib/supabase/supabaseClient';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import axios from 'redaxios';
 import { mutate } from 'swr';
 import { Upload } from 'tus-js-client';
 import { VideoData } from 'type/videoData';
@@ -41,22 +41,16 @@ export const UploadVideoModal = ({ isOpen, onClose, data }: Props) => {
     setVideoId(data ? data.id : v4()); // videoIdを初期化
   }, [data]);
 
-  // const release = async () => {
-  //   await axios.post('/api/vimeo/updateVideo', { uri: data?.vimeo_uri, object: { name: data?.title, privacy: { embed: 'whitelist' } } });
-  //   await axios.post('/api/vimeo/addAllowdEmbedDomain', { uri: data?.vimeo_uri });
-  //   const { error } = await supabaseClient.from('videos').update({ is_uploaded: true }).eq('id', data?.id);
-
-  //   if (error) throw error; // エラーオブジェクトを投げる
-  //   successToast({ title: '動画を公開しました。' });
-  // };
   const release = async () => {
-      await axios.post('/api/vimeo/updateVideo', { uri: data?.vimeo_uri, object: { name: data?.title, privacy: { embed: 'whitelist' } } });
-      await axios.post('/api/vimeo/addAllowdEmbedDomain', { uri: data?.vimeo_uri });
-      const { error } = await supabaseClient.from('videos').update({ is_uploaded: true }).eq('id', data?.id);
-      if (error)  throw error
-      successToast({ title: '動画を公開しました。' });
+    await axios.post('/api/vimeo/updateVideo', { uri: data?.vimeo_uri, object: { name: data?.title, privacy: { embed: 'whitelist' } } });
+    await axios.post('/api/vimeo/addAllowdEmbedDomain', { uri: data?.vimeo_uri });
+    const { error } = await supabaseClient
+      .from('videos')
+      .update({ is_uploaded: true })
+      .eq('id', data?.id);
+    if (error) throw error;
+    successToast({ title: '動画を公開しました。' });
   };
-
 
   const cancel = () => {
     uploadState?.abort(); // アップロードを中断

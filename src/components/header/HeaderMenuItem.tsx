@@ -1,6 +1,6 @@
-import { MenuItem } from "@chakra-ui/react";
-import { ChakraNextLink } from "components/feature/ChakraNextLink";
-import { ReactNode } from "react";
+import { MenuItem } from '@chakra-ui/react';
+import { ChakraNextLink } from 'components/feature/ChakraNextLink';
+import { ReactNode } from 'react';
 
 type Props = {
   children: ReactNode;
@@ -9,8 +9,8 @@ type Props = {
 
 export const HeaderMenuItem = ({ children, href }: Props) => {
   return (
-    <MenuItem bgColor="black">
-      <ChakraNextLink href={href} mx={"auto"}>
+    <MenuItem bgColor='black'>
+      <ChakraNextLink href={href} mx='auto'>
         {children}
       </ChakraNextLink>
     </MenuItem>
