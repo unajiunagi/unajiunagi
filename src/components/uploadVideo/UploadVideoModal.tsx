@@ -28,6 +28,7 @@ export const UploadVideoModal = ({ isOpen, onClose, data }: Props) => {
   const [videoId, setVideoId] = useState<string>(data?.id ?? v4());
   const [progress, setProgress] = useState<number | null>(null);
   const [uploadState, setUploadState] = useState<Upload | null>(null);
+  const [uri, setUri] = useState<string | null>(null); // vimeoのuri
   const [isLoading, setIsLoading] = useState(false);
   const [isCancel, setIsCancel] = useBoolean(false);
   const [isRelease, setIsRelease] = useBoolean(false);
@@ -41,13 +42,11 @@ export const UploadVideoModal = ({ isOpen, onClose, data }: Props) => {
     setVideoId(data ? data.id : v4()); // videoIdを初期化
   }, [data]);
 
-  const release = async () => {
-    await axios.post('/api/vimeo/updateVideo', { uri: data?.vimeo_uri, object: { name: data?.title, privacy: { embed: 'whitelist' } } });
-    await axios.post('/api/vimeo/addAllowdEmbedDomain', { uri: data?.vimeo_uri });
-    const { error } = await supabaseClient
-      .from('videos')
-      .update({ is_uploaded: true })
-      .eq('id', data?.id);
+  const release = async (formData: UploadVideoFormData) => {
+    // dataではなく、フォームの内容を使う
+    await axios.post('/api/vimeo/updateVideo', { uri, object: { name: formData.title, privacy: { embed: 'whitelist' } } }); // 動画をプライバシーに設定
+    await axios.post('/api/vimeo/addAllowedEmbedDomain', { uri }); // 動画を埋め込み許可するドメインを設定
+    const { error } = await supabaseClient.from('videos').update({ is_uploaded: true }).eq('id', videoId);
     if (error) throw error;
     successToast({ title: '動画を公開しました。' });
   };
@@ -65,7 +64,7 @@ export const UploadVideoModal = ({ isOpen, onClose, data }: Props) => {
       const { error } = await supabaseClient.from('videos').upsert({ id: videoId, title: formData.title, description: formData.description, creator_id: user?.id, birth_year: Number(formData.birth_year), running_time: Number(formData.running_time), casts, staffs }, { onConflict: 'id' }); // DBにフォームの内容を保存
       if (error) throw error;
 
-      if (isRelease) await release();
+      if (isRelease) await release(formData);
       if (isCancel) cancel();
       if (!isRelease) successToast({ title: '情報が保存されました。' });
       if (isCancel || isRelease) {
@@ -74,7 +73,7 @@ export const UploadVideoModal = ({ isOpen, onClose, data }: Props) => {
         setVideoId(data ? data.id : v4()); // videoIdを初期化
         setUploadState(null); // uploadStateをリセット
         setProgress(null); // progressをリセット
-        mutate('/api/supabase/getUnuploadedVideos');
+        mutate('/api/supabase/getUnUploadedVideos');
       }
     } catch (e) {
       errorToast({ title: 'エラーが発生しました。情報が保存されませんでした。' });
@@ -91,13 +90,13 @@ export const UploadVideoModal = ({ isOpen, onClose, data }: Props) => {
         <ModalContent bgColor='brand' maxHeight={isMobile ? '90%' : '80%'} mb='0'>
           <ModalBody overflowY='scroll'>
             <UploadThumbnailImg videoId={videoId} thumbnailUrl={data?.thumbnail_url ?? null} thumbnailPath={data?.thumbnail_path ?? null} />
-            <UploadVideoComponent videoId={videoId} progress={progress} setProgress={setProgress} uploadState={uploadState} setUploadState={setUploadState} />
+            <UploadVideoComponent videoId={videoId} progress={progress} setProgress={setProgress} uploadState={uploadState} setUploadState={setUploadState} setUri={setUri} />
             <UploadVideoForms errors={formState.errors} register={register} data={data} />
           </ModalBody>
           <Divider mb='-2' />
           <ModalFooter>
             {isLoading && <Spinner color='white' mr={2} />}
-            {progress === 100 && data?.thumbnail_url && (
+            {progress === 100 && (
               <Button type='submit' onClick={setIsRelease.on} colorScheme='blue' mr={3}>
                 公開
               </Button>

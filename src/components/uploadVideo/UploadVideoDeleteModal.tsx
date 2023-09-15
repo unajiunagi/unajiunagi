@@ -36,7 +36,7 @@ export const UploadVideoDeleteModal = ({ isOpenDelete, onCloseDelete, removeData
     } catch (err) {
       errorToast({ title: '動画の削除に失敗しました。' });
     }
-    mutate('/api/supabase/getUnuploadedVideos');
+    mutate('/api/supabase/getUnUploadedVideos');
     setIsLoading(false);
     onCloseDelete();
   };

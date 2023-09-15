@@ -13,9 +13,10 @@ type Props = {
   setProgress: React.Dispatch<React.SetStateAction<number | null>>;
   uploadState: Upload | null;
   setUploadState: React.Dispatch<React.SetStateAction<Upload | null>>;
+  setUri: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
-export const UploadVideoComponent = ({ videoId, progress, setProgress, uploadState, setUploadState }: Props) => {
+export const UploadVideoComponent = ({ videoId, progress, setProgress, uploadState, setUploadState, setUri }: Props) => {
   const user = useUser();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isUploading, setIsUploading] = useState<boolean>(false); // アップロード中かどうか
@@ -34,8 +35,8 @@ export const UploadVideoComponent = ({ videoId, progress, setProgress, uploadSta
   const setUpload = (file: File) => {
     // アップロードの条件を設定
     return new Upload(file, {
-      onProgress(bytesUploded, bytesTotal) {
-        const percentage = Math.round((bytesUploded / bytesTotal) * 100);
+      onProgress(bytesUploaded, bytesTotal) {
+        const percentage = Math.round((bytesUploaded / bytesTotal) * 100);
         setProgress(percentage);
       },
       onSuccess() {
@@ -72,7 +73,7 @@ export const UploadVideoComponent = ({ videoId, progress, setProgress, uploadSta
       if (sortedPreviousUploads.length === 0) isFirstUpload = true; // アップロードのキャッシュが無ければ新しく作成
       const previousUpload = sortedPreviousUploads[0];
       uri = previousUpload.metadata.uri;
-      const { data } = await axios.post('/api/vimeo/serchVideo', { uri }); // キャッシュに設定されているuriの動画が存在しているか確認。存在しなければアップロードを新しく作成
+      const { data } = await axios.post('/api/vimeo/searchVideo', { uri }); // キャッシュに設定されているuriの動画が存在しているか確認。存在しなければアップロードを新しく作成
       console.log('data', data.res);
       if (data.res.length === 0) isFirstUpload = true;
       console.log(isFirstUpload);
@@ -87,13 +88,14 @@ export const UploadVideoComponent = ({ videoId, progress, setProgress, uploadSta
         if (e) throw e;
         console.log('same_uri_data', res);
 
-        if (res.length && res[0].id !== videoId) {
+        if (res.length > 0 && res[0].id !== videoId) {
           errorToast({ title: 'すでに同じ動画がアップロードされています。' });
           throw new Error('The same video has already been uploaded.');
         } // 同じuriですでに別の動画に登録されているならエラーを投げる
         upload.resumeFromPreviousUpload(previousUpload);
       }
 
+      setUri(uri); // uriをstateに保存
       const { error } = await supabaseClient.from('videos').upsert({ id: videoId, creator_id: user?.id, vimeo_uri: uri }, { onConflict: 'id' }); // uriをsupabaseに保存
       if (error) throw error;
       upload.start();

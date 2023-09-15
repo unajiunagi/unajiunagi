@@ -54,7 +54,7 @@ export const UploadThumbnailImg = ({ videoId, thumbnailUrl, thumbnailPath }: Pro
             サムネイル画像を設定
           </Button>
         </HStack>
-        <Text fontSize='xs'>動画のサムネイルに使用されます。必須です。 (16:9推奨)</Text>
+        <Text fontSize='xs'>動画のサムネイルに使用されます。 (16:9推奨)</Text>
       </Stack>
       <VisuallyHiddenInput id='coverImg' type='file' onChange={uploadThumbnail} accept='image/*' />
     </>

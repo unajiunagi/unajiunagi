@@ -46,6 +46,13 @@ export default extendTheme(
           },
         },
       },
+      Modal: {
+        baseStyle: {
+          dialog: {
+            bgColor: 'black',
+          },
+        },
+      },
     },
     styles: {
       global: {

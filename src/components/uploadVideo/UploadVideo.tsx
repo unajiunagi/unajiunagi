@@ -14,7 +14,7 @@ export const UploadVideo = () => {
   const [modalIndex, setModalIndex] = useState<number | null>(null);
   const { isOpen: isOpenDelete, onOpen: onOpenDelete, onClose: onCloseDelete } = useDisclosure();
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { data, error } = useSWR<VideoData[]>('/api/supabase/getUnuploadedVideos', fetcherDefault);
+  const { data, error } = useSWR<VideoData[]>('/api/supabase/getUnUploadedVideos', fetcherDefault);
 
   if (error) {
     errorToast({ title: '動画の取得に失敗しました。' });
@@ -33,7 +33,7 @@ export const UploadVideo = () => {
 
   return (
     <>
-      {data?.length && (
+      {data && data?.length > 0 && (
         <Heading size='lg' mb={1} textAlign='center'>
           下書き
         </Heading>
@@ -42,9 +42,7 @@ export const UploadVideo = () => {
         動画をアップロード
       </Button>
       <HStack wrap='wrap' width='100%' spacing='2%'>
-        {data?.map((video, index) => (
-          <UploadVideoCard video={video} index={index} popDeleteModal={popDeleteModal} popUploadModal={popUploadModal} />
-        ))}
+        {data?.map((video, index) => <UploadVideoCard video={video} index={index} popDeleteModal={popDeleteModal} popUploadModal={popUploadModal} />)}
       </HStack>
       {/* {動画を削除するモーダル} */}
       <UploadVideoDeleteModal isOpenDelete={isOpenDelete} onCloseDelete={onCloseDelete} removeData={removeData} />
