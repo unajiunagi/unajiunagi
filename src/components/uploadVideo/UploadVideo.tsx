@@ -42,7 +42,7 @@ export const UploadVideo = () => {
         動画をアップロード
       </Button>
       <HStack wrap='wrap' width='100%' spacing='2%'>
-        {data?.map((video, index) => <UploadVideoCard video={video} index={index} popDeleteModal={popDeleteModal} popUploadModal={popUploadModal} />)}
+        {data?.map((video, index) => <UploadVideoCard video={video} index={index} popDeleteModal={popDeleteModal} popUploadModal={popUploadModal} key={video.id} />)}
       </HStack>
       {/* {動画を削除するモーダル} */}
       <UploadVideoDeleteModal isOpenDelete={isOpenDelete} onCloseDelete={onCloseDelete} removeData={removeData} />

@@ -8,15 +8,15 @@ export const WatchUI = () => {
     <>
       <Text>0000年 | 00分</Text>
       <HStack>
-        <Button bgColor='black' size='lg'>
+        <Button size='lg'>
           レンタル 3日300¥
         </Button>
-        <Button bgColor='black' size='lg'>
+        <Button size='lg'>
           購入 600¥
         </Button>
       </HStack>
       <Box>
-        <Button bgColor='black' size='sm' rounded='3xl'>
+        <Button  size='sm' rounded='3xl'>
           <BsPlus />
           お気に入り
         </Button>

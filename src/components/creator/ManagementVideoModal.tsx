@@ -60,7 +60,7 @@ export const ManagementVideoModal = ({ isOpen, onClose, data }: Props) => {
     <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <chakra.form onSubmit={handleSubmit(submitData)} width='100%'>
-        <ModalContent bgColor='brand' maxHeight={isMobile ? '90%' : '80%'} mb='0'>
+        <ModalContent maxHeight={isMobile ? '90%' : '80%'} mb='0'>
           <ModalBody overflowY='scroll'>
             <UploadThumbnailImg videoId={videoId} thumbnailUrl={data?.thumbnail_url ?? null} thumbnailPath={data?.thumbnail_path ?? null} />
             <UploadVideoForms errors={formState.errors} register={register} data={data} />
@@ -68,7 +68,7 @@ export const ManagementVideoModal = ({ isOpen, onClose, data }: Props) => {
           <Divider mb='-2' />
           <ModalFooter>
             {isLoading && <Spinner color='white' mr={2} />}
-            <Button type='submit' colorScheme='facebook' mr={3}>
+            <Button type='submit'  mr={3}>
               保存
             </Button>
             <Button colorScheme='blackAlpha' onClick={closeModal}>

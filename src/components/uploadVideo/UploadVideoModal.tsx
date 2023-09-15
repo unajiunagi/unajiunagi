@@ -87,7 +87,7 @@ export const UploadVideoModal = ({ isOpen, onClose, data }: Props) => {
     <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <chakra.form onSubmit={handleSubmit(submitData)} width='100%'>
-        <ModalContent bgColor='brand' maxHeight={isMobile ? '90%' : '80%'} mb='0'>
+        <ModalContent maxHeight={isMobile ? '90%' : '80%'} mb='0'>
           <ModalBody overflowY='scroll'>
             <UploadThumbnailImg videoId={videoId} thumbnailUrl={data?.thumbnail_url ?? null} thumbnailPath={data?.thumbnail_path ?? null} />
             <UploadVideoComponent videoId={videoId} progress={progress} setProgress={setProgress} uploadState={uploadState} setUploadState={setUploadState} setUri={setUri} />
@@ -101,7 +101,7 @@ export const UploadVideoModal = ({ isOpen, onClose, data }: Props) => {
                 公開
               </Button>
             )}
-            <Button type='submit' colorScheme='facebook' mr={3}>
+            <Button type='submit' mr={3}>
               保存
             </Button>
             <Button type='submit' colorScheme='blackAlpha' onClick={setIsCancel.on}>
