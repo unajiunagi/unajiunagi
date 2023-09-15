@@ -1,17 +1,17 @@
 import { HStack, Stack } from '@chakra-ui/react';
-import { CreatorpageMenu } from 'components/creator/CreatorpageMenu';
+import { CreatorPageMenu } from 'components/creator/CreatorpageMenu';
 import { ReactNode } from 'react';
 
 type Props = {
   children: ReactNode;
 };
 
-export const CreatorpageMenuProvider = ({ children }: Props) => {
+export const CreatorPageMenuProvider = ({ children }: Props) => {
   return (
     <Stack spacing={4} width='90%' margin='auto' pt={4} pb={6}>
       <HStack spacing='20' align='start'>
         <Stack width='30%'>
-          <CreatorpageMenu />
+          <CreatorPageMenu />
         </Stack>
         <Stack width='100%' mt={10}>
           {children}

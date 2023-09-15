@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { CreatorpageMenuProvider } from 'components/creator/CreatorpageMenuProvider';
+import { CreatorPageMenuProvider } from 'components/creator/CreatorpageMenuProvider';
 
-const meta: Meta<typeof CreatorpageMenuProvider> = {
-  component: CreatorpageMenuProvider,
+const meta: Meta<typeof CreatorPageMenuProvider> = {
+  component: CreatorPageMenuProvider,
 };
 export default meta;
 
-export const Default: StoryObj<typeof CreatorpageMenuProvider> = {
+export const Default: StoryObj<typeof CreatorPageMenuProvider> = {
   args: {},
   name: 'デフォルト',
 };
