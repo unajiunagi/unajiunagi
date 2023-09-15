@@ -1,5 +1,5 @@
 import { User } from "@supabase/supabase-js";
-import supabaseClient from "lib/supabaseClient";
+import supabaseClient from "lib/supabase/supabaseClient";
 import { ReactNode, createContext, useContext, useEffect, useState } from "react";
 
 const AuthContext = createContext<User | null | undefined>(null);

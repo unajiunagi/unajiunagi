@@ -1,29 +1,23 @@
-import { Button, Stack, chakra, useToast } from "@chakra-ui/react";
+import { Button, Stack, chakra } from "@chakra-ui/react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AuthError } from "@supabase/supabase-js";
 import { PassForm } from "components/forms/PassForm";
-import supabaseClient from "lib/supabaseClient";
+import { useToasts } from "hooks/useToasts";
+import supabaseClient from "lib/supabase/supabaseClient";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import zod from "zod";
+import { z } from "zod";
 
-type Props = {};
-
-type FormData = {
-  newPassword: string;
-  newPasswordConf: string;
-};
-
-const schema = zod
+const schema = z
   .object({
-    newPassword: zod
+    newPassword: z
       .string()
       .nonempty("パスワードは必須項目です。")
       .min(8, "最低８文字含めてください。")
       .max(32, "32文字以内にしてください。")
       .regex(/^[a-zA-Z0-9-]+$/, "使える文字は大文字と小文字、数字、-(ハイフン)だけです")
       .regex(/^(?=.*?[a-z])(?=.*?\d).+$/, "小文字と数字を必ず含んでください"),
-    newPasswordConf: zod
+    newPasswordConf: z
       .string()
       .nonempty("パスワードは必須項目です。")
       .min(8, "最低８文字含めてください。")
@@ -41,10 +35,12 @@ const schema = zod
     }
   });
 
-export const ChangePassword = ({}: Props) => {
+type FormData = z.infer<typeof schema>;
+
+export const ChangePassword = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const errorToast = useToast({ status: "error" });
-  const sucessToast = useToast({ status: "success" });
+  const { successToast, errorToast } = useToasts();
+
   const { register, handleSubmit, formState } = useForm<FormData>({
     resolver: zodResolver(schema),
   });
@@ -54,7 +50,7 @@ export const ChangePassword = ({}: Props) => {
     try {
       const { error } = await supabaseClient.auth.updateUser({ password: data.newPassword });
       if (error) throw error;
-      sucessToast({ title: "パスワードを変更しました。" });
+      successToast({ title: "パスワードを変更しました。" });
     } catch (error) {
       if (!(error instanceof AuthError)) return;
       errorToast({ title: "エラーが発生しました。通信環境の良いところでやり直してみてください。" });
@@ -68,7 +64,7 @@ export const ChangePassword = ({}: Props) => {
       <chakra.form width="100%" onSubmit={handleSubmit(onSubmit)}>
         <PassForm formError={formState.errors.newPassword} register={register} id="newPassword" label="新しいパスワード" />
         <PassForm formError={formState.errors.newPasswordConf} register={register} id="newPasswordConf" label="新しいパスワードの確認" helperText="確認のため新しいパスワードをもう一度入力してください。" />
-        <Button mt="4" colorScheme="blue" width="100%" isLoading={isLoading} type="submit">
+        <Button mt="4" colorScheme="facebook" width="100%" isLoading={isLoading} type="submit">
           パスワードを変更
         </Button>
       </chakra.form>

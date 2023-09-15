@@ -1,7 +1,7 @@
-import { Box, Heading, HStack, Spacer, Stack } from "@chakra-ui/react";
-import { Chevron } from "components/top/Chevron";
-import { ScrolledTumbnail } from "components/top/ScrolledTumbnail";
-import { useRef, useState } from "react";
+import { Box, Heading, HStack, Spacer, Stack } from '@chakra-ui/react';
+import { Chevron } from 'components/top/Chevron';
+import { ScrolledTumbnail } from 'components/top/ScrolledTumbnail';
+import { useRef, useState } from 'react';
 
 type Props = {
   heading: string;
@@ -29,7 +29,7 @@ export const RecommendBox = ({ heading }: Props) => {
     const element: HTMLElement = scrollRef.current!;
     element.scrollTo({
       left: element.scrollLeft + 1344,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
     setLeftIsShowed(true);
   };
@@ -38,7 +38,7 @@ export const RecommendBox = ({ heading }: Props) => {
     const element: HTMLElement = scrollRef.current!;
     element.scrollTo({
       left: element.scrollLeft - 1344,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
     await waitScrollLeftZero(element);
     if (element.scrollLeft === 0) {
@@ -47,18 +47,16 @@ export const RecommendBox = ({ heading }: Props) => {
   };
 
   return (
-    <>
-      <Stack spacing={4}>
-        <Heading fontSize="3xl">{heading}</Heading>
-        <Box>
-          <HStack position="relative" zIndex="overlay" top="180px" mt="-180px">
-            {leftIsShowed ? <Chevron directionIsLeft={true} action={scrollLeft} /> : <></>}
-            <Spacer />
-            <Chevron directionIsLeft={false} action={scrollRight} />
-          </HStack>
-          <ScrolledTumbnail scrollRef={scrollRef} />
-        </Box>
-      </Stack>
-    </>
+    <Stack spacing={4}>
+      <Heading fontSize='3xl'>{heading}</Heading>
+      <Box>
+        <HStack position='relative' zIndex='overlay' top='180px' mt='-180px'>
+          {leftIsShowed ? <Chevron directionIsLeft action={scrollLeft} /> : null}
+          <Spacer />
+          <Chevron directionIsLeft={false} action={scrollRight} />
+        </HStack>
+        <ScrolledTumbnail scrollRef={scrollRef} />
+      </Box>
+    </Stack>
   );
 };

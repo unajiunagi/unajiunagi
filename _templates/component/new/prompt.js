@@ -17,12 +17,12 @@ module.exports = [
     message: "src/components以下のパスを指定してください。ex) common",
     validate: inputValidator,
   },
-  {
-    type: "toggle",
-    name: "withStory",
-    message: ".stories.tsxも一緒に作成しますか？",
-    disabled: "いいえ",
-    enabled: "はい",
-    initial: true,
-  },
+  // {
+  //   type: "toggle",
+  //   name: "withStory",
+  //   message: ".stories.tsxも一緒に作成しますか？",
+  //   disabled: "いいえ",
+  //   enabled: "はい",
+  //   initial: true,
+  // },
 ];

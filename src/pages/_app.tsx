@@ -1,26 +1,27 @@
-import { ChakraProvider } from "@chakra-ui/react";
-import { createPagesBrowserClient } from "@supabase/auth-helpers-nextjs";
-import { Session, SessionContextProvider } from "@supabase/auth-helpers-react";
-import { AuthProvider } from "components/provider/AuthProvider";
-import { LayoutProvider } from "components/provider/LayoutProvider";
-import type { AppProps } from "next/app";
-import { useState } from "react";
-import "styles/globals.scss";
-import { SWRConfig } from "swr";
+import { ChakraProvider } from '@chakra-ui/react';
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
+import { Session, SessionContextProvider } from '@supabase/auth-helpers-react';
+import { AuthProvider } from 'components/provider/AuthProvider';
+import { LayoutProvider } from 'components/provider/LayoutProvider';
+import theme from 'lib/chakra/theme';
+import type { AppProps } from 'next/app';
+import { useState } from 'react';
+import 'styles/globals.scss';
+import { SWRConfig } from 'swr';
 
-export default function App({
+export default ({
   Component,
   pageProps,
 }: AppProps<{
   initialSession: Session;
-}>) {
+}>) => {
   // supabase/auth-helperの設定
   const [supabaseClient] = useState(() => createPagesBrowserClient());
 
   return (
-    <ChakraProvider toastOptions={{ defaultOptions: { position: "top", duration: 3000 } }}>
+    <ChakraProvider theme={theme}>
       <SessionContextProvider supabaseClient={supabaseClient} initialSession={pageProps.initialSession}>
-        <SWRConfig >
+        <SWRConfig>
           <AuthProvider>
             <LayoutProvider>
               <Component {...pageProps} />
@@ -30,4 +31,4 @@ export default function App({
       </SessionContextProvider>
     </ChakraProvider>
   );
-}
+};

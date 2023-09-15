@@ -1,31 +1,13 @@
-import { Link, LinkProps } from "@chakra-ui/next-js";
-import { Card, CardBody, HStack, Heading, Spacer, Stack, StackDivider, Text } from "@chakra-ui/react";
+import { Card, CardBody, HStack, Heading, Stack, StackDivider, Text } from "@chakra-ui/react";
 import { useUser } from "@supabase/auth-helpers-react";
-import { ChangeCreaterModeButton } from "components/mypage/ChangeCreaterModeButton";
-import { useCreaterMode } from "hooks/useCreaterMode";
-import { ReactNode } from "react";
+import { CardLink } from "components/feature/CardLink";
+import { ChangeCreatorModeButton } from "components/mypage/ChangeCreatorModeButton";
+import { useCreatorMode } from "hooks/useCreatorMode";
+import { pagesPath } from "type/$path";
 
-type Props = {};
-
-export type CardLinkProps = {
-  children: ReactNode;
-  href: string;
-};
-
-export const CardLink = ({ children, href, ...props }: CardLinkProps & LinkProps) => {
-  return (
-    <Link href={href} _hover={{}} width="100%" textAlign="left" colorScheme="black" color="white" fontWeight="bold" fontSize="xl" {...props}>
-      <HStack>
-        <Text>{children}</Text>
-        <Spacer />
-      </HStack>
-    </Link>
-  );
-};
-
-export const MypageMenu = ({}: Props) => {
+export const MypageMenu = () => {
   const user = useUser();
-  const createrMode = useCreaterMode();
+  const creatorMode = useCreatorMode();
 
   return (
     <Stack width="100%">
@@ -39,22 +21,22 @@ export const MypageMenu = ({}: Props) => {
       <Card bgColor="black">
         <CardBody>
           <Stack spacing={4} divider={<StackDivider />}>
-            <CardLink href="/mypage/changeEmail">メールアドレスの変更</CardLink>
-            <CardLink href="/mypage/changePassword">パスワードの変更</CardLink>
-            <CardLink href="/mypage/deleteAccount">退会</CardLink>
+            <CardLink href={pagesPath.mypage.changeEmail.$url().pathname}>メールアドレスの変更</CardLink>
+            <CardLink href={pagesPath.mypage.changePassword.$url().pathname}>パスワードの変更</CardLink>
+            <CardLink href={pagesPath.mypage.deleteAccount.$url().pathname}>退会</CardLink>
           </Stack>
         </CardBody>
       </Card>
-      {createrMode ? (
+      {creatorMode ? (
         <Card bgColor="black">
           <CardBody>
             <Stack>
-              <CardLink href="/creater">クリエイターページ</CardLink>
+              <CardLink href="/creator">クリエイターページ</CardLink>
             </Stack>
           </CardBody>
         </Card>
       ) : (
-        <ChangeCreaterModeButton />
+        <ChangeCreatorModeButton />
       )}
     </Stack>
   );

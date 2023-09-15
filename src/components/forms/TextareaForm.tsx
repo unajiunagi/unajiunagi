@@ -14,11 +14,11 @@ export const TextareaForm = ({ formError, register, id, label, placeholder = "",
   return (
     <FormControl isInvalid={!!formError}>
       {label && (
-        <FormLabel htmlFor={id} color="white">
+        <FormLabel htmlFor={id}>
           {label}
         </FormLabel>
       )}
-      <Textarea id={id} placeholder={placeholder} {...register(id)} color="white" />
+      <Textarea id={id} placeholder={placeholder} {...register(id)} />
       {helperText && <FormHelperText>{helperText}</FormHelperText>}
       <FormErrorMessage>{formError?.message}</FormErrorMessage>
     </FormControl>
