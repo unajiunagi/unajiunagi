@@ -41,6 +41,7 @@
     "@typescript-eslint/no-explicit-any": "off", // 明示的なanyの禁止を無効化
     "no-plusplus": "off", // ++を許可
     "@typescript-eslint/ban-types" : "off", // {}の禁止を無効
+    "react-hooks/exhaustive-deps": "off", // useEffectの依存関係の警告を無効化
     "arrow-body-style": "off" // アロー関数の本体をブロックで囲む必要を無効化
   }
 }
