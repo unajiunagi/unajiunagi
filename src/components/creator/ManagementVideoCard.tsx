@@ -31,7 +31,7 @@ export const ManagementVideoCard = ({ video, index, popDeleteModal, popUploadMod
             <Button onClick={() => popUploadModal(index)} background='transparent' _hover={{ bgColor: 'gray.500' }}>
               <BsPencilSquare size='20' />
             </Button>
-            <Button onClick={() => push(`/${video.id}`)} background='transparent' _hover={{ bgColor: 'gray.500' }}>
+            <Button onClick={() => push(`/videos/${video.id}`)} background='transparent' _hover={{ bgColor: 'gray.500' }}>
               <BsBoxArrowUpRight size='20' />
             </Button>
           </Stack>

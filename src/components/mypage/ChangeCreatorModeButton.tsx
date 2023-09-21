@@ -1,14 +1,13 @@
-import { Box, Button, Card, CardBody, Divider, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react';
+import { Box, Button, Card, CardBody, Divider, Modal, ModalBody, ModalContent, ModalFooter, ModalOverlay, Text, useDisclosure } from '@chakra-ui/react';
 import { useUser } from '@supabase/auth-helpers-react';
-import { AuthError } from '@supabase/supabase-js';
 import { useToasts } from 'hooks/useToasts';
-import supabaseClient from 'lib/supabase/supabaseClient';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import axios from 'redaxios';
 
 export const ChangeCreatorModeButton = () => {
   const user = useUser();
-  const { successToast, errorToast } = useToasts();
+  const { errorToast } = useToasts();
   const { push } = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -17,15 +16,10 @@ export const ChangeCreatorModeButton = () => {
     setIsLoading(true);
     try {
       if (!user) return;
-      const { error } = await supabaseClient.from('users').update({ creator_mode: true }).eq('id', user.id);
-      if (error) throw error;
-      successToast({ title: 'アカウントがクリエイターモードに変更されました。' });
-      push('/creator');
+      const { data } = await axios.post('/api/stripe/createConnectedAccount', {  id: user.id, email: user.email });
+      push(data.url);
     } catch (error) {
-      if (!(error instanceof AuthError)) return;
-      console.log(error.message);
-
-      errorToast({ title: `${error.message}` });
+      errorToast({ title: 'クリエイターモードへの変更に失敗しました。' });
     } finally {
       setIsLoading(false);
       onClose();
@@ -47,14 +41,12 @@ export const ChangeCreatorModeButton = () => {
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Modal Title</ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>一度クリエイターモードに変更すると通常アカウントに戻すことは出来ません。クリエイターモードに変更してよろしいですか？</ModalBody>
+          <ModalBody mt={4}>一度クリエイターモードに変更すると通常アカウントに戻すことは出来ません。<br/>クリエイターモードに変更してよろしいですか？<br/>※変更のためにstripeのサイトに移動します。</ModalBody>
           <ModalFooter>
             <Button colorScheme='blackAlpha' mr={3} onClick={onClose}>
               キャンセル
             </Button>
-            <Button colorScheme='facebook' isLoading={isLoading} onClick={changeCreatorMode}>
+            <Button isLoading={isLoading} onClick={changeCreatorMode}>
               クリエイターモードへ変更
             </Button>
           </ModalFooter>

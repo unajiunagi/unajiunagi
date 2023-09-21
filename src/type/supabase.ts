@@ -43,6 +43,8 @@ export interface Database {
           name: string | null
           pfp: string | null
           phone: string | null
+          stripe_connected_id: string | null
+          stripe_customer_id: string | null
           updated_at: string | null
         }
         Insert: {
@@ -53,6 +55,8 @@ export interface Database {
           name?: string | null
           pfp?: string | null
           phone?: string | null
+          stripe_connected_id?: string | null
+          stripe_customer_id?: string | null
           updated_at?: string | null
         }
         Update: {
@@ -63,6 +67,8 @@ export interface Database {
           name?: string | null
           pfp?: string | null
           phone?: string | null
+          stripe_connected_id?: string | null
+          stripe_customer_id?: string | null
           updated_at?: string | null
         }
         Relationships: [
