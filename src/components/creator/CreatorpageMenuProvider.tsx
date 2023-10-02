@@ -1,5 +1,5 @@
 import { HStack, Stack } from '@chakra-ui/react';
-import { CreatorPageMenu } from 'components/creator/CreatorpageMenu';
+import { CreatorPageMenu } from 'components/creator/CreatorPageMenu';
 import { ReactNode } from 'react';
 
 type Props = {

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { CreatorPageMenuProvider } from 'components/creator/CreatorpageMenuProvider';
+import { CreatorPageMenuProvider } from 'components/creator/CreatorPageMenuProvider';
 
 const meta: Meta<typeof CreatorPageMenuProvider> = {
   component: CreatorPageMenuProvider,
