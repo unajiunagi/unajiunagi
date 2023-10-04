@@ -1,4 +1,5 @@
 export type VideoData = {
+  amount: number | null;
   birth_year: number | null;
   casts: CastsType;
   created_at: string;

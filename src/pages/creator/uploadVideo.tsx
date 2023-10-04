@@ -1,6 +1,6 @@
 import { Box, Stack } from '@chakra-ui/react';
 import { BreadcrumbPageBody } from 'components/common/BreadcrumbPageBody';
-import { CreatorPageMenuProvider } from 'components/creator/CreatorpageMenuProvider';
+import { CreatorPageMenuProvider } from 'components/creator/CreatorPageMenuProvider';
 import { UploadVideo } from 'components/uploadVideo/UploadVideo';
 import { useAuthGuard } from 'hooks/useAuthGuard';
 import { useCreatorModeGuard } from 'hooks/useCreatorModeGuard';

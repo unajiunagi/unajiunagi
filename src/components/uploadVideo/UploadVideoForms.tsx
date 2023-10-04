@@ -11,6 +11,7 @@ type Props = {
     description: string;
     birth_year: string;
     running_time: string;
+    amount: string;
     casts: string[];
     directors: string[];
     writers: string[];
@@ -34,6 +35,7 @@ export const UploadVideoForms = ({ errors, register, data }: Props) => {
       <TextareaForm formError={errors.description} register={register} id='description' label='あらすじ' />
       <TextForm formError={errors.birth_year} register={register} id='birth_year' label='公開年(西暦)' helperText='西暦で入力してください。' />
       <TextForm formError={errors.running_time} register={register} id='running_time' label='上映時間(分)' helperText='分単位で入力してください。' />
+      <TextForm formError={errors.amount} register={register} id='amount' label='料金(円)' helperText='円単位で入力してください。' />
 
       <Accordion allowMultiple>
         <AccordionItem>

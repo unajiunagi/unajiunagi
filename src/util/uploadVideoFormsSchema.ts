@@ -11,6 +11,7 @@ export const uploadVideoFormsSchema = z.object({
   description: z.string().nonempty('あらすじを入力してください。'),
   birth_year: z.string().refine((val) => numberForm(val, { min: 1000, max: 3000 }), { message: '有効な数字を入力してください。' }),
   running_time: z.string().refine((val) => numberForm(val, { max: 10000 }), { message: '有効な数字を入力してください。' }),
+  amount: z.string().refine((val) => numberForm(val, { min: 300, max: 100000000 }), { message: '有効な数字を入力してください。' }),
   casts: z.array(z.string()).default([]).transform(nonEmptyArrayFilter),
   directors: z.array(z.string()).default([]).transform(nonEmptyArrayFilter),
   writers: z.array(z.string()).default([]).transform(nonEmptyArrayFilter),
@@ -48,6 +49,7 @@ export const uploadVideoFormDefaults = (data: VideoData | null, setValue: UseFor
   setValue('description', data?.description ?? 'あらすじ');
   setValue('birth_year', data?.birth_year?.toString() ?? '2000');
   setValue('running_time', data?.running_time?.toString() ?? '60');
+  setValue('amount', data?.amount?.toString() ?? '');
   setValue('casts', data?.casts?.no_name ?? []);
   setValue('directors', data?.staffs?.directors ?? []);
   setValue('writers', data?.staffs?.writers ?? []);

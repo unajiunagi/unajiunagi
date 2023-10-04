@@ -82,6 +82,7 @@ export interface Database {
       }
       videos: {
         Row: {
+          amount: number | null
           birth_year: number | null
           casts: Json | null
           created_at: string
@@ -91,6 +92,7 @@ export interface Database {
           is_uploaded: boolean
           running_time: number | null
           staffs: Json | null
+          stripe_connected_id: string | null
           thumbnail_path: string | null
           thumbnail_url: string | null
           title: string | null
@@ -98,6 +100,7 @@ export interface Database {
           vimeo_uri: string | null
         }
         Insert: {
+          amount?: number | null
           birth_year?: number | null
           casts?: Json | null
           created_at?: string
@@ -107,6 +110,7 @@ export interface Database {
           is_uploaded?: boolean
           running_time?: number | null
           staffs?: Json | null
+          stripe_connected_id?: string | null
           thumbnail_path?: string | null
           thumbnail_url?: string | null
           title?: string | null
@@ -114,6 +118,7 @@ export interface Database {
           vimeo_uri?: string | null
         }
         Update: {
+          amount?: number | null
           birth_year?: number | null
           casts?: Json | null
           created_at?: string
@@ -123,6 +128,7 @@ export interface Database {
           is_uploaded?: boolean
           running_time?: number | null
           staffs?: Json | null
+          stripe_connected_id?: string | null
           thumbnail_path?: string | null
           thumbnail_url?: string | null
           title?: string | null
