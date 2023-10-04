@@ -12,6 +12,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const { id, email } = req.body;
+    if (typeof id !== 'string' || typeof email !== 'string') return res.status(400);
 
     const { data, error } = await supabaseServerClient.from('users').select().eq('id', id).single()
     if (error) throw error;

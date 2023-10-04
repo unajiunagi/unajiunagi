@@ -7,6 +7,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const { amount, seller, customer } = req.body;
+  if (typeof amount !== 'number' || typeof seller !== 'string' || typeof customer !== 'string') return res.status(400);
 
   try {
     const paymentIntent = await stripe.paymentIntents.create({
@@ -22,7 +23,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(200).json({ clientSecret: paymentIntent.client_secret });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ message: error });
   }
 };

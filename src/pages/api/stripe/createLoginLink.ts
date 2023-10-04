@@ -12,15 +12,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     const { id } = req.body;
+    if (typeof id !== 'string') return res.status(400);
 
-    const { data, error } = await supabaseServerClient.from('users').select('stripe_connected_id').eq('id', id).single()
+    const { data, error } = await supabaseServerClient.from('users').select('stripe_connected_id').eq('id', id).single();
     if (error) throw error;
 
     const loginLink = await stripe.accounts.createLoginLink(data.stripe_connected_id!);
 
     return res.status(200).json({ url: loginLink.url });
   } catch (error) {
-    console.error(error);
     return res.status(500).json({ message: error });
   }
 };
