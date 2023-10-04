@@ -43,6 +43,8 @@ export interface Database {
           name: string | null
           pfp: string | null
           phone: string | null
+          stripe_connected_id: string | null
+          stripe_customer_id: string | null
           updated_at: string | null
         }
         Insert: {
@@ -53,6 +55,8 @@ export interface Database {
           name?: string | null
           pfp?: string | null
           phone?: string | null
+          stripe_connected_id?: string | null
+          stripe_customer_id?: string | null
           updated_at?: string | null
         }
         Update: {
@@ -63,6 +67,8 @@ export interface Database {
           name?: string | null
           pfp?: string | null
           phone?: string | null
+          stripe_connected_id?: string | null
+          stripe_customer_id?: string | null
           updated_at?: string | null
         }
         Relationships: [
@@ -76,6 +82,7 @@ export interface Database {
       }
       videos: {
         Row: {
+          amount: number | null
           birth_year: number | null
           casts: Json | null
           created_at: string
@@ -85,6 +92,7 @@ export interface Database {
           is_uploaded: boolean
           running_time: number | null
           staffs: Json | null
+          stripe_connected_id: string | null
           thumbnail_path: string | null
           thumbnail_url: string | null
           title: string | null
@@ -92,6 +100,7 @@ export interface Database {
           vimeo_uri: string | null
         }
         Insert: {
+          amount?: number | null
           birth_year?: number | null
           casts?: Json | null
           created_at?: string
@@ -101,6 +110,7 @@ export interface Database {
           is_uploaded?: boolean
           running_time?: number | null
           staffs?: Json | null
+          stripe_connected_id?: string | null
           thumbnail_path?: string | null
           thumbnail_url?: string | null
           title?: string | null
@@ -108,6 +118,7 @@ export interface Database {
           vimeo_uri?: string | null
         }
         Update: {
+          amount?: number | null
           birth_year?: number | null
           casts?: Json | null
           created_at?: string
@@ -117,6 +128,7 @@ export interface Database {
           is_uploaded?: boolean
           running_time?: number | null
           staffs?: Json | null
+          stripe_connected_id?: string | null
           thumbnail_path?: string | null
           thumbnail_url?: string | null
           title?: string | null

@@ -7,9 +7,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const { id } = req.query;
   const supabaseServerClient = createPagesServerClient<Database>({ req, res });
-  const { data, error } = await supabaseServerClient.from('videos').select('*').eq('id', id).single();
 
-  if (error) res.status(500).json({ message: error });
+  const { data, error } = await supabaseServerClient.from('users').select('stripe_customer_id').eq('id', id).single();
+
+  if (error) return res.status(500).json({ message: error });
 
   return res.status(200).json(data);
 };

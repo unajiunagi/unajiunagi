@@ -50,7 +50,7 @@ export const UploadThumbnailImg = ({ videoId, thumbnailUrl, thumbnailPath }: Pro
       <Stack spacing={2} mb={2}>
         <FixedAspectImage src={file ? window.URL.createObjectURL(file) : thumbnailUrl ?? staticPath.logo_jpg} alt='サムネイル画像' width={16} height={9} rounded={4} />
         <HStack>
-          <Button colorScheme='facebook' as='label' htmlFor='coverImg' isLoading={isLoading}>
+          <Button as='label' htmlFor='coverImg' isLoading={isLoading}>
             サムネイル画像を設定
           </Button>
         </HStack>

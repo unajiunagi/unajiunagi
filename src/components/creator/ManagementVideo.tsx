@@ -1,7 +1,7 @@
 import { HStack, Heading, useDisclosure } from '@chakra-ui/react';
+import { ManagementVideoCard } from 'components/creator/ManagementVideoCard';
 import { ManagementVideoDeleteModal } from 'components/creator/ManagementVideoDeleteModal';
 import { ManagementVideoModal } from 'components/creator/ManagementVideoModal';
-import { UploadVideoCard } from 'components/uploadVideo/UploadVideoCard';
 import { useToasts } from 'hooks/useToasts';
 import { useState } from 'react';
 import useSWR from 'swr';
@@ -39,7 +39,7 @@ export const ManagementVideo = () => {
         </Heading>
       )}
       <HStack wrap='wrap' width='100%' spacing='2%'>
-        {data?.map((video, index) => <UploadVideoCard video={video} index={index} popDeleteModal={popDeleteModal} popUploadModal={popUploadModal} />)}
+        {data?.map((video, index) => <ManagementVideoCard video={video} index={index} popDeleteModal={popDeleteModal} popUploadModal={popUploadModal} key={video.id} />)}
       </HStack>
       {/* {動画を削除するモーダル} */}
       <ManagementVideoDeleteModal isOpenDelete={isOpenDelete} onCloseDelete={onCloseDelete} removeData={removeData} />

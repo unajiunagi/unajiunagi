@@ -1,4 +1,5 @@
 import { Heading, ListItem, OrderedList, Stack, Text } from '@chakra-ui/react';
+import { ChakraNextLink } from 'components/feature/ChakraNextLink';
 
 export default () => {
   return (
@@ -43,17 +44,34 @@ export default () => {
         </Heading>
         <Text fontSize='lg'>ユーザーは、本サービスを利用するために、当社が定める料金を支払うものとします。 当社は、料金の変更をする場合があります。料金の変更は、本サービスのウェブサイト上で告知した時点から適用されます。</Text>
         <Heading as='h3' fontSize='2xl'>
-          第6条（免責事項）
+          第6条（支払処理サービス）
+        </Heading>
+        <Text fontSize='lg'>
+          当サービスにおけるクリエイター向けの支払処理サービスは、Stripe が提供し、
+          <ChakraNextLink href='https://stripe.com/jp/legal/connect-account' color='blue.400'>
+            Stripe Connect アカウント契約
+          </ChakraNextLink>
+          （
+          <ChakraNextLink href='https://stripe.com/jp/legal/ssa' color='blue.400'>
+            Stripe 利用規約
+          </ChakraNextLink>
+          を含み、総称して「Stripe サービス契約」といいます。）に従うものとします。本契約への同意又は当サービスにおいてユーザーとしての取引の継続により、お客様は Stripe サービス契約（随時 Stripe
+          により修正されることがあり、その場合には修正されたものを含みます。）に拘束されることに同意するものとします。Stripe
+          を通じた支払処理サービスを当サービスができるようにするための条件として、お客様は、当サービスに対してお客様及びお客様の事業に関する正確かつ完全な情報を提供することに同意し、当サービスが当該情報及び Stripe
+          が提供する支払処理サービスのお客様による使用に関連する取引情報を共有することを認めるものとします。
+        </Text>
+        <Heading as='h3' fontSize='2xl'>
+          第7条（免責事項）
         </Heading>
         <Text fontSize='lg'>
           当社は、本サービスの提供について、事前の通知なしに中断または停止することができます。また、当社は、本サービスの提供について、適宜修正、変更することができます。 当社は、本サービスの利用により生じた損害について、一切の責任を負いません。
           当社は、クリエイターがアップロードした映画に関する著作権侵害等のクレームについて、一切の責任を負いません。
         </Text>
         <Heading as='h3' fontSize='2xl'>
-          第7条（準拠法・裁判管轄）
+          第8条（準拠法・裁判管轄）
         </Heading>
         <Text fontSize='lg'>本規約の準拠法は日本法とします。また、本サービスに関して紛争が生じた場合には、当社の所在地を管轄する裁判所を専属的合意管轄とします。</Text>
-        <Text pt='8'>更新日:2023/4/3</Text>
+        <Text pt='8'>更新日:2023/9/17</Text>
       </Stack>
     </Stack>
   );
