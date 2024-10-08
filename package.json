@@ -71,6 +71,6 @@
     "sass": "^1.68.0",
     "storybook": "^7.4.6",
     "supabase": "^1.100.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.6.3"
   }
 }
